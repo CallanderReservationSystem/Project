@@ -83,7 +83,8 @@ public class Signin extends HttpServlet {
 
 				if (found) {
 					HttpSession session = request.getSession();
-					String un = (String) request.getAttribute("user");
+					String un = (String) request.getParameter("user");
+					System.out.println("Username: " + un);
 					session.setAttribute("Username", un);
 					response.sendRedirect("Member");
 				} else {

@@ -27,6 +27,12 @@
 				<h2>If not registered, Please sign up first</h2>
 			</div>
 			
+			<div>
+				<c:if test="${not empty NoUser}">
+					<b style="color:RED;">${NoUser}</b>
+				</c:if>
+			</div>
+			
 			<form action="Signin" method="post" class="form">
 				user: <input type="text" name="user" value="${param.user}"/>
 				<c:if test="${not empty error0}">

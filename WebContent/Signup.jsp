@@ -39,7 +39,7 @@
             <!-- The .. before the path to go back one dirctory -->
             <img src="../Images/homepod-white-shelf.jpg">
         </div>
-		<form class="form-horizontal" method="post" action="Register">
+		<form class="form-horizontal" method="post" action="Signup">
 			<div class="form-group">
 				<label class="col-sm-2 control-label">First Name</label> 
 				<c:if test="${not empty firstError }">
@@ -60,8 +60,8 @@
 			</div>
 			<div class="form-group">
 				<label class="col-sm-2 control-label">Username</label>
-				<c:if test="${not empty nameError }">
-					<h9 style="color:RED;">*${nameError}</h9>
+				<c:if test="${not empty userError }">
+					<h9 style="color:RED;">*${userError}</h9>
 				</c:if>
 				<div class="col-sm-10">
 					<input class="form-control"type="text" name="username" value="${param.username}" placeholder="BobSmith123"/>
