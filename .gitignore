@@ -7,11 +7,12 @@
 !src
 !src/
 !src/**
+
 !bin/
 
-!Build 
-!Build/
-!Build/**
+!build 
+!build/
+!build/**
 
 !WebContent
 !WebContent/
