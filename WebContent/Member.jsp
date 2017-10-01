@@ -6,16 +6,40 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
+		
+	
+		
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+		
+		<!-- These are the style sheets that come with jQuery as well as the Legacy jQuery  && 
+			 the jQuery-UI Content Delivery Networks (CDN) respectivly-->
+		
 		<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
  		<link rel="stylesheet" href="/resources/demos/style.css">
-		<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+ 		<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
  		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+ 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-sidebar/3.3.1/jquery.sidebar.min.js"></script>
+ 		
+ 		<!-- This is a style sheet for the sidebar on page -->
+		<link rel="stylesheet" href=Sidebar.css>
+ 		
+ 	
  		 <script>
   			$( function() {
   			  $( "#tabs" ).tabs();
 			  });
   		</script>
+  		
+  		<script>
+  		$(document).ready(function () {
+
+  		    $('#sidebarCollapse').on('click', function () {
+  		        $('#sidebar').toggleClass('active');
+  		    });
+
+  		});
+  		</script>
+  		
 		<title>${user} Home (Members Only)</title>
 	</head>
 	<body>
@@ -33,22 +57,59 @@
 			                </ul>
 			             </div>
 			        </nav>
-					<h1>Welcome home, ${user}.</h1>
-					<div id="tabs">
-  							<ul>
-    								<li><a href="#tabs-1">My Calendars</a></li>
-    								<li><a href="#tabs-2">Public Calendars</a></li>
- 
-  							</ul>
-  						<div id="tabs-1">
-   					 		<!-- lots of things will go here  -->
-  						</div>
-  						
-  						<div id="tabs-2">
-  							<!-- lots of things will go here as well -->
-  						</div>
-				</div>
+					<h1>Welcome home, ${user}.</h1>					
 			</div>
+			
+			
+			
+			<div class=centered id="tabs">
+  				<ul>
+    					<li><a href="#tabs-1">My Calendars</a></li>
+    					<li><a href="#tabs-2">Public Calendars</a></li>
+ 
+  				</ul>
+  					<div id="tabs-1">
+   					 		<!-- lots of things will go here  -->
+  					</div>
+  						
+  					<div id="tabs-2">
+  							<!-- lots of things will go here as well -->
+  					</div>
+			</div>
+			
+			  
+			<div class="wrapper">
+				<nav id ="sidebar">
+					<div class="sidebar-header">
+						<h3>Options</h3>
+					</div>
+					<ul class="options">
+						<li> <a href="#createCalendar">Create a Calendar</a>
+						<li> 
+							<a href="#deleteCalendar" data-toggle="collapse" aria-expanded="false">Delete a Calendar</a>
+							<ul class="collapse list" id="deleteCalendar"></ul> 
+						</li>
+								
+						
+							
+					
+						<li>
+							<a href="#editCalendar" data-toggle="collapse" aria-expanded=false">Edit a Calendar</a>
+							<ul class="collapse list" id ="editCalendar" ></ul>
+						</li>
+					</ul>
+					
+				</nav>
+			</div>
+			
+			
+	
+			
+ 	
+			
+			
+			
+			
 		</div>
 	</body>
 </html>
