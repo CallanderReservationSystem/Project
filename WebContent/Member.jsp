@@ -7,6 +7,15 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+		<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+ 		<link rel="stylesheet" href="/resources/demos/style.css">
+		<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+ 		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+ 		 <script>
+  			$( function() {
+  			  $( "#tabs" ).tabs();
+			  });
+  		</script>
 		<title>${user} Home (Members Only)</title>
 	</head>
 	<body>
@@ -17,7 +26,7 @@
 					<nav class="navbar navbar-default">
 			        	<div class="container-fluid">
 			            	<ul class="nav nav-pills">
-			            	    <li><a class="btn btn-success" href="Member">Home</a></li>
+			            	    	<li><a class="btn btn-success" href="Member">Home</a></li>
 			                    <li><a class="btn btn-primary" href="playlist">PlayList</a></li>
 			                    <li><a class="btn btn-primary" href="membersList">Members</a></li>
 	                            <li><a class="btn btn-danger" href="Signout">Logout</a></li>
@@ -25,6 +34,19 @@
 			             </div>
 			        </nav>
 					<h1>Welcome home, ${user}.</h1>
+					<div id="tabs">
+  							<ul>
+    								<li><a href="#tabs-1">My Calendars</a></li>
+    								<li><a href="#tabs-2">Public Calendars</a></li>
+ 
+  							</ul>
+  						<div id="tabs-1">
+   					 		<!-- lots of things will go here  -->
+  						</div>
+  						
+  						<div id="tabs-2">
+  							<!-- lots of things will go here as well -->
+  						</div>
 				</div>
 			</div>
 		</div>
