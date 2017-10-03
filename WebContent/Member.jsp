@@ -62,7 +62,7 @@
 			
 		</div>
 			
-			
+			<!--  -->
 			
 			<div class=centered id="tabs">
   				<ul>
@@ -77,7 +77,7 @@
 									<h3>Options</h3>
 								</div>
 								<ul class="options">
-									<li class="active"><a href="#createCalendar">Create a Calendar</a>
+									<li class="active"><a href="Calander.jsp">Create a Calendar</a></li>
 									<li> 
 										<a href="#deleteCalendar" data-toggle="collapse" aria-expanded="false">Delete a Calendar</a>
 										<ul class="collapse list-unstyled" id="deleteCalendar">
@@ -85,7 +85,6 @@
 											<li>this</li>
 											<li>will be replaced soon</li>
 										</ul> 
-											
 									</li>
 									<li>
 										<a href="#editCalendar" data-toggle="collapse" aria-expanded=false">Edit a Calendar</a>
