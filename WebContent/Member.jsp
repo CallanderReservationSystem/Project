@@ -18,7 +18,7 @@
  		<link rel="stylesheet" href="/resources/demos/style.css">
  		<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
  		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
- 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-sidebar/3.3.1/jquery.sidebar.min.js"></script>
+ 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
  		
  		<!-- This is a style sheet for the sidebar on page -->
 		<link rel="stylesheet" href=Sidebar.css>
@@ -60,6 +60,8 @@
 					<h1>Welcome home, ${user}.</h1>					
 			</div>
 			
+		</div>
+			
 			
 			
 			<div class=centered id="tabs">
@@ -69,38 +71,60 @@
  
   				</ul>
   					<div id="tabs-1">
-   					 		<!-- lots of things will go here  -->
+   					 	<div class="wrapper">
+							<nav id ="sidebar">
+								<div class="sidebar-header">
+									<h3>Options</h3>
+								</div>
+								<ul class="options">
+									<li class="active"><a href="#createCalendar">Create a Calendar</a>
+									<li> 
+										<a href="#deleteCalendar" data-toggle="collapse" aria-expanded="false">Delete a Calendar</a>
+										<ul class="collapse list-unstyled" id="deleteCalendar">
+											<li>hello</li>
+											<li>this</li>
+											<li>will be replaced soon</li>
+										</ul> 
+											
+									</li>
+									<li>
+										<a href="#editCalendar" data-toggle="collapse" aria-expanded=false">Edit a Calendar</a>
+										<ul class="collapse list" id ="editCalendar" ></ul>
+									</li>
+								</ul>
+							</nav>
+						</div>
   					</div>
   						
   					<div id="tabs-2">
-  							<!-- lots of things will go here as well -->
+  								<div class="wrapper">
+							<nav id ="sidebar">
+								<div class="sidebar-header">
+									<h3>Options</h3>
+								</div>
+								<ul class="options">
+									<li class="active"><a href="#findCalendar">Find a Calendar</a>
+									<li> 
+										<a href="#unfollowCalendar" data-toggle="collapse" aria-expanded="false">Unfollow a Calendar</a>
+										<ul class="collapse list-unstyled" id="unfollowCalendar">
+											<li>hello</li>
+											<li>this</li>
+											<li>will be replaced soon</li>
+										</ul> 
+											
+									</li>
+									<li>
+										<a href="#editCalendar" data-toggle="collapse" aria-expanded=false">Edit a Calendar</a>
+										<ul class="collapse list" id ="editCalendar" ></ul>
+									</li>
+								</ul>
+							</nav>
+						</div>
   					</div>
 			</div>
 			
 			  
-			<div class="wrapper">
-				<nav id ="sidebar">
-					<div class="sidebar-header">
-						<h3>Options</h3>
-					</div>
-					<ul class="options">
-						<li> <a href="#createCalendar">Create a Calendar</a>
-						<li> 
-							<a href="#deleteCalendar" data-toggle="collapse" aria-expanded="false">Delete a Calendar</a>
-							<ul class="collapse list" id="deleteCalendar"></ul> 
-						</li>
-								
-						
-							
-					
-						<li>
-							<a href="#editCalendar" data-toggle="collapse" aria-expanded=false">Edit a Calendar</a>
-							<ul class="collapse list" id ="editCalendar" ></ul>
-						</li>
-					</ul>
-					
-				</nav>
-			</div>
+
 			
 			
 	
