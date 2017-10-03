@@ -22,6 +22,8 @@ public class Member extends HttpServlet {
 			request.setAttribute("user", name);
 			request.getRequestDispatcher("Member.jsp").forward(request, response);
 		}
+		
+		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
