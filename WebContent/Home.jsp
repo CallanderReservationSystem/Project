@@ -17,39 +17,39 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-	crossorigin="anonymous">
-<!-- These are the style sheets that come with jQuery as well as the Legacy jQuery  && 
-			 the jQuery-UI Content Delivery Networks (CDN) respectivly-->
-<link rel="stylesheet"
-	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<link rel="stylesheet" href="/resources/demos/style.css">
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<!-- This is a style sheet for the sidebar on page -->
-<link rel="stylesheet" href=Sidebar.css>
-
-<script>
-	$(function() {
-		$("#tabs").tabs();
-	});
-</script>
-
-<script>
-	$(document).ready(function() {
-		$('#sidebarCollapse').on('click', function() {
-			$('#sidebar').toggleClass('active');
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet"
+		href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+		integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+		crossorigin="anonymous">
+	<!-- These are the style sheets that come with jQuery as well as the Legacy jQuery  && 
+				 the jQuery-UI Content Delivery Networks (CDN) respectivly-->
+	<link rel="stylesheet"
+		href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	<link rel="stylesheet" href="/resources/demos/style.css">
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<!-- This is a style sheet for the sidebar on page -->
+	<link rel="stylesheet" href=Sidebar.css>
+	
+	<script>
+		$(function() {
+			$("#tabs").tabs();
 		});
-	});
-</script>
-
-<title>${username}Home (Members Only)</title>
+	</script>
+	
+	<script>
+		$(document).ready(function() {
+			$('#sidebarCollapse').on('click', function() {
+				$('#sidebar').toggleClass('active');
+			});
+		});
+	</script>
+	
+	<title>${username}Home (Members Only)</title>
 </head>
 <body>
 
@@ -89,7 +89,7 @@
 					</div>
 					<ul class="options">
 
-						<li class="active"><a href="Calander.jsp">Create a
+						<li class="active"><a href="CreateCalendar">Create a
 								Calendar</a></li>
 						<li><a href="#deleteCalendar" data-toggle="collapse"
 							aria-expanded="false">Delete a Calendar</a>

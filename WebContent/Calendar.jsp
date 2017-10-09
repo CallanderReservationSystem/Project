@@ -117,7 +117,18 @@ body {
 </head>
 <body>
 
-	<div id="calendar" class="fc fc-unthemed fc-ltr"></div>
-
+	<div id="calendar" class="fc fc-unthemed fc-ltr"></div> 
+	
+	<h4>List of events with this calendar<br></h4>
+	<c:if test="${not empty calendar}">
+		<c:forEach items="${calendar}" var="c">
+			<br>
+			<b style="color:RED;">${c.getId()}. </b>
+			<b style="color:RED;">${c.getStart()} / </b>
+			<b style="color:RED;">${c.getEnd()}</b>
+			<b style="color:RED;">${c.getTitle()}</b>
+		</c:forEach>
+		
+	</c:if>
 </body>
 </html>
