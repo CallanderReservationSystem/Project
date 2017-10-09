@@ -27,9 +27,9 @@
 !*.sh
 !*.py
 !*.java
+!*.docx
 
 !doc/
-!doc/**
 
 # MAC HIDDEN FILES
 .DS_Store
