@@ -43,6 +43,9 @@ public class Signin extends HttpServlet {
 		String pass = request.getParameter("pass");
 		Boolean hasError = false;
 		Boolean found = false;
+		String status = "";
+		String upos = "";
+		int uid = 0;
 
 		if (user == null || user.trim().length() == 0) {
 			hasError = true;
@@ -70,6 +73,9 @@ public class Signin extends HttpServlet {
 				while (rs.next()) {
 					String name = rs.getString("username");
 					String pas = rs.getString("password");
+					status = rs.getString("status");
+					upos = rs.getString("position");
+					uid = rs.getInt("id");
 					users.add(new MyModel(name, pas));
 				}
 
@@ -80,11 +86,17 @@ public class Signin extends HttpServlet {
 				}
 
 				if (found) {
-					HttpSession session = request.getSession();
-					String un = (String) request.getParameter("user");
-					System.out.println("Username: " + un);
-					session.setAttribute("Username", un);
-					response.sendRedirect("Member");
+					if (status.equals("A")) {
+						HttpSession session = request.getSession();
+						String un = (String) request.getParameter("user");
+						System.out.println("Username: " + un);
+						session.setAttribute("Username", un);
+						session.setAttribute("Userpos", upos);
+						session.setAttribute("ssuid", uid);
+						response.sendRedirect("Member");
+					}else {
+						 response.sendRedirect("index.jsp?id=stwrong");
+					}
 				} else {
 					request.setAttribute("error2", "Invalid Username or Password");
 					doGet(request, response);

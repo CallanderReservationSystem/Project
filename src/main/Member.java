@@ -13,17 +13,21 @@ public class Member extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String name = (String) request.getSession().getAttribute("Username");
-		if (name == null) {
+		String username = (String) request.getSession().getAttribute("Username");
+		String userposition = (String) request.getSession().getAttribute("Userpos");
+		Integer ssuid = (Integer) request.getSession().getAttribute("ssuid");
+
+		if (username == null) {
 			System.out.println("No user was found");
 			request.setAttribute("NoUser", "You Must Login First!");
 			response.sendRedirect("Main");
 		} else {
-			request.setAttribute("user", name);
+			request.setAttribute("username", username);
+			request.setAttribute("userpostion", userposition);
+			request.setAttribute("ssuid", ssuid);
 			request.getRequestDispatcher("Member.jsp").forward(request, response);
 		}
-		
-		
+
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
