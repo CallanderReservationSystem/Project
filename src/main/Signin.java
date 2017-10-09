@@ -32,7 +32,7 @@ public class Signin extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		request.getRequestDispatcher("Main.jsp").forward(request, response);
+		request.getRequestDispatcher("Index.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -95,7 +95,7 @@ public class Signin extends HttpServlet {
 						session.setAttribute("ssuid", uid);
 						response.sendRedirect("Member");
 					}else {
-						 response.sendRedirect("index.jsp?id=stwrong");
+						 response.sendRedirect("Index.jsp?id=stwrong");
 					}
 				} else {
 					request.setAttribute("error2", "Invalid Username or Password");

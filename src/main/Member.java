@@ -25,7 +25,7 @@ public class Member extends HttpServlet {
 			request.setAttribute("username", username);
 			request.setAttribute("userpostion", userposition);
 			request.setAttribute("ssuid", ssuid);
-			request.getRequestDispatcher("Member.jsp").forward(request, response);
+			request.getRequestDispatcher("Home.jsp").forward(request, response);
 		}
 
 	}

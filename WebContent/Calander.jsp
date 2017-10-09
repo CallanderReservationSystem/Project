@@ -9,11 +9,11 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>${user}Home</title>
 
-<link href='fullcalendar.min.css' rel='stylesheet' />
-<link href='fullcalendar.print.min.css' rel='stylesheet' media='print' />
+<link href='css/fullcalendar.min.css' rel='stylesheet' />
+<link href='css/fullcalendar.print.min.css' rel='stylesheet' media='print' />
 <script src='lib/moment.min.js'></script>
 <script src='lib/jquery.min.js'></script>
-<script src='fullcalendar.min.js'></script>
+<script src='js/fullcalendar.min.js'></script>
 
 
 <script>
