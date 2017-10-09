@@ -23,7 +23,7 @@ a, a:hover, a:focus {
     SIDEBAR STYLE
 ----------------------------------------------------- */
 .wrapper {
-    display: flex;
+	display: flex;
     align-items: stretch;
 }
 
@@ -111,7 +111,9 @@ ul.CTAs a {
     margin-bottom: 5px;
 }
 
-
+article {
+	
+}
 
 a.article, a.article:hover {
     background: #6d7fcc !important;

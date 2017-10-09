@@ -86,7 +86,9 @@
 									</li>
 									<li>
 										<a href="#editCalendar" data-toggle="collapse" aria-expanded=false">Edit a Calendar</a>
-										<ul class="collapse list" id ="editCalendar" ></ul>
+										<ul class="collapse list" id ="editCalendar" >
+											<li>test</li>
+										</ul>
 									</li>
 								</ul>
 							</nav>

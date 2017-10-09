@@ -28,6 +28,9 @@
 !*.py
 !*.java
 
+!doc/
+!doc/**
+
 # MAC HIDDEN FILES
 .DS_Store
 /build/
