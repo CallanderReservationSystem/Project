@@ -6,7 +6,7 @@
 	String check = (String) session.getAttribute("Username");
 	String name = "";
 	String userposition = "";
-
+	
 	if (check != null) {
 		name = (String) session.getAttribute("Username");
 		userposition = (String) session.getAttribute("Userpos");
@@ -49,13 +49,13 @@
 		});
 	</script>
 	
-	<title>${username}Home (Members Only)</title>
+	<title>${username} Home (Members Only)</title>
 </head>
 <body>
 
 	<div class="container">
 		<div>
-			<h1>${username}Home</h1>
+			<h1>${username} Home</h1>
 			<div class="page-header">
 				<nav class="navbar navbar-default">
 				<div class="container-fluid">
@@ -73,6 +73,8 @@
 				</div>
 				</nav>
 				<h1>Welcome home, ${username}.</h1>
+				<h1>user name: <%= name%></h1>
+				<h1>user position: <%= userposition%></h1>
 			</div>
 		</div>
 		<!--  -->

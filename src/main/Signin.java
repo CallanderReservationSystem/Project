@@ -76,12 +76,15 @@ public class Signin extends HttpServlet {
 					status = rs.getString("status");
 					upos = rs.getString("position");
 					uid = rs.getInt("id");
-					users.add(new MyModel(name, pas));
+					users.add(new MyModel(name, pas, status, upos, uid));
 				}
 
 				for (MyModel u : users) {
 					if (u.name.equals(user) && u.pass.equals(pass)) {
 						found = true;
+						status = u.status;
+						upos = u.upos;
+						uid = u.uid;
 					}
 				}
 
@@ -89,7 +92,10 @@ public class Signin extends HttpServlet {
 					if (status.equals("A")) {
 						HttpSession session = request.getSession();
 						String un = (String) request.getParameter("user");
+						
 						System.out.println("Username: " + un);
+						System.out.println("User-pos: " + upos);
+						
 						session.setAttribute("Username", un);
 						session.setAttribute("Userpos", upos);
 						session.setAttribute("ssuid", uid);
