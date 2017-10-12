@@ -93,8 +93,8 @@ public class Signin extends HttpServlet {
 						HttpSession session = request.getSession();
 						String un = (String) request.getParameter("user");
 						
-						System.out.println("Username: " + un);
-						System.out.println("User-pos: " + upos);
+//						System.out.println("Username: " + un);
+//						System.out.println("User-pos: " + upos);
 						
 						session.setAttribute("Username", un);
 						session.setAttribute("Userpos", upos);

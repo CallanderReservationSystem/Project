@@ -73,7 +73,6 @@
 				</div>
 				</nav>
 				<h1>Welcome home, ${username}.</h1>
-				<h1>user name: <%= name%></h1>
 				<h1>user position: <%= userposition%></h1>
 			</div>
 		</div>
