@@ -16,9 +16,26 @@ import javax.servlet.http.HttpServletResponse;
 public class CreateCalendar extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
+	ArrayList<CalendarEventModel> x = new ArrayList<CalendarEventModel>();
+
+	Integer id = null;
+	String start = "";
+	String end = "";
+	String title = "";
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		ArrayList<CalendarEventModel> x = new ArrayList<CalendarEventModel>();
+
+//		id = Integer.parseInt(request.getParameter("id"));
+//		start = request.getParameter("start");
+//		end = request.getParameter("end");
+//		title = request.getParameter("title");
+//		
+//		CalendarEventModel cal = new CalendarEventModel();
+//		cal.setId(id);
+//		cal.setStart(start);
+//		cal.setEnd(end);
+//		x.add(cal);
 
 		CalendarEventModel c = new CalendarEventModel();
 		c.setId(1);
@@ -34,9 +51,9 @@ public class CreateCalendar extends HttpServlet {
 
 		x.add(c);
 		x.add(d);
-
 		request.setAttribute("calendar", x);
 		request.getRequestDispatcher("Calendar.jsp").forward(request, response);
+
 		response.sendRedirect("Calendar.jsp");
 	}
 
