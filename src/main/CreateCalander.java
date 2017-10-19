@@ -7,31 +7,28 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/Member")
-public class Member extends HttpServlet {
+@WebServlet("/CreateCalander")
+public class CreateCalander extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String username = (String) request.getSession().getAttribute("Username");
-		String userposition = (String) request.getSession().getAttribute("Userpos");
-		Integer ssuid = (Integer) request.getSession().getAttribute("ssuid");
-
-		if (username == null) {
+		String name = (String) request.getSession().getAttribute("Username");
+		System.out.println("passed name: " + name);
+		if (name == null) {
 			System.out.println("No user was found");
 			request.setAttribute("NoUser", "You Must Login First!");
 			response.sendRedirect("Main");
 		} else {
-			request.setAttribute("username", username);
-			request.setAttribute("userpostion", userposition);
-			request.setAttribute("ssuid", ssuid);
-			request.getRequestDispatcher("Home.jsp").forward(request, response);
+			request.setAttribute("user", name);
+			request.getRequestDispatcher("Calander.jsp").forward(request, response);
 		}
-
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+
 		doGet(request, response);
 	}
+
 }

@@ -22,7 +22,7 @@ public class Main extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		response.sendRedirect("Main.jsp");
+		response.sendRedirect("Index.jsp");
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)

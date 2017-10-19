@@ -32,7 +32,7 @@ public class Signin extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		request.getRequestDispatcher("Main.jsp").forward(request, response);
+		request.getRequestDispatcher("Index.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -43,6 +43,9 @@ public class Signin extends HttpServlet {
 		String pass = request.getParameter("pass");
 		Boolean hasError = false;
 		Boolean found = false;
+		String status = "";
+		String upos = "";
+		int uid = 0;
 
 		if (user == null || user.trim().length() == 0) {
 			hasError = true;
@@ -59,7 +62,7 @@ public class Signin extends HttpServlet {
 			String url = "jdbc:mysql://cs3.calstatela.edu/cs3337stu03";
 			String SQLuser = "cs3337stu03";
 			String SQLpass = "K!c7YAg.";
-			String sql = "select * from calendar";
+			String sql = "select * from users";
 
 			try {
 
@@ -70,21 +73,36 @@ public class Signin extends HttpServlet {
 				while (rs.next()) {
 					String name = rs.getString("username");
 					String pas = rs.getString("password");
-					users.add(new MyModel(name, pas));
+					status = rs.getString("status");
+					upos = rs.getString("position");
+					uid = rs.getInt("uid");
+					users.add(new MyModel(name, pas, status, upos, uid));
 				}
 
 				for (MyModel u : users) {
 					if (u.name.equals(user) && u.pass.equals(pass)) {
 						found = true;
+						status = u.status;
+						upos = u.upos;
+						uid = u.uid;
 					}
 				}
 
 				if (found) {
-					HttpSession session = request.getSession();
-					String un = (String) request.getParameter("user");
-					System.out.println("Username: " + un);
-					session.setAttribute("Username", un);
-					response.sendRedirect("Member");
+					if (status.equals("A")) {
+						HttpSession session = request.getSession();
+						String un = (String) request.getParameter("user");
+						
+//						System.out.println("Username: " + un);
+//						System.out.println("User-pos: " + upos);
+						
+						session.setAttribute("Username", un);
+						session.setAttribute("Userpos", upos);
+						session.setAttribute("ssuid", uid);
+						response.sendRedirect("Member");
+					}else {
+						 response.sendRedirect("Index.jsp?id=stwrong");
+					}
 				} else {
 					request.setAttribute("error2", "Invalid Username or Password");
 					doGet(request, response);
