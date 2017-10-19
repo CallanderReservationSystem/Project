@@ -62,7 +62,7 @@ public class Signin extends HttpServlet {
 			String url = "jdbc:mysql://cs3.calstatela.edu/cs3337stu03";
 			String SQLuser = "cs3337stu03";
 			String SQLpass = "K!c7YAg.";
-			String sql = "select * from calendar";
+			String sql = "select * from users";
 
 			try {
 
@@ -75,7 +75,7 @@ public class Signin extends HttpServlet {
 					String pas = rs.getString("password");
 					status = rs.getString("status");
 					upos = rs.getString("position");
-					uid = rs.getInt("id");
+					uid = rs.getInt("uid");
 					users.add(new MyModel(name, pas, status, upos, uid));
 				}
 

@@ -76,13 +76,13 @@ public class Signup extends HttpServlet {
 
 		if (hasError) {
 			doGet(request, response);
-//			System.out.println("error");
+			System.out.println("error");
 		} else {
 			Connection c = null;
 			String url = "jdbc:mysql://cs3.calstatela.edu/cs3337stu03";
 			String SQLuser = "cs3337stu03";
 			String SQLpass = "K!c7YAg.";
-			String sql = "INSERT INTO calendar (firstname, lastname, username, password, email_address, status, position) VALUES ('" + firstname + "','" + lastname + "','" + username + "','"
+			String sql = "INSERT INTO users (firstname, lastname, username, password, email_address, status, position) VALUES ('" + firstname + "','" + lastname + "','" + username + "','"
 					+ password + "','" + email + "','" + status + "','" + position + "')";
 
 			try {

@@ -1,8 +1,13 @@
 package main;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -18,11 +23,28 @@ public class CreateCalendar extends HttpServlet {
 
 	ArrayList<CalendarEventModel> x = new ArrayList<CalendarEventModel>();
 
+	private Boolean hasError = false;
 	Integer id = null;
 	String start = "";
 	String end = "";
 	String title = "";
 
+	private String uid;
+
+	private String name;
+
+	private String event_count;
+
+	public void init(ServletConfig config) throws ServletException {
+		super.init(config);
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			throw new ServletException(e);
+		}
+	}
+	
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
@@ -59,7 +81,48 @@ public class CreateCalendar extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		doGet(request, response);
+		id = Integer.parseInt(request.getParameter("id"));
+		start = request.getParameter("start");
+		end = request.getParameter("end");
+		title = request.getParameter("title");
+		
+		if (start == null || start.trim().length() == 0) {
+			hasError = true;
+			request.setAttribute("stratError", "Please Enter start-date first.");
+		}
+		if (end == null || end.trim().length() == 0) {
+			hasError = true;
+			request.setAttribute("endError", "Please Enter end-date first.");
+		}
+		if (title == null || title.trim().length() == 0) {
+			hasError = true;
+			request.setAttribute("titleError", "Please Enter title first.");
+		}
+		
+		if (hasError) {
+			doGet(request, response);
+//			System.out.println("error");
+		} else {
+			Connection c = null;
+			String url = "jdbc:mysql://cs3.calstatela.edu/cs3337stu03";
+			String SQLuser = "cs3337stu03";
+			String SQLpass = "K!c7YAg.";
+			String sql = "INSERT INTO calendar (uid, cal_name, event_count) values (' "+ uid +"','"+ name +"','"+ event_count +"')";
+			try {
+				c = DriverManager.getConnection(url, SQLuser, SQLpass);
+				PreparedStatement ps = c.prepareStatement(sql);
+				ps.executeUpdate();
+				response.sendRedirect("success.jsp");
+			} catch (SQLException e) {
+				throw new ServletException(e);
+			} finally {
+				try {
+					if (c != null) c.close();
+				} catch (SQLException e) {
+					throw new ServletException(e);
+				}
+			}
+		}
 	}
 
 	// String getPlanner(HttpServletRequest request) throws Exception {
