@@ -17,6 +17,16 @@ import javax.servlet.http.HttpServletResponse;
 public class Signup extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
+	private Boolean hasError = false;
+	private String firstname = "";
+	private String lastname = "";
+	private String username = "";
+	private String password = "";
+	private String email = "";
+
+	private String status = "A"; // A for Active, I for Inactive.
+	private String position = "U"; // U for User, A for admin.
+
 	public Signup() {
 		super();
 	}
@@ -37,11 +47,20 @@ public class Signup extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		Boolean hasError = false;
-		String username = request.getParameter("username");
-		String password = request.getParameter("password");
-		String email = request.getParameter("email");
+		firstname = request.getParameter("firstname");
+		lastname = request.getParameter("lastname");
+		username = request.getParameter("username");
+		password = request.getParameter("password");
+		email = request.getParameter("email");
 
+		if (firstname == null || firstname.trim().length() == 0) {
+			hasError = true;
+			request.setAttribute("firstError", "Please Enter firstname first.");
+		}
+		if (lastname == null || lastname.trim().length() == 0) {
+			hasError = true;
+			request.setAttribute("lastError", "Please Enter lastname first.");
+		}
 		if (username == null || username.trim().length() == 0) {
 			hasError = true;
 			request.setAttribute("userError", "Please Enter username first.");
@@ -57,20 +76,23 @@ public class Signup extends HttpServlet {
 
 		if (hasError) {
 			doGet(request, response);
+			System.out.println("error");
 		} else {
 			Connection c = null;
 			String url = "jdbc:mysql://cs3.calstatela.edu/cs3337stu03";
 			String SQLuser = "cs3337stu03";
 			String SQLpass = "K!c7YAg.";
-			String sql = "INSERT INTO calendar (username, password, email_address) VALUES ('" + username + "','" + password + "','" + email + "')";
+			String sql = "INSERT INTO users (firstname, lastname, username, password, email_address, status, position) VALUES ('" + firstname + "','" + lastname + "','" + username + "','"
+					+ password + "','" + email + "','" + status + "','" + position + "')";
 
 			try {
 				c = DriverManager.getConnection(url, SQLuser, SQLpass);
 				PreparedStatement ps = c.prepareStatement(sql);
 				ps.executeUpdate();
-				String message = "Registration is Complete. PLease login!";
-				request.setAttribute("message", message);
-				request.getRequestDispatcher("Signup.jsp").forward(request, response);
+				response.sendRedirect("success.jsp");
+//				String message = "Registration is Complete. PLease login!";
+//				request.setAttribute("message", message);
+//				request.getRequestDispatcher("Signup.jsp").forward(request, response);
 			} catch (SQLException e) {
 				throw new ServletException(e);
 			} finally {
