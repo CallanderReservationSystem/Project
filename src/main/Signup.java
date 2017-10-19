@@ -76,7 +76,11 @@ public class Signup extends HttpServlet {
 
 		if (hasError) {
 			doGet(request, response);
+<<<<<<< HEAD
 //			System.out.println("error");
+=======
+			System.out.println("error");
+>>>>>>> f18269aec0d03a34e7a8bcd3d4ab6c69e68d8d40
 		} else {
 			Connection c = null;
 			String url = "jdbc:mysql://cs3.calstatela.edu/cs3337stu03";
