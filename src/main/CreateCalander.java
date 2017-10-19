@@ -21,7 +21,7 @@ public class CreateCalander extends HttpServlet {
 			response.sendRedirect("Main");
 		} else {
 			request.setAttribute("user", name);
-			request.getRequestDispatcher("Calendar.jsp").forward(request, response);
+			request.getRequestDispatcher("Calander.jsp").forward(request, response);
 		}
 	}
 
