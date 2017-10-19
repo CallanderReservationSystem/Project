@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql"%>  
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -19,9 +19,12 @@
 	<script>
 	  $( function() {
 	    $( "#datepicker" ).datepicker({
-	    	showButtonPanel: true
+	    	showButtonPanel: true,
+	    	minDate: 0,
+	    	maxDate: "+1M + 5D"
 	    });
 	    
+	    <%-- https://fgelinas.com/code/timepicker/  --%>
 	    $('#startTimepicker').timepicker({
 	        showPeriod: true,
 	        showLeadingZero: false,
@@ -56,44 +59,7 @@
 	  } );
 	  
 	  
-	  <!-- 
-	  $(document).ready(function() {
-		   $('#timepicker_start').timepicker({
-		       showLeadingZero: false,
-		       onSelect: tpStartSelect,
-		       maxTime: {
-		           hour: 16, minute: 30
-		       }
-		   });
-		   $('#timepicker_end').timepicker({
-		       showLeadingZero: false,
-		       onSelect: tpEndSelect,
-		       minTime: {
-		           hour: 9, minute: 15
-		       }
-		   });
-		});
-
-		// when start time change, update minimum for end timepicker
-		function tpStartSelect( time, endTimePickerInst ) {
-		   $('#timepicker_end').timepicker('option', {
-		       minTime: {
-		           hour: endTimePickerInst.hours,
-		           minute: endTimePickerInst.minutes
-		       }
-		   });
-		}
-
-		// when end time change, update maximum for start timepicker
-		function tpEndSelect( time, startTimePickerInst ) {
-		   $('#timepicker_start').timepicker('option', {
-		       maxTime: {
-		           hour: startTimePickerInst.hours,
-		           minute: startTimePickerInst.minutes
-		       }
-		   });
-		}
-	  -->
+	
 	  
 	  
 	  
@@ -101,7 +67,7 @@
 	
 	<script type="text/javascript">
 		$(document).ready(function(){
-			$('#tables').change(function(){
+			$('#tablesCheck').change(function(){
 				if(this.checked){
 					$('#addTables').fadeOut('fast');
 				}
@@ -121,37 +87,68 @@
 
 <body>
 	<h2>Create Event</h2>
+	
 	<form  method="post" action="CreateEvent">
-		Event Name <input  type="text" name="eventname" size="45" placeholder="Event name"><br>
-		Select date<input type="text" id="datepicker"><br>
-		Event time<br>
-		<strong>Begin: </strong> <input type="text" name="startTimepicker" id="startTimepicker"><br>
-		<strong>End: </strong>  <input type="text" name="endTimepicker" id="endTimepicker"><br>
+	
+		<c:if test="${not empty eventError }">
+			<p style="color:RED;">*${eventError}</p>
+		</c:if>
+		<p>Event Name <input  type="text" name="eventName" size="45"  value="${param.eventName}" ></p>
+		
+		<c:if test="${not empty dateError }">
+			<p style="color:RED;">*${dateError}</p>
+		</c:if>
+		<p>Select date<input type="text" name= "date" id="datepicker" value="${param.date}"></p>
+		
+		<p>Event time</p>
+		
+		<c:if test="${not empty timeSError }">
+			<p style="color:RED;">*${timeSError}</p>
+		</c:if>
+		<p><strong>Begin: </strong> <input type="text" name="startTime" id="startTimepicker" value="${param.startTime}"></p>
+		
+		<c:if test="${not empty timeEError }">
+			<p style="color:RED;">*${timeEError}</p>
+		</c:if>
+		<p><strong>End: </strong>  <input type="text" name="endTime" id="endTimepicker" value="${param.endTime}"></p>
 		
 		<p>Type of event?</p>
-		Public<input type="radio" name="pr" value="public">
-		Private<input type="radio" name="pr" values="private"><br>
+		
+		<c:if test="${not empty pri }">
+			<p style="color:RED;">*${pri}</p>
+		</c:if>
+		<P>
+			Public<input type="radio" name="pr" value="public">
+			Private<input type="radio" name="pr" value="private">
+		</P>
+		
 		<hr>
 		
+		<c:if test="${not empty locaError }">
+			<p style="color:RED;">*${locaError}</p>
+		</c:if>
+		<p>Location <input type="text" name="location" size="45" value="${param.location }"></p>
 		
+		<p>Description</p>
+		<textarea rows="5" cols="35" name="description" placeholder="Optional">${param.description }</textarea><br>
 		
-		Location <input type="text" name="location" size="45" placeholder="location"><br>
-		Description <br><textarea rows="5" cols="35" placeholder="Optional"></textarea><br>
-		Amount of seats<input type="text" placeholder="1" ><br>
+		<c:if test="${not empty seatsError }">
+			<p style="color:RED;">*${seatsError}</p>
+		</c:if>
+		<p>Amount of seats<input type="text" name="seats" value="${param.seats }" placeholder="1" ></p>
+		
 		<div id = "addTables" >
-			Amount of tables<input type="text" name="ammount" placeholder="1"><br>
+			<c:if test="${not empty tableError }">
+				<p style="color:RED;">*${tableError}</p>
+			</c:if>
+			<p>Amount of tables<input type="text" name="tables" value="${param.tables}" placeholder="1"></p>
 		</div>
-		<input type="checkbox" name="tables" id="tables"> Remove Tables<br>
+		<input type="checkbox" name="tablesCheck" id="tablesCheck"> Remove Tables<br>
 		<br>
 
-		
-		<input type="submit" value="Create"><input type="submit" value="Discard">
+		<input type="submit" value="Create"><input type="reset" value="Reset">
 	
-
-
 	</form>
-	
-	
 	
 	
 
