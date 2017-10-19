@@ -46,7 +46,7 @@
 					<h9 style="color:RED;">*${firstError}</h9>
 				</c:if>
 				<div class="col-sm-10">
-					<input class="form-control" type="text" name="first" value="${param.first}" placeholder="Bob"/>
+					<input class="form-control" type="text" name="firstname" value="${param.firstname}" placeholder="Bob"/>
 				</div>
 			</div>
 			<div class="form-group">
@@ -55,7 +55,7 @@
 					<h9 style="color:RED;">*${lastError}</h9>
 				</c:if>
 				<div class="col-sm-10">
-					<input class="form-control" type="text" name="last" value="${param.last}" placeholder="Smith"/> <br>
+					<input class="form-control" type="text" name="lastname" value="${param.lastname}" placeholder="Smith"/> <br>
 				</div>
 			</div>
 			<div class="form-group">
