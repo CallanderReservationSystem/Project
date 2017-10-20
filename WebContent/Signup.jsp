@@ -26,10 +26,10 @@
                         <ul class="nav nav-pills">
                             <!-- target="_blank" -->
                             <li><a class="btn btn-primary" href="Main">Home</a></li>
-                            <li><a class="btn btn-primary" href="About">About</a></li>
+                            <!-- <li><a class="btn btn-primary" href="About">About</a></li> -->
                             <li><a class="btn btn-success" href="Signup">Sign up</a></li>
                             <li><a class="btn btn-primary" href="Main">Login</a></li>
-                            <li><a class="btn btn-primary" href="Contact">Contact Us</a></li>
+                            <!-- <li><a class="btn btn-primary" href="Contact">Contact Us</a></li> -->
                         </ul>
                     </div>
                 </nav>
@@ -37,7 +37,7 @@
         </div>
         <div>
             <!-- The .. before the path to go back one dirctory -->
-            <img src="../Images/homepod-white-shelf.jpg">
+            <!-- <img src="../Images/homepod-white-shelf.jpg"> -->
         </div>
 		<form class="form-horizontal" method="post" action="Signup">
 			<div class="form-group">
