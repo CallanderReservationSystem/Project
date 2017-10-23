@@ -1,6 +1,8 @@
 package main;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/CreateCalander")
 public class CreateCalander extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	ArrayList calanders = new ArrayList();
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -21,7 +24,9 @@ public class CreateCalander extends HttpServlet {
 			response.sendRedirect("Main");
 		} else {
 			request.setAttribute("user", name);
-			request.getRequestDispatcher("Calander.jsp").forward(request, response);
+			String CalName = (String) request.getAttribute("CalanderName");
+			request.setAttribute("calander", CalName);
+			request.getRequestDispatcher("Calendar.jsp").forward(request, response);
 		}
 	}
 
