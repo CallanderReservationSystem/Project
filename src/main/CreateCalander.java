@@ -17,7 +17,7 @@ public class CreateCalander extends HttpServlet {
 	// ArrayList<CalanderModel>();
 	private String CalName;
 	private String UserName;
-	private Integer eventCount = 0;
+	private String eventCount; // change to Int
 	private Boolean hasError = false;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -30,41 +30,47 @@ public class CreateCalander extends HttpServlet {
 
 		UserName = (String) request.getSession().getAttribute("Username");
 		System.out.println("passed username: " + UserName);
-		
+
 		CalName = request.getParameter("CalName");
 		System.out.println("passed CalName: " + CalName);
-		
-		eventCount = Integer.parseInt(request.getParameter("event#"));
-		System.out.println("passed event#: " + eventCount);
-		
-		if (CalName == null || CalName.trim().length() == 0 ) {
-			hasError = true;
-			request.setAttribute("CalError", "Please Enter calander Name first!");
-		}
 
-		if (eventCount == null || eventCount == 0 ) {
-			hasError = true;
-			request.setAttribute("EventError", "Please Enter valid event count first!");
-		}
+		eventCount = request.getParameter("eventCount"); // change type to int
+		System.out.println("passed event#: " + eventCount);
+
 		if (UserName == null || UserName.trim().length() == 0) {
-			
+
 			// hasError = true;
 			System.out.println("No user was found");
 			request.setAttribute("NoUser", "You Must Login First!");
 			// response.sendRedirect("Main");
 			request.getRequestDispatcher("Main").forward(request, response);
-			
-		} else if (hasError) {
 
-			doGet(request, response);
-			System.out.println("input field is missing");
-			
 		} else {
+			
+			if (CalName == null || CalName.trim().length() == 0) {
+				System.out.println("empty name parameter");
+				hasError = true;
+				request.setAttribute("CalError", "Please Enter calander Name first!");
+			}
 
-			request.setAttribute("username", UserName);
-			request.setAttribute("calanderName", CalName);
-			request.getRequestDispatcher("Calendar.jsp").forward(request, response);
+			if (eventCount == null || eventCount.trim().length() == 0 ) {
+				System.out.println("empty count parameter");
+				hasError = true;
+				request.setAttribute("EventError", "Please Enter valid event count first!");
+			}
+			
+			if (hasError) {
+				doGet(request, response);
+				System.out.println("input field is missing");
+
+			} else {
+
+				request.setAttribute("username", UserName);
+				request.setAttribute("calanderName", CalName);
+				request.getRequestDispatcher("Calendar.jsp").forward(request, response);
+			}
 		}
+		hasError = false;
 
 	}
 
