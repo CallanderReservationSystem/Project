@@ -6,9 +6,6 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		
-	
-		
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
 		
@@ -28,7 +25,7 @@
 
 
  		<!-- This is a style sheet for the sidebar on page -->
-		<link rel="stylesheet" href=Sidebar.css>
+		<link rel="stylesheet" href=css/Sidebar.css>
  		
  	
 
@@ -90,11 +87,8 @@
 								</div>
 								<ul class="options">
 
-<<<<<<< HEAD
+
 									<li class="active"><a href="Calander.jsp">Create a Calendar</a></li>
-=======
-									<li class="active"><a href="CreateCalander">Create a Calendar</a></li>
->>>>>>> f18269aec0d03a34e7a8bcd3d4ab6c69e68d8d40
 									<li> 
 										<a href="#deleteCalendar" data-toggle="collapse" aria-expanded="false">Delete a Calendar</a>
 										<ul class="collapse list-unstyled" id="deleteCalendar">

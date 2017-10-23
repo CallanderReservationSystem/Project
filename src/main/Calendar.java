@@ -44,7 +44,7 @@ public class Calendar extends HttpServlet {
 		 x.add(d);
 		 
 		 request.setAttribute("calendar", d);
-		 response.sendRedirect("Calendar.jsp");
+		 response.sendRedirect("Calander.jsp");
 		
 	}
 

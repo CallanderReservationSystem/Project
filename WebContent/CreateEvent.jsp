@@ -4,12 +4,10 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<<<<<<< HEAD
 <title>Insert title here</title>
 </head>
 <body>
 
-=======
 <title>${user} Home</title>
 
 <link href='fullcalendar.min.css' rel='stylesheet' />
