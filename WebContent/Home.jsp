@@ -90,7 +90,7 @@
 					</div>
 					<ul class="options">
 
-						<li class="active"><a href="CreateCalendar">Create a
+						<li class="active"><a href="CreateCalander.jsp">Create a
 								Calendar</a></li>
 						<li><a href="#deleteCalendar" data-toggle="collapse"
 							aria-expanded="false">Delete a Calendar</a>
