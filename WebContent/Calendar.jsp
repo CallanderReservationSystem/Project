@@ -23,7 +23,7 @@
 				
 				$('#calendar').fullCalendar({
 				
-					  navLinks: false,
+					  navLinks: true,
 					  /*,dayClick: function() { 
 						  window.location.href= "Member.jsp";
 						  

@@ -33,7 +33,7 @@
 	<script
 		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<!-- This is a style sheet for the sidebar on page -->
-	<link rel="stylesheet" href=Sidebar.css>
+	<link rel="stylesheet" href=css/Sidebar.css>
 	
 	<script>
 		$(function() {
@@ -90,7 +90,7 @@
 					</div>
 					<ul class="options">
 
-						<li class="active"><a href="CreateCalendar">Create a
+						<li class="active"><a href="CreateCalendar.jsp">Create a
 								Calendar</a></li>
 						<li><a href="#deleteCalendar" data-toggle="collapse"
 							aria-expanded="false">Delete a Calendar</a>
