@@ -35,6 +35,7 @@ public class Member extends HttpServlet {
 		String username = (String) request.getSession().getAttribute("Username");
 		String userposition = (String) request.getSession().getAttribute("Userpos");
 		Integer ssuid = (Integer) request.getSession().getAttribute("ssuid");
+		
 
 		if (username == null) {
 			System.out.println("No user was found");
@@ -60,11 +61,12 @@ public class Member extends HttpServlet {
 					
 					calanders.add(new CalanderModel(userId, calanderName, events));
 				}
-
+				
 				for (CalanderModel cal : calanders) {
 					System.out.println("user id: " + ssuid);
 					System.out.println("Cal user id: " + cal.uid);
 					if (cal.uid.equals(ssuid)) {
+						UserCalanders.clear();
 						System.out.println("we have a match");
 						Integer id = cal.uid;
 						String calName = cal.calName;
