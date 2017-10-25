@@ -14,13 +14,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.websocket.Session;
 
 @WebServlet("/Member")
 public class Member extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private ArrayList<CalanderModel> calanders = new ArrayList<CalanderModel>();
-	private ArrayList<CalanderModel> UserCalanders = new ArrayList<CalanderModel>();
+// 	private ArrayList<CalanderModel> UserCalanders = new ArrayList<CalanderModel>();
 
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
@@ -37,7 +36,7 @@ public class Member extends HttpServlet {
 		String userposition = (String) request.getSession().getAttribute("Userpos");
 		Integer ssuid = (Integer) request.getSession().getAttribute("ssuid");
 		
-
+//		System.out.println("passed user id: " + ssuid);
 		if (username == null) {
 			System.out.println("No user was found");
 			request.setAttribute("NoUser", "You Must Login First!");
@@ -55,6 +54,8 @@ public class Member extends HttpServlet {
 				c = DriverManager.getConnection(url, SQLuser, SQLpass);
 				Statement st = c.createStatement();
 				ResultSet rs = st.executeQuery(sql);
+				// System.out.println("new id: " + rs.getString("id"));
+				
 				while (rs.next()) {
 					Integer calId = rs.getInt("id");
 					Integer userId = Integer.parseInt(rs.getString("uid"));
@@ -62,7 +63,7 @@ public class Member extends HttpServlet {
 					String events = rs.getString("event_count");
 					
 					calanders.add(new CalanderModel(calId, userId, calanderName, events));
-					
+					System.out.println("Done retreving data!!!");
 			//		session.setAttribute("Username", calanders);
 				}
 				
@@ -96,7 +97,7 @@ public class Member extends HttpServlet {
 				}
 			}
 			
-			System.out.println("user cal size: " + UserCalanders.size());
+			System.out.println("user cal size: " + calanders.size());
 			request.setAttribute("myCalanders", calanders);
 			
 			request.setAttribute("username", username);

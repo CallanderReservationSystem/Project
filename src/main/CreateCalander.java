@@ -100,7 +100,7 @@ public class CreateCalander extends HttpServlet {
 				}
 				request.setAttribute("username", UserName);
 				request.setAttribute("calanderName", CalName);
-				request.getRequestDispatcher("Calendar.jsp").forward(request, response);
+				request.getRequestDispatcher("Member").forward(request, response);
 			}
 		}
 		hasError = false;
