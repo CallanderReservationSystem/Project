@@ -14,6 +14,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.websocket.Session;
 
 @WebServlet("/Member")
 public class Member extends HttpServlet {
@@ -42,6 +43,7 @@ public class Member extends HttpServlet {
 			request.setAttribute("NoUser", "You Must Login First!");
 			response.sendRedirect("Main");
 		} else {
+			calanders.clear();
 			Connection c = null;
 			String url = "jdbc:mysql://cs3.calstatela.edu/cs3337stu03";
 			String SQLuser = "cs3337stu03";
@@ -53,30 +55,32 @@ public class Member extends HttpServlet {
 				c = DriverManager.getConnection(url, SQLuser, SQLpass);
 				Statement st = c.createStatement();
 				ResultSet rs = st.executeQuery(sql);
-
 				while (rs.next()) {
+					Integer calId = rs.getInt("id");
 					Integer userId = Integer.parseInt(rs.getString("uid"));
 					String calanderName = rs.getString("cal_name");
 					String events = rs.getString("event_count");
 					
-					calanders.add(new CalanderModel(userId, calanderName, events));
+					calanders.add(new CalanderModel(calId, userId, calanderName, events));
+					
+			//		session.setAttribute("Username", calanders);
 				}
 				
 				for (CalanderModel cal : calanders) {
 					System.out.println("user id: " + ssuid);
 					System.out.println("Cal user id: " + cal.uid);
-					if (cal.uid.equals(ssuid)) {
-						UserCalanders.clear();
-						System.out.println("we have a match");
-						Integer id = cal.uid;
-						String calName = cal.calName;
-						String eventCount = cal.events;
+//					UserCalanders.clear();
+//					if (cal.uid.equals(ssuid)) {
+//						System.out.println("we have a match");
+//						Integer id = cal.uid;
+//						String calName = cal.calName;
+//						String eventCount = cal.events;
+////						UserCalanders.clear();
+//						UserCalanders.add(new CalanderModel(id, calName, eventCount));
+//					} else {
+//						System.out.println("no match found");
 //						UserCalanders.clear();
-						UserCalanders.add(new CalanderModel(id, calName, eventCount));
-					} else {
-						System.out.println("no match found");
-						UserCalanders.clear();
-					}
+//					}
 					
 					
 				}
@@ -93,7 +97,8 @@ public class Member extends HttpServlet {
 			}
 			
 			System.out.println("user cal size: " + UserCalanders.size());
-			request.setAttribute("myCalanders", UserCalanders);
+			request.setAttribute("myCalanders", calanders);
+			
 			request.setAttribute("username", username);
 			request.setAttribute("userpostion", userposition);
 			request.setAttribute("ssuid", ssuid);

@@ -155,7 +155,7 @@ body {
 				</nav>
 			</div>
 		</div>
-	<h4>Cal Name: ${calanderName}</h4>
+	<h4>Cal Name: ${cName}</h4>
 	<div id="calendar" class="fc fc-unthemed fc-ltr"></div> 
 	
 	<h4>List of events with this calendar<br></h4>

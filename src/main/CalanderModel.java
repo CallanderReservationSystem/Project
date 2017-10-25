@@ -2,6 +2,14 @@ package main;
 
 public class CalanderModel {
 
+	public Integer getCid() {
+		return cid;
+	}
+
+	public void setCid(Integer cid) {
+		this.cid = cid;
+	}
+
 	public Integer getUid() {
 		return uid;
 	}
@@ -26,11 +34,13 @@ public class CalanderModel {
 		this.events = events;
 	}
 
+	public Integer cid;
 	public Integer uid;
 	public String calName;
 	public String events;
 	
-	public CalanderModel(Integer uid, String calName, String events) {
+	public CalanderModel(Integer cid, Integer uid, String calName, String events) {
+		this.cid = cid;
 		this.uid = uid;
 		this.calName = calName;
 		this.events = events;
