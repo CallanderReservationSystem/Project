@@ -57,6 +57,7 @@ public class Calander extends HttpServlet {
 			}
 			request.setAttribute("cid", id);
 			request.setAttribute("uid", userId);
+			request.setAttribute("username", name);
 			request.setAttribute("cName", calName);
 			request.setAttribute("eCount", eventCount);
 			request.getRequestDispatcher("Calendar.jsp").forward(request, response);;

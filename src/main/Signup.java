@@ -52,6 +52,8 @@ public class Signup extends HttpServlet {
 		username = request.getParameter("username");
 		password = request.getParameter("password");
 		email = request.getParameter("email");
+		status = request.getParameter("status");
+		position = request.getParameter("");
 
 		if (firstname == null || firstname.trim().length() == 0) {
 			hasError = true;
