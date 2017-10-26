@@ -1,11 +1,13 @@
 package main;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.sql.*;
 
 /**
  * Servlet implementation class RegisterForEvent
@@ -26,17 +28,39 @@ public class RegisterForEvent extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 //		response.getWriter().append("Served at: ").append(request.getContextPath());
-		request.getRequestDispatcher("RegisterForEvent,jsp").forward(request, response);
+		request.getRequestDispatcher("RegisterForEvent.jsp").forward(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		Connection c = null;
 		
-		if (false)
-			doGet(request, response);
-		else
-			response.sendRedirect("https://google.com");
+		String url = "jdbc:mysql://cs3.calstatela.edu/cs3337stu03";
+		String SQLuser = "cs3337stu03";
+		String SQLpass = "K!c7YAg.";
+		String sql = "select * from calendar"; // event is placeholder name of the event that the user wants to register for
+		
+		try
+		{
+			c = DriverManager.getConnection(url, SQLuser, SQLpass);
+			Statement st = c.createStatement();
+			ResultSet rs = st.executeQuery(sql);
+			
+			while (rs.next())
+			{
+				
+			}
+			
+			if (false)
+				doGet(request, response);
+			else
+				response.sendRedirect("https://google.com");
+		}
+		catch (SQLException e)
+		{
+			throw new ServletException(e);
+		}
 	}
 }

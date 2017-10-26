@@ -10,9 +10,9 @@
 </head>
 <body>
 	<h1>Registration Confirmation</h1>
-	<p>Location:</p>
-	<p>Time:</p>
 	<form method="post" action="RegisterForEvent" id="page">
+		Location: <input type="text" readonly> </br>
+		Time: <input type="text" readonly> </br>
 		Time to be at the event: <input type="datetime-local" name="fromTime"> to <input type="datetime-local" name="toTime"> </br>
 		Number of people: <input type="number" name="party#" min="1" max="10"> </br>
 		Table to reserve: <input type="number" name="table" min="1" max="10"> </br>
