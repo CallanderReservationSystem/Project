@@ -14,8 +14,8 @@
 	<p>Time:</p>
 	<form method="post" action="RegisterForEvent" id="page">
 		Time to be at the event: <input type="datetime-local" name="fromTime"> to <input type="datetime-local" name="toTime"> </br>
-		Number of people: <input type="text" name="party#" id="party#"> </br>
-		Table to reserve: <input type="text" name="table" id="table"> </br>
+		Number of people: <input type="number" name="party#" min="1" max="10"> </br>
+		Table to reserve: <input type="number" name="table" min="1" max="10"> </br>
 		<button type="reset">Clear</button>
 		<button type="submit">Register</button>
 	</form>
