@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+    
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -12,9 +13,12 @@
 	<h1>Registration Confirmation</h1>
 	<p>Location:</p>
 	<p>Time:</p>
-	<form>
-		Time to be at the event: <input type="text" name=""> </br>
-		Number of people: <input type="text" name="party#" id="party#">
+	<form method="post" action="RegisterForEvent" id="page">
+		Time to be at the event: <input type="time" name="fromTime"> to <input type="time" name="toTime"> </br>
+		Number of people: <input type="text" name="party#" id="party#"> </br>
+		Table to reserve: <input type="text" name="table" id="table"> </br>
+		<button type="reset">Clear</button>
+		<button type="submit">Register</button>
 	</form>
 </body>
 </html>
