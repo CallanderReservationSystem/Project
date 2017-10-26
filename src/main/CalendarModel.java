@@ -2,25 +2,26 @@ package main;
 
 public class CalendarModel {
 	
-	public int id;
-	public int userId;
+	public Integer id;
+	public Integer uid;
 	public String calName;
-	public int eventCount;
+	public Integer eventCount;
 	
-	public int getId() {
+	
+	public Integer getId() {
 		return id;
 	}
 	
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 	
-	public int getUserId() {
-		return userId;
+	public Integer getuid() {
+		return uid;
 	}
 	
-	public void setUserId(int userId) {
-		this.userId = userId;
+	public void setuid(Integer uid) {
+		this.uid = uid;
 	}
 	
 	public String getcalName(String calName) {
@@ -35,18 +36,18 @@ public class CalendarModel {
 		this.calName = calName;
 	}
 
-	public int getEventCount() {
+	public Integer getEvents() {
 		return eventCount;
 	}
 
-	public void setEventCount(int eventCount) {
+	public void setEvents(Integer eventCount) {
 		this.eventCount = eventCount;
 	}
 
-	public CalendarModel(int id, int userId, String calName, int eventCount) {
+	public CalendarModel(Integer id, Integer uid, String calName, Integer eventCount) {
 		super();
 		this.id = id;
-		this.userId = userId;
+		this.uid = uid;
 		this.calName = calName;
 		this.eventCount = eventCount;
 	}

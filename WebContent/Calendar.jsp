@@ -17,11 +17,16 @@
 		<script src='lib/jquery.min.js'></script>
 		<script src='js/fullcalendar.min.js'></script>
  		
+ 		<sql:setDataSource var = "db" driver="com.mysql.jdbc.Driver"
+ 			url="cs3.calstatela.edu/localhost:3306"
+ 			/>
+ 		
  		<!-- will eventually need to link this to another page so that we can create individual calendars  -->
 		<script>		
 			$(document).ready(function() {
 				
 				$('#calendar').fullCalendar({
+					
 				
 					  navLinks: true,
 					  /*,dayClick: function() { 

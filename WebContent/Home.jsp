@@ -21,7 +21,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet"
 		href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-		integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+		integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4VaPmSTsz/K68vbdEjh4u"
 		crossorigin="anonymous">
 	<!-- These are the style sheets that come with jQuery as well as the Legacy jQuery  && 
 				 the jQuery-UI Content Delivery Networks (CDN) respectivly-->
@@ -56,6 +56,7 @@
 	<div class="container">
 		<div>
 			<h1>${username} Home</h1>
+			<h1>user id: ${ssuid}</h1>
 			<div class="page-header">
 				<nav class="navbar navbar-default">
 				<div class="container-fluid">
@@ -85,6 +86,18 @@
 			<div id="tabs-1">
 				<div class="wrapper">
 					<nav id="sidebar">
+					<div>
+ 						<table class="table table-striped table-bordered table-hover table-condensed" border="1">
+ 							<tr><td>user-id</td><td>cal-name</td><td>events count</td></tr>
+ 							<c:forEach items="${myCalanders}" var="cal">
+ 								<tr>
+ 									<td>${cal.uid}</td>
+ 									<td><a href = Calendar.jsp> ${cal.calName}</a></td>
+ 									<td>${cal.events}</td>
+ 								</tr>			
+ 							</c:forEach>
+ 						</table>
+ 					</div>
 					<div class="sidebar-header">
 						<h3>Options</h3>
 					</div>
