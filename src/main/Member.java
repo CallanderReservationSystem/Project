@@ -57,10 +57,11 @@ public class Member extends HttpServlet {
 
 				while (rs.next()) {
 					Integer userId = Integer.parseInt(rs.getString("uid"));
+					Integer id = Integer.parseInt(rs.getString("id"));
 					String calanderName = rs.getString("cal_name");
-					String events = rs.getString("event_count");
+					Integer events = Integer.parseInt(rs.getString("event_count"));
 					
-					calanders.add(new CalendarModel(userId, calanderName, events));
+					calanders.add(new CalendarModel(id, userId, calanderName, events));
 					System.out.println();
 				}
 				
