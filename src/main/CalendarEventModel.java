@@ -1,5 +1,7 @@
 package main;
 
+import java.util.Date;
+
 public class CalendarEventModel {
 
 	public int id;
@@ -7,7 +9,22 @@ public class CalendarEventModel {
     public String start;
     public String end;
     public String color;
-    public String getColor() {
+    public Integer tableCount;
+    public Integer seatsPerTable;
+    
+    public CalendarEventModel(int id, String title, String start, String end, String color, Integer tableCount,
+			Integer seatsPerTable) {
+		super();
+		this.id = id;
+		this.title = title;
+		this.start = start;
+		this.end = end;
+		this.color = color;
+		this.tableCount = tableCount;
+		this.seatsPerTable = seatsPerTable;
+	}
+    
+	public String getColor() {
         return color;
     }
     public void setColor(String color) {

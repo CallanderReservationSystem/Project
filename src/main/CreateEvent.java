@@ -8,7 +8,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Date;
 
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,12 +22,23 @@ public class CreateEvent extends HttpServlet {
 	
 	private ArrayList<CalendarModel> calendars = new ArrayList<CalendarModel>();
 	private ArrayList<MyModel> users = new ArrayList<MyModel>();
+	private ArrayList<CalendarEventModel> events = new ArrayList<CalendarEventModel>();
+	private ArrayList<Table> tabels = new ArrayList<Table>();
 	private String CalName;
 	private String UserName;
-	private String eventCount; // change to Int
+	private Integer eventCount; // change to Int
 	private Integer uid = 0;
 	private Boolean hasError = false;
 	private Boolean found = false;
+	
+	public void init(ServletConfig config) throws ServletException {
+		super.init(config);
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			throw new ServletException(e);
+		}
+	}
 	
 	
 	private static final long serialVersionUID = 1L;
@@ -93,6 +106,7 @@ public class CreateEvent extends HttpServlet {
 		} else {
 			Integer userId = getId();
 			Integer calendarId = getCalendarId();
+			Integer eventId = getEventId();
 			Connection c = null;
 			String url = "jdbc:mysql://cs3.calstatela.edu/cs3337stu03";
 			String SQLuser = "cs3337stu03";
@@ -190,6 +204,55 @@ public class CreateEvent extends HttpServlet {
 				if (c1.calName.equals(CalName)) {
 					found = true;
 					return c1.id;
+				}
+			}
+
+		} catch (SQLException e) {
+			throw new ServletException(e);
+		} finally {
+			try {
+				if (c != null)
+					c.close();
+			} catch (SQLException e) {
+				throw new ServletException(e);
+			}
+		}
+		return null;
+	}
+	
+	private Integer getEventId() throws ServletException {
+
+		Connection c = null;
+		String url = "jdbc:mysql://cs3.calstatela.edu/cs3337stu03";
+		String SQLuser = "cs3337stu03";
+		String SQLpass = "K!c7YAg.";
+		String sql = "select * from events";
+		try {
+
+			c = DriverManager.getConnection(url, SQLuser, SQLpass);
+			Statement st = c.createStatement();
+			ResultSet rs = st.executeQuery(sql);
+			
+			// will need to make changes further to Calendar Model, both on PHPadmin and in 
+			// the CalendarModel.java
+
+			while (rs.next()) {
+				Integer id = rs.getInt("id");
+				Integer uid = rs.getInt("uid");
+				Integer cid = rs.getInt("cid");
+				String title = rs.getString("title");
+				String start = rs.getString("start");
+				String end = rs.getString("end");
+				String color = rs.getString("color");
+				Integer tableCount = rs.getInt("tableCount");
+				Integer seatsPerTable = rs.getInt("seatsPerTable");
+				events.add(new CalendarEventModel(id, title, start, end, color, tableCount,seatsPerTable));
+			}
+
+			for (CalendarEventModel e  : events) {
+				if (e.title.equals("title")) {
+					found = true;
+					return e.id;
 				}
 			}
 
