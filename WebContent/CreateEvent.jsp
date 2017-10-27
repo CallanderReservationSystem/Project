@@ -2,15 +2,15 @@
     pageEncoding="UTF-8"%>
  <%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql"%>  
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>${Username} Home</title>
 </head>
 <body>
 
-<title>${user} Home</title>
+
 
 <link href='fullcalendar.min.css' rel='stylesheet' />
 <link href='fullcalendar.print.min.css' rel='stylesheet' media='print' />
@@ -23,7 +23,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 		
-	<title>Create Event</title>
+	<title> ${Calendarname} :Create Event</title>
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 	<link rel="stylesheet" href="jquery.ui.timepicker.css">
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -98,7 +98,7 @@
 </head>
 
 <body>
-	<h2>Create Event</h2>
+	<h2>${Calendarname}: Create Event</h2>
 	
 	<form  method="post" action="CreateEvent">
 	
@@ -117,12 +117,12 @@
 		<c:if test="${not empty timeSError }">
 			<p style="color:RED;">*${timeSError}</p>
 		</c:if>
-		<p><strong>Begin: </strong> <input type="text" name="startTime" id="startTimepicker" value="${param.startTime}"></p>
+		<p><strong>Begin: </strong> <input type=time name="startTime" id="startTimepicker" value="${param.startTime}"></p>
 		
 		<c:if test="${not empty timeEError }">
 			<p style="color:RED;">*${timeEError}</p>
 		</c:if>
-		<p><strong>End: </strong>  <input type="text" name="endTime" id="endTimepicker" value="${param.endTime}"></p>
+		<p><strong>End: </strong>  <input type="time" name="endTime" id="endTimepicker" value="${param.endTime}"></p>
 		
 		<p>Type of event?</p>
 		
@@ -139,8 +139,8 @@
 		<c:if test="${not empty locaError }">
 			<p style="color:RED;">*${locaError}</p>
 		</c:if>
-		<p>Location <input type="text" name="location" size="45" value="${param.location }"></p>
-		
+	<!--  	<p>Location <input type="text" name="location" size="45" value="${param.location }"></p>
+		-->
 		<p>Description</p>
 		<textarea rows="5" cols="35" name="description" placeholder="Optional">${param.description }</textarea><br>
 		

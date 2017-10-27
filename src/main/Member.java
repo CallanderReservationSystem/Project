@@ -35,6 +35,8 @@ public class Member extends HttpServlet {
 		String username = (String) request.getSession().getAttribute("Username");
 		String userposition = (String) request.getSession().getAttribute("Userpos");
 		Integer ssuid = (Integer) request.getSession().getAttribute("ssuid");
+
+		
 		
 
 		if (username == null) {
@@ -62,24 +64,19 @@ public class Member extends HttpServlet {
 					Integer events = Integer.parseInt(rs.getString("event_count"));
 					
 					calanders.add(new CalendarModel(id, userId, calanderName, events));
-					System.out.println();
+					
 				}
 				
-//				for (CalendarModel cal : calanders) {
-//
-//						UserCalanders.clear();
-//						System.out.println("we have a match");
-//						Integer id = cal.uid;
-//						String calName = cal.calName;
-//						String eventCount = cal.events;
-////						UserCalanders.clear();
-//						UserCalanders.add(new CalendarModel(id, calName, eventCount));
-//					} else {
-//						System.out.println("no match found");
-//						UserCalanders.clear();
-//					}
-//						
-			
+				for (CalendarModel cal : calanders) {
+
+						UserCalanders.clear();
+						Integer id = cal.id;
+						Integer uid = cal.uid;
+						String calName = cal.calName;
+						Integer eventCount = cal.eventCount;
+						UserCalanders.add(new CalendarModel(id, uid,calName, eventCount));
+
+				}	
 
 			} catch (SQLException e) {
 				throw new ServletException(e);

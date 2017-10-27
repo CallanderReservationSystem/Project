@@ -4,10 +4,19 @@ public class CalendarModel {
 	
 	public Integer id;
 	public Integer uid;
+	public Integer cid;
 	public String calName;
 	public Integer eventCount;
 	
 	
+	public Integer getCid() {
+		return cid;
+	}
+
+	public void setCid(Integer cid) {
+		this.cid = cid;
+	}
+
 	public Integer getId() {
 		return id;
 	}

@@ -92,7 +92,7 @@
  							<c:forEach items="${myCalanders}" var="cal">
  								<tr>
  									<td>${cal.uid}</td>
- 									<td><a href = Calendar.jsp> ${cal.calName}</a></td>
+ 									<td><a href=Calendar?cid=${cal.id}> ${cal.calName}</a></td>
  									<td>${cal.events}</td>
  								</tr>			
  							</c:forEach>

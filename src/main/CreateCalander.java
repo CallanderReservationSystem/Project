@@ -98,7 +98,7 @@ public class CreateCalander extends HttpServlet {
 						throw new ServletException(e);
 					}
 				}
-				request.setAttribute("username", UserName);
+				request.setAttribute("user", UserName);
 				request.setAttribute("calanderName", CalName);
 				request.getRequestDispatcher("Home.jsp").forward(request, response);
 			}

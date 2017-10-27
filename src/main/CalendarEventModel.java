@@ -5,6 +5,8 @@ import java.util.Date;
 public class CalendarEventModel {
 
 	public int id;
+	public Integer uid;
+	public Integer cid;
     public String title;
     public String start;
     public String end;
@@ -12,10 +14,12 @@ public class CalendarEventModel {
     public Integer tableCount;
     public Integer seatsPerTable;
     
-    public CalendarEventModel(int id, String title, String start, String end, String color, Integer tableCount,
-			Integer seatsPerTable) {
+	public CalendarEventModel(int id, Integer uid, Integer cid, String title, String start, String end, String color,
+			Integer tableCount, Integer seatsPerTable) {
 		super();
 		this.id = id;
+		this.uid = uid;
+		this.cid = cid;
 		this.title = title;
 		this.start = start;
 		this.end = end;

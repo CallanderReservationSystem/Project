@@ -1,6 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql"%>  
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
+
+<%
+	String check = (String) session.getAttribute("Username");
+	String name = "";
+	String userposition = "";
+	
+	if (check != null) {
+		name = (String) session.getAttribute("Username");
+		userposition = (String) session.getAttribute("Userpos");
+	} else {
+		response.sendRedirect("Index.jsp");
+	}
+%>
     
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -63,10 +76,34 @@
 		</script>
 
 		
-<title>${user} Home</title>
+<title>${Username} Home ( ${Calendarname} )</title>
 </head>
 <body>
-<div id='calendar'></div>
+<a href=CreateEvent?cid=${cid}&name=${Calendarname} >hhhh</a>
+
+		<div>
+			<h1>${Username} Calendar: ( ${Calendarname} )  </h1>
+			<div class="page-header">
+				<nav class="navbar navbar-default">
+				<div class="container-fluid">
+					<%
+						if (userposition.equals("A")) {
+					%>
+					<%@include file="inc/inc_admin_nav.jsp"%>
+					<%
+						} else {
+					%>
+					<%@include file="inc/inc_user_nav.jsp"%>
+					<%
+						}
+					%>
+				</div>
+				</nav>
+			</div>
+		</div>
+	<h4>Cal Name: ${Calendarname} </h4>
+	<div id='calendar'></div>
+
 
 </body>
 </html>
