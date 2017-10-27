@@ -93,7 +93,7 @@
 				start : '2017-09-13T07:00:00'
 			}, {
 				title : 'Click for Google',
-				url : 'http://google.com/',
+				url : 'RegisterForEvent?id=${id}',
 				start : '2017-09-28'
 			} ]
 

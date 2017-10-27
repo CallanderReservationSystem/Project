@@ -56,6 +56,7 @@
 	<div class="container">
 		<div>
 			<h1>${username} Home</h1>
+			<h1>user id: ${ssuid}</h1>
 			<div class="page-header">
 				<nav class="navbar navbar-default">
 				<div class="container-fluid">
@@ -85,12 +86,24 @@
 			<div id="tabs-1">
 				<div class="wrapper">
 					<nav id="sidebar">
+					<div>
+						<table class="table table-striped table-bordered table-hover table-condensed" border="1">
+							<tr><td>user-id</td><td>cal-name</td><td>events count</td></tr>
+							<c:forEach items="${myCalanders}" var="cal">
+								<tr>
+									<td>${cal.uid}</td>
+									<td><a href=Calander?cid=${cal.cid}>${cal.calName}</a></td>
+									<td>${cal.events}</td>
+								</tr>			
+							</c:forEach>
+						</table>
+					</div>
 					<div class="sidebar-header">
 						<h3>Options</h3>
 					</div>
 					<ul class="options">
 
-						<li class="active"><a href="CreateCalendar">Create a
+						<li class="active"><a href="CreateCalander.jsp">Create a
 								Calendar</a></li>
 						<li><a href="#deleteCalendar" data-toggle="collapse"
 							aria-expanded="false">Delete a Calendar</a>
@@ -106,7 +119,6 @@
 					</nav>
 				</div>
 			</div>
-
 			<div id="tabs-2">
 				<div class="wrapper">
 					<div class="wrapper">

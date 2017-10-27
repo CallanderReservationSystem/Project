@@ -37,10 +37,12 @@ public class RegisterForEvent extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Connection c = null;
 		
+		
+		
 		String url = "jdbc:mysql://cs3.calstatela.edu/cs3337stu03";
 		String SQLuser = "cs3337stu03";
 		String SQLpass = "K!c7YAg.";
-		String sql = "select * from calendar"; // event is placeholder name of the event that the user wants to register for
+		String sql = "select * from events where id = "; // event is placeholder name of the event that the user wants to register for
 		
 		try
 		{
@@ -52,11 +54,7 @@ public class RegisterForEvent extends HttpServlet {
 			{
 				
 			}
-			
-			if (false)
-				doGet(request, response);
-			else
-				response.sendRedirect("https://google.com");
+			response.sendRedirect("https://google.com");
 		}
 		catch (SQLException e)
 		{
