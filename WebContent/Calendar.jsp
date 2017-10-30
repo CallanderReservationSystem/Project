@@ -110,7 +110,7 @@
 				start : '2017-09-13T07:00:00'
 			}, {
 				title : 'Click for Google',
-				url : 'http://google.com/',
+				url : 'Home.jsp?username=${username}',
 				start : '2017-09-28'
 			} ]
 
