@@ -9,7 +9,7 @@
 </head>
 <body>
 	<div class="container">
-		<form class="form-horizontal" method="post" action="CreateCalander">
+		<form class="form-horizontal" method="post" action="../CreateCalander">
 			<div class="form-group">
 				<label class="col-sm-2 control-label">Calendar Name:</label>
 				<c:if test="${not empty CalError }">

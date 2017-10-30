@@ -8,7 +8,7 @@
 		name = (String) session.getAttribute("Username");
 		userposition = (String) session.getAttribute("Userpos");
 	} else {
-		response.sendRedirect("Index.jsp");
+		response.sendRedirect("../Index.jsp");
 	}
 %>
 
