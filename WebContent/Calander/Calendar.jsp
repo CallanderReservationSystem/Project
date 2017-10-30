@@ -143,11 +143,11 @@ body {
 					<%
 						if (userposition.equals("A")) {
 					%>
-					<%@include file="inc/inc_admin_nav.jsp"%>
+					<%@include file="/inc/inc_admin_nav.jsp"%>
 					<%
 						} else {
 					%>
-					<%@include file="inc/inc_user_nav.jsp"%>
+					<%@include file="/inc/inc_user_nav.jsp"%>
 					<%
 						}
 					%>

@@ -34,7 +34,7 @@ public class CreateCalander extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		request.getRequestDispatcher("CreateCalander.jsp").forward(request, response);
+		request.getRequestDispatcher("Calander/CreateCalander.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)

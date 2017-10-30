@@ -60,7 +60,7 @@ public class Calander extends HttpServlet {
 			request.setAttribute("username", name);
 			request.setAttribute("cName", calName);
 			request.setAttribute("eCount", eventCount);
-			request.getRequestDispatcher("Calendar.jsp").forward(request, response);;
+			request.getRequestDispatcher("Calander/Calendar.jsp").forward(request, response);;
 
 		} catch (SQLException e) {
 			throw new ServletException(e);

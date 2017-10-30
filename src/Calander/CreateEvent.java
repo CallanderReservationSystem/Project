@@ -64,7 +64,7 @@ public class CreateEvent extends HttpServlet {
 		System.out.println("cal name: " + CalName);
 
 		request.setAttribute("Calendarname", CalName);
-		request.getRequestDispatcher("CreateEvent.jsp").forward(request, response);
+		request.getRequestDispatcher("Calander/CreateEvent.jsp").forward(request, response);
 
 	}
 
@@ -152,7 +152,7 @@ public class CreateEvent extends HttpServlet {
 				PreparedStatement ps = c.prepareStatement(sql);
 				ps.executeUpdate();
 				System.out.println("Done!!!");
-				request.getRequestDispatcher("Calendar.jsp").forward(request, response);
+				request.getRequestDispatcher("Calander/Calendar.jsp").forward(request, response);
 
 			} catch (SQLException e) {
 				throw new ServletException(e);

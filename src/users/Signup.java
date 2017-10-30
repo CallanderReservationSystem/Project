@@ -42,7 +42,7 @@ public class Signup extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		request.getRequestDispatcher("Signup.jsp").forward(request, response);
+		request.getRequestDispatcher("users/Signup.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -52,8 +52,8 @@ public class Signup extends HttpServlet {
 		username = request.getParameter("username");
 		password = request.getParameter("password");
 		email = request.getParameter("email");
-		status = request.getParameter("status");
-		position = request.getParameter("");
+		//status = request.getParameter("status");
+		//position = request.getParameter("");
 
 		if (firstname == null || firstname.trim().length() == 0) {
 			hasError = true;
@@ -92,7 +92,7 @@ public class Signup extends HttpServlet {
 				c = DriverManager.getConnection(url, SQLuser, SQLpass);
 				PreparedStatement ps = c.prepareStatement(sql);
 				ps.executeUpdate();
-				response.sendRedirect("success.jsp");
+				response.sendRedirect("users/success.jsp");
 //				String message = "Registration is Complete. PLease login!";
 //				request.setAttribute("message", message);
 //				request.getRequestDispatcher("Signup.jsp").forward(request, response);
