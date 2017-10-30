@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 public class Member extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private ArrayList<CalanderModel> calanders = new ArrayList<CalanderModel>();
-// 	private ArrayList<CalanderModel> UserCalanders = new ArrayList<CalanderModel>();
+ 	private ArrayList<CalanderModel> UserCalanders = new ArrayList<CalanderModel>();
 
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
@@ -70,14 +70,17 @@ public class Member extends HttpServlet {
 				for (CalanderModel cal : calanders) {
 					System.out.println("user id: " + ssuid);
 					System.out.println("Cal user id: " + cal.uid);
-//					UserCalanders.clear();
+//					
+					UserCalanders.clear();
 //					if (cal.uid.equals(ssuid)) {
 //						System.out.println("we have a match");
-//						Integer id = cal.uid;
-//						String calName = cal.calName;
-//						String eventCount = cal.events;
+//						
+					Integer uid = cal.uid;
+					Integer cid = cal.cid;
+					String calName = cal.calName;
+					String eventCount = cal.events;
 ////						UserCalanders.clear();
-//						UserCalanders.add(new CalanderModel(id, calName, eventCount));
+					UserCalanders.add(new CalanderModel(uid, cid, calName, eventCount));
 //					} else {
 //						System.out.println("no match found");
 //						UserCalanders.clear();
@@ -99,7 +102,6 @@ public class Member extends HttpServlet {
 			
 			System.out.println("user cal size: " + calanders.size());
 			request.setAttribute("myCalanders", calanders);
-			
 			request.setAttribute("username", username);
 			request.setAttribute("userpostion", userposition);
 			request.setAttribute("ssuid", ssuid);

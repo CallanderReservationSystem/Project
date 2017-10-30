@@ -24,7 +24,7 @@
 		href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
 		integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
 		crossorigin="anonymous">
-	<title>${username} Home</title>
+	<title>${username} Home ( ${cName} )</title>
 
 	<link href='css/fullcalendar.min.css' rel='stylesheet' />
 	<link href='css/fullcalendar.print.min.css' rel='stylesheet' media='print' />
@@ -136,7 +136,7 @@ body {
 
 	
 		<div>
-			<h1>${username} Calendar</h1>
+			<h1>${username} Calendar ( ${cName} )</h1>
 			<div class="page-header">
 				<nav class="navbar navbar-default">
 				<div class="container-fluid">
@@ -158,7 +158,7 @@ body {
 	<h4>Cal Name: ${cName}</h4>
 	<div id="calendar" class="fc fc-unthemed fc-ltr"></div> 
 	
-	<h4>List of events with this calendar<br></h4>
+	<%-- <h4>List of events with this calendar<br></h4>
 	<c:if test="${not empty calander}">
 		<c:forEach items="${calander}" var="c">
 			<br>
@@ -169,6 +169,6 @@ body {
 			<b style="color:RED;">${c.getTitle()}</b>
 		</c:forEach>
 		
-	</c:if>
+	</c:if> --%>
 </body>
 </html>

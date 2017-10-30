@@ -1,37 +1,54 @@
 package main;
 
+
 public class CalendarEventModel {
 
-	Integer id;
-	String name, start, end, title;
+	public int id;
+	public Integer uid;
+	public Integer cid;
+	public String title;
+	public String start;
+	public String end;
+	public String color;
+	public Integer tableCount;
+	public Integer seatsPerTable;
 
-	public CalendarEventModel(Integer id, String name, String start, String end, String title) {
+	public CalendarEventModel(int id, Integer uid, Integer cid, String title, String start, String end, String color,
+			Integer tableCount, Integer seatsPerTable) {
 		super();
 		this.id = id;
-		this.name = name;
+		this.uid = uid;
+		this.cid = cid;
+		this.title = title;
 		this.start = start;
 		this.end = end;
-		this.title = title;
+		this.color = color;
+		this.tableCount = tableCount;
+		this.seatsPerTable = seatsPerTable;
 	}
 
-	public CalendarEventModel() {
-		super();
+	public String getColor() {
+		return color;
 	}
 
-	public Integer getId() {
+	public void setColor(String color) {
+		this.color = color;
+	}
+
+	public int getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getTitle() {
+		return title;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 	public String getStart() {
@@ -48,14 +65,6 @@ public class CalendarEventModel {
 
 	public void setEnd(String end) {
 		this.end = end;
-	}
-
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
 	}
 
 }
