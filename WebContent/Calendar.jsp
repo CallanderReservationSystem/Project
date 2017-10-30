@@ -155,6 +155,7 @@ body {
 				</nav>
 			</div>
 		</div>
+		<p><a href="CreateEvent?id=${cid}">create event.</a></p>
 	<h4>Cal Name: ${cName}</h4>
 	<div id="calendar" class="fc fc-unthemed fc-ltr"></div> 
 	

@@ -51,8 +51,10 @@ public class CreateEvent extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		CalId = request.getParameter("cid");
+		CalId = request.getParameter("id");
+		
 		System.out.println("cal id: " + CalId);
+		
 		CalName = request.getParameter("name");
 		System.out.println("cal name: " + CalName);
 
