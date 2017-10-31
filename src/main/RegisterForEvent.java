@@ -35,13 +35,13 @@ public class RegisterForEvent extends HttpServlet {
 		String eventName = null;
 		Integer calId = null;
 		String location = null;
-		String startTime = null;
-		String endTime = null;
+		String start = null;
+		String end = null;
 		
 		String url = "jdbc:mysql://cs3.calstatela.edu/cs3337stu03";
 		String SQLuser = "cs3337stu03";
 		String SQLpass = "K!c7YAg.";
-		String sql = "select * from events"; // event is placeholder name of the event that the user wants to register for
+		String sql = "select * from events where id = 2"; // event is placeholder name of the event that the user wants to register for
 		
 		try
 		{
@@ -56,13 +56,13 @@ public class RegisterForEvent extends HttpServlet {
 				eventName = rs.getString("title");
 				calId = rs.getInt("cid");
 				location = rs.getString("location");
-				startTime = rs.getString("start");
-				endTime = rs.getString("end");
+				start = rs.getString("start");
+				end = rs.getString("end");
 			}
 			request.setAttribute("id", id);
 			request.setAttribute("location", location);
-			request.setAttribute("start", startTime);
-			request.setAttribute("end", endTime);
+			request.setAttribute("start", start);
+			request.setAttribute("end", end);
 
 			request.getRequestDispatcher("RegisterForEvent.jsp").forward(request, response);
 		}
