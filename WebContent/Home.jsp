@@ -11,7 +11,7 @@
 		name = (String) session.getAttribute("Username");
 		userposition = (String) session.getAttribute("Userpos");
 	} else {
-		response.sendRedirect("Index.jsp");
+		response.sendRedirect("../Index.jsp");
 	}
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -63,11 +63,11 @@
 					<%
 						if (userposition.equals("A")) {
 					%>
-					<%@include file="inc/inc_admin_nav.jsp"%>
+					<%@include file="/inc/inc_admin_nav.jsp"%>
 					<%
 						} else {
 					%>
-					<%@include file="inc/inc_user_nav.jsp"%>
+					<%@include file="/inc/inc_user_nav.jsp"%>
 					<%
 						}
 					%>
@@ -92,7 +92,7 @@
 							<c:forEach items="${myCalanders}" var="cal">
 								<tr>
 									<td>${cal.uid}</td>
-									<td><a href=Calander?cid=${cal.cid}>${cal.calName}</a></td>
+									<td><a href=Calender?cid=${cal.cid}>${cal.calName}</a></td>
 									<td>${cal.events}</td>
 								</tr>			
 							</c:forEach>
@@ -103,7 +103,7 @@
 					</div>
 					<ul class="options">
 
-						<li class="active"><a href="CreateCalander.jsp">Create a
+						<li class="active"><a href="Calander/CreateCalander.jsp">Create a
 								Calendar</a></li>
 						<li><a href="#deleteCalendar" data-toggle="collapse"
 							aria-expanded="false">Delete a Calendar</a>

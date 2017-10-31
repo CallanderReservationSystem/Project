@@ -35,6 +35,8 @@ public class RegisterForEvent extends HttpServlet {
 		String eventName = null;
 		Integer calId = null;
 		String location = null;
+		String startTime = null;
+		String endTime = null;
 		
 		String url = "jdbc:mysql://cs3.calstatela.edu/cs3337stu03";
 		String SQLuser = "cs3337stu03";
@@ -54,10 +56,13 @@ public class RegisterForEvent extends HttpServlet {
 				eventName = rs.getString("title");
 				calId = rs.getInt("cid");
 				location = rs.getString("location");
-				
+				startTime = rs.getString("start");
+				endTime = rs.getString("end");
 			}
 			request.setAttribute("id", id);
 			request.setAttribute("location", location);
+			request.setAttribute("start", startTime);
+			request.setAttribute("end", endTime);
 
 			request.getRequestDispatcher("RegisterForEvent.jsp").forward(request, response);
 		}
