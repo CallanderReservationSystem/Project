@@ -39,7 +39,7 @@ public class Calander extends HttpServlet {
 		Integer uid = (Integer) request.getSession().getAttribute("ssuid");
 		System.out.println("id: " + uid);
 		calId = request.getParameter("cid");
-		System.out.println("cal id: " + calId);
+		System.out.println("new cal id: " + calId);
 
 		Connection c = null;
 
@@ -121,6 +121,7 @@ public class Calander extends HttpServlet {
 			Statement st = c.createStatement();
 			ResultSet rs = st.executeQuery(sql);
 
+			events.clear();
 			while (rs.next()) {
 				id = rs.getInt("id");
 				title = rs.getString("title");
