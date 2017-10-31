@@ -33,7 +33,8 @@ public class RegisterForEvent extends HttpServlet {
 		Integer id = null;
 		Integer userId = null;
 		String eventName = null;
-		Integer calId = null;
+		Integer calId = Integer.parseInt(request.getParameter("id"));
+		System.out.println(calId);
 		String location = null;
 		String start = null;
 		String end = null;
@@ -41,7 +42,7 @@ public class RegisterForEvent extends HttpServlet {
 		String url = "jdbc:mysql://cs3.calstatela.edu/cs3337stu03";
 		String SQLuser = "cs3337stu03";
 		String SQLpass = "K!c7YAg.";
-		String sql = "select * from events where id = 2"; // event is placeholder name of the event that the user wants to register for
+		String sql = "select * from events where cid = " + calId; // event is placeholder name of the event that the user wants to register for
 		
 		try
 		{
@@ -54,7 +55,7 @@ public class RegisterForEvent extends HttpServlet {
 				id = rs.getInt("id");
 				userId = rs.getInt("uid");
 				eventName = rs.getString("title");
-				calId = rs.getInt("cid");
+				//calId = rs.getInt("cid");
 				location = rs.getString("location");
 				start = rs.getString("start");
 				end = rs.getString("end");

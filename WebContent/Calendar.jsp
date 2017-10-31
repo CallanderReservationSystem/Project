@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>${user}Home</title>
+<title>${username} Home</title>
 
 <link href='css/fullcalendar.min.css' rel='stylesheet' />
 <link href='css/fullcalendar.print.min.css' rel='stylesheet' media='print' />
@@ -93,7 +93,7 @@
 				start : '2017-09-13T07:00:00'
 			}, {
 				title : 'Click for Google',
-				url : 'RegisterForEvent?id=${id}',
+				url : 'RegisterForEvent?id=${cid}',
 				start : '2017-09-28'
 			} ]
 

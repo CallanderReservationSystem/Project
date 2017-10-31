@@ -8,15 +8,25 @@ import java.sql.SQLException;
 import java.sql.Statement;
 // import java.util.ArrayList;
 
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/Calender")
-public class Calender extends HttpServlet {
+@WebServlet("/Calendar")
+public class Calendar extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
+	public void init(ServletConfig config) throws ServletException {
+		super.init(config);
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			throw new ServletException(e);
+		}
+	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -25,8 +35,6 @@ public class Calender extends HttpServlet {
 		Integer userId = null;
 		String calName = null;
 		String eventCount = null;
-		// request.getRequestDispatcher("Calendar.jsp").forward(request,
-		// response);
 		String name = (String) request.getSession().getAttribute("Username");
 		System.out.println("name: " + name);
 		Integer uid = (Integer) request.getSession().getAttribute("ssuid");
@@ -40,6 +48,7 @@ public class Calender extends HttpServlet {
 		String SQLuser = "cs3337stu03";
 		String SQLpass = "K!c7YAg.";
 		String sql = "select * from calendar where id = " + calId + "";
+		System.out.println(calId);
 
 		try {
 
@@ -51,16 +60,17 @@ public class Calender extends HttpServlet {
 				id = rs.getInt("id");
 				userId = rs.getInt("uid");
 				calName = rs.getString("cal_name");
+				System.out.print(calName);
 				eventCount = rs.getString("event_count");
-
-				// calander.add(new MyModel(id, userId, calName, eventCount));
 			}
+			
 			request.setAttribute("cid", id);
 			request.setAttribute("uid", userId);
-			request.setAttribute("username", name);
-			request.setAttribute("cName", calName);
+			request.setAttribute("Calendarname", calName);
+			System.out.println(calName);
+			request.setAttribute("Username", name);
 			request.setAttribute("eCount", eventCount);
-			request.getRequestDispatcher("Calender.jsp").forward(request, response);;
+			request.getRequestDispatcher("Calendar.jsp").forward(request, response);
 
 		} catch (SQLException e) {
 			throw new ServletException(e);
@@ -84,7 +94,5 @@ public class Calender extends HttpServlet {
 		} else {
 
 		}
-
 	}
-
 }
