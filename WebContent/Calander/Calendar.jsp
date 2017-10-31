@@ -46,7 +46,7 @@
 								center : 'title',
 								right : 'month,agendaWeek,agendaDay'
 							},
-							defaultDate : '2017-09-12',
+							/* defaultDate : '2017-10-12', */
 
 							navLinks : true, // can click day/week names to navigate views
 							selectable : true,
@@ -71,10 +71,10 @@
 								window.location.href = "Member.jsp";
 							}, */
 
-							defaultDate : '2017-09-12',
+							/* defaultDate : '2017-10-12', */
 							editable : true,
 							eventLimit : true, // allow "more" link when too many events
-							events : "/Calendar/Calendar" 
+							events : "/Calendar/CalendarEventFiller" 
 								/* [ {
 								title : 'All Day Event',
 								start : '2017-09-01'
