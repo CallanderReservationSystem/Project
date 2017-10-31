@@ -41,16 +41,25 @@
 				$('#calendar').fullCalendar({
 					
 				
-					  navLinks: true,
-					  /*,dayClick: function() { 
-						  window.location.href= "Member.jsp";
-						  
-					    },*/
+					 	navLinks: true,
+					 
+					    
 					    header : {
 					    	 			left : 'prev,next today',
 					    	 			center : 'title',
-					    	 			right : 'month,agendaWeek,agendaDay'
+					    	 			right : 'month,agendaWeek,agendaDay,agenda5Day'
 					    	},
+					    	events: "/calanderProject/CalendarEventFiller.java",
+					    	
+				    	  	views: {
+					    		agenda5Day:{
+					    			type: "agenda",
+					    			duration: { days: 5,},
+					    			hiddenDays: [ 6, 0],
+					    			buttonText: "weekdays"
+					    		}
+					    	},
+					    
 					    	
 					    	selectable: true,
 					    	selectHelper: true,

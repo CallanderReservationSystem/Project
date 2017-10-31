@@ -56,9 +56,9 @@ public class CreateEvent extends HttpServlet {
 			System.out.println("cal id: " + CalId);
 			CalName = request.getParameter("name");
 			System.out.println("cal name: " + CalName);
-			
 			request.setAttribute("Calendarname", CalName);
 			request.getRequestDispatcher("CreateEvent.jsp").forward(request, response);
+			
 		
 	}
 		
@@ -205,58 +205,5 @@ public class CreateEvent extends HttpServlet {
 		}
 		return null;
 	}
+	
 }
-	
-	
-
-	
-	
-//	private Integer getEventId() throws ServletException {
-//
-//		Connection c = null;
-//		String url = "jdbc:mysql://cs3.calstatela.edu/cs3337stu03";
-//		String SQLuser = "cs3337stu03";
-//		String SQLpass = "K!c7YAg.";
-//		String sql = "select * from events";
-//		try {
-//
-//			c = DriverManager.getConnection(url, SQLuser, SQLpass);
-//			Statement st = c.createStatement();
-//			ResultSet rs = st.executeQuery(sql);
-//			
-//			// will need to make changes further to Calendar Model, both on PHPadmin and in 
-//			// the CalendarModel.java
-//
-//			while (rs.next()) {
-//				Integer id = rs.getInt("id");
-//				Integer uid = rs.getInt("uid");
-//				Integer cid = rs.getInt("cid");
-//				String title = rs.getString("title");
-//				String start = rs.getString("start");
-//				String end = rs.getString("end");
-//				String color = rs.getString("color");
-//				Integer tableCount = rs.getInt("tableCount");
-//				Integer seatsPerTable = rs.getInt("seatsPerTable");
-//				events.add(new CalendarEventModel(id, uid, cid, title, start, end, color, tableCount,seatsPerTable));
-//			}
-//
-//			for (CalendarEventModel e  : events) {
-//				if (e.title.equals("title")) {
-//					found = true;
-//					return e.id;
-//				}
-//			}
-//
-//		} catch (SQLException e) {
-//			throw new ServletException(e);
-//		} finally {
-//			try {
-//				if (c != null)
-//					c.close();
-//			} catch (SQLException e) {
-//				throw new ServletException(e);
-//			}
-//		}
-//		return null;
-//	}
-
