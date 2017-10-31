@@ -7,7 +7,7 @@
 	String check = (String) session.getAttribute("Username");
 	String name = "";
 	String userposition = "";
-	
+
 	if (check != null) {
 		name = (String) session.getAttribute("Username");
 		userposition = (String) session.getAttribute("Userpos");
@@ -18,105 +18,110 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet"
-		href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-		integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-		crossorigin="anonymous">
-	<title>${username} Home ( ${cName} )</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+	crossorigin="anonymous">
+<title>${username}Home ( ${cName} )</title>
 
-	<link href='css/fullcalendar.min.css' rel='stylesheet' />
-	<link href='css/fullcalendar.print.min.css' rel='stylesheet' media='print' />
-	<script src='lib/moment.min.js'></script>
-	<script src='lib/jquery.min.js'></script>
-	<script src='js/fullcalendar.min.js'></script>
+<link href='css/fullcalendar.min.css' rel='stylesheet' />
+<link href='css/fullcalendar.print.min.css' rel='stylesheet'
+	media='print' />
+<script src='lib/moment.min.js'></script>
+<script src='lib/jquery.min.js'></script>
+<script src='js/fullcalendar.min.js'></script>
 
 
 <script>
-	$(document).ready(function() {
+	$(document).ready(
+			function() {
 
-		$('#calendar').fullCalendar({
+				$('#calendar').fullCalendar(
+						{
 
-			header : {
-				left : 'prev,next today',
-				center : 'title',
-				right : 'month,agendaWeek,agendaDay'
-			},
-			defaultDate : '2017-09-12',
+							header : {
+								left : 'prev,next today',
+								center : 'title',
+								right : 'month,agendaWeek,agendaDay'
+							},
+							defaultDate : '2017-09-12',
 
-			navLinks: true, // can click day/week names to navigate views
-			selectable: true,
-			selectHelper: true,
-			select: function(start, end) {
-				var title = prompt('Event Title:');
-				var eventData;
-				if (title) {
-					eventData = {
-						title: title,
-						start: start,
-						end: end
-					};
-					$('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
-				}
-				$('#calendar').fullCalendar('unselect');
-			},
-			
-			/* dayClick : function() {
-				alert('a day has been clicked!');
-				window.location.href = "Member.jsp";
-			}, */ 
+							navLinks : true, // can click day/week names to navigate views
+							selectable : true,
+							selectHelper : true,
+							select : function(start, end) {
+								var title = prompt('Event Title:');
+								var eventData;
+								if (title) {
+									eventData = {
+										title : title,
+										start : start,
+										end : end
+									};
+									$('#calendar').fullCalendar('renderEvent',
+											eventData, true); // stick? = true
+								}
+								$('#calendar').fullCalendar('unselect');
+							},
 
-			defaultDate : '2017-09-12',
-			editable : true,
-			eventLimit : true, // allow "more" link when too many events
-			events : [ {
-				title : 'All Day Event',
-				start : '2017-09-01'
-			}, {
-				title : 'Long Event',
-				start : '2017-09-07',
-				end : '2017-09-10'
-			}, {
-				id : 999,
-				title : 'Repeating Event',
-				start : '2017-09-09T16:00:00'
-			}, {
-				id : 999,
-				title : 'Repeating Event',
-				start : '2017-09-16T16:00:00'
-			}, {
-				title : 'Conference',
-				start : '2017-09-11',
-				end : '2017-09-13'
-			}, {
-				title : 'Meeting',
-				start : '2017-09-12T10:30:00',
-				end : '2017-09-12T12:30:00'
-			}, {
-				title : 'Lunch',
-				start : '2017-09-12T12:00:00'
-			}, {
-				title : 'Meeting',
-				start : '2017-09-12T14:30:00'
-			}, {
-				title : 'Happy Hour',
-				start : '2017-09-12T17:30:00'
-			}, {
-				title : 'Dinner',
-				start : '2017-09-12T20:00:00'
-			}, {
-				title : 'Birthday Party',
-				start : '2017-09-13T07:00:00'
-			}, {
-				title : 'Click for Google',
-				url : 'Home.jsp?username=${username}',
-				start : '2017-09-28'
-			} ]
+							/* dayClick : function() {
+								alert('a day has been clicked!');
+								window.location.href = "Member.jsp";
+							}, */
 
-		});
+							defaultDate : '2017-09-12',
+							editable : true,
+							eventLimit : true, // allow "more" link when too many events
+							events : "/Calendar/Calendar" 
+								/* [ {
+								title : 'All Day Event',
+								start : '2017-09-01'
+							}, {
+								title : 'Long Event',
+								start : '2017-09-07',
+								end : '2017-09-10'
+							}, {
+								id : 999,
+								title : 'Repeating Event',
+								start : '2017-09-09T16:00:00'
+							}, {
+								id : 999,
+								title : 'Repeating Event',
+								start : '2017-09-16T16:00:00'
+							}, {
+								title : 'Conference',
+								start : '2017-09-11',
+								end : '2017-09-13'
+							}, {
+								title : 'Meeting',
+								start : '2017-09-12T10:30:00',
+								end : '2017-09-12T12:30:00'
+							}, {
+								title : 'Lunch',
+								start : '2017-09-12T12:00:00'
+							}, {
+								title : 'Meeting',
+								start : '2017-09-12T14:30:00'
+							}, {
+								title : 'Happy Hour',
+								start : '2017-09-12T17:30:00'
+							}, {
+								title : 'Dinner',
+								start : '2017-09-12T20:00:00'
+							}, {
+								title : 'Birthday Party',
+								start : '2017-09-13T07:00:00'
+							}, {
+								title : 'Click for Google',
+								url : 'Home.jsp?username=${username}',
+								start : '2017-09-28'
+							} ] */
 
-	});
+						});
+
+			});
 </script>
 <style>
 body {
@@ -134,42 +139,46 @@ body {
 </head>
 <body>
 
-	
-		<div>
-			<h1>${username} Calendar ( ${cName} )</h1>
-			<div class="page-header">
-				<nav class="navbar navbar-default">
-				<div class="container-fluid">
-					<%
-						if (userposition.equals("A")) {
-					%>
-					<%@include file="/inc/inc_admin_nav.jsp"%>
-					<%
-						} else {
-					%>
-					<%@include file="/inc/inc_user_nav.jsp"%>
-					<%
-						}
-					%>
-				</div>
-				</nav>
+
+	<div>
+		<h1>${username}Calendar ( ${cName} )</h1>
+		<div class="page-header">
+			<nav class="navbar navbar-default">
+			<div class="container-fluid">
+				<%
+					if (userposition.equals("A")) {
+				%>
+				<%@include file="/inc/inc_admin_nav.jsp"%>
+				<%
+					} else {
+				%>
+				<%@include file="/inc/inc_user_nav.jsp"%>
+				<%
+					}
+				%>
 			</div>
+			</nav>
 		</div>
-		<p><a href="CreateEvent?id=${cid}">create event.</a></p>
+	</div>
+	<p>
+		<a href="CreateEvent?id=${cid}">create event.</a>
+	</p>
 	<h4>Cal Name: ${cName}</h4>
-	<div id="calendar" class="fc fc-unthemed fc-ltr"></div> 
-	
-	<%-- <h4>List of events with this calendar<br></h4>
-	<c:if test="${not empty calander}">
-		<c:forEach items="${calander}" var="c">
+	<div id="calendar" class="fc fc-unthemed fc-ltr"></div>
+
+	<h4>
+		List of events with this calendar<br>
+	</h4>
+	<c:if test="${not empty events}">
+		<c:forEach items="${events}" var="e">
 			<br>
-			<b>blah</b>
-			<b style="color:RED;">${c.getId()}. </b>
-			<b style="color:RED;">${c.getStart()} / </b>
-			<b style="color:RED;">${c.getEnd()}</b>
-			<b style="color:RED;">${c.getTitle()}</b>
+			<!-- <b>list of Events: </b> -->
+			<b style="color: RED;">${e.getId()}. </b>
+			<b style="color: RED;">${e.getStart()} / </b>
+			<b style="color: RED;">${e.getEnd()}</b>
+			<b style="color: RED;">${e.getTitle()}</b>
 		</c:forEach>
-		
-	</c:if> --%>
+
+	</c:if>
 </body>
 </html>

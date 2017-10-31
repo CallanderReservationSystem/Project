@@ -16,14 +16,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import models.CalanderModel;
+import models.CalendarModel;
 import models.MyModel;
 
 @WebServlet("/CreateCalander")
 public class CreateCalander extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
-	private ArrayList<CalanderModel> calanders = new ArrayList<CalanderModel>();
+	private ArrayList<CalendarModel> calanders = new ArrayList<CalendarModel>();
 	private ArrayList<MyModel> users = new ArrayList<MyModel>();
 	private String CalName;
 	private String UserName;

@@ -15,13 +15,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import models.CalanderModel;
+import models.CalendarModel;
 
 @WebServlet("/Member")
 public class Member extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private ArrayList<CalanderModel> calanders = new ArrayList<CalanderModel>();
- 	private ArrayList<CalanderModel> UserCalanders = new ArrayList<CalanderModel>();
+	private ArrayList<CalendarModel> calanders = new ArrayList<CalendarModel>();
+ 	private ArrayList<CalendarModel> UserCalanders = new ArrayList<CalendarModel>();
 
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
@@ -64,12 +64,12 @@ public class Member extends HttpServlet {
 					String calanderName = rs.getString("cal_name");
 					String events = rs.getString("event_count");
 					
-					calanders.add(new CalanderModel(calId, userId, calanderName, events));
+					calanders.add(new CalendarModel(calId, userId, calanderName, events));
 					System.out.println("Done retreving data!!!");
 			//		session.setAttribute("Username", calanders);
 				}
 				
-				for (CalanderModel cal : calanders) {
+				for (CalendarModel cal : calanders) {
 					System.out.println("user id: " + ssuid);
 					System.out.println("Cal user id: " + cal.uid);
 //					
@@ -82,7 +82,7 @@ public class Member extends HttpServlet {
 					String calName = cal.calName;
 					String eventCount = cal.events;
 ////						UserCalanders.clear();
-					UserCalanders.add(new CalanderModel(uid, cid, calName, eventCount));
+					UserCalanders.add(new CalendarModel(uid, cid, calName, eventCount));
 //					} else {
 //						System.out.println("no match found");
 //						UserCalanders.clear();

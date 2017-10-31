@@ -1,6 +1,6 @@
 package models;
 
-public class CalanderModel {
+public class CalendarModel {
 
 	public Integer getCid() {
 		return cid;
@@ -39,7 +39,7 @@ public class CalanderModel {
 	public String calName;
 	public String events;
 	
-	public CalanderModel(Integer cid, Integer uid, String calName, String events) {
+	public CalendarModel(Integer cid, Integer uid, String calName, String events) {
 		this.cid = cid;
 		this.uid = uid;
 		this.calName = calName;

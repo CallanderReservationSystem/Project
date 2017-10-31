@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import models.CalanderModel;
+import models.CalendarModel;
 import models.CalendarEventModel;
 import models.MyModel;
 import models.Table;
@@ -24,7 +24,7 @@ import models.Table;
 @WebServlet("/CreateEvent")
 public class CreateEvent extends HttpServlet {
 
-	private ArrayList<CalanderModel> calendars = new ArrayList<CalanderModel>();
+	private ArrayList<CalendarModel> calendars = new ArrayList<CalendarModel>();
 	private ArrayList<MyModel> users = new ArrayList<MyModel>();
 	private ArrayList<CalendarEventModel> events = new ArrayList<CalendarEventModel>();
 	private ArrayList<Table> tabels = new ArrayList<Table>();
@@ -35,8 +35,8 @@ public class CreateEvent extends HttpServlet {
 	private Integer uid = 0;
 	private Boolean hasError = false;
 	private Boolean found = false;
-	private ArrayList<CalanderModel> calanders = new ArrayList<CalanderModel>();
-	private ArrayList<CalanderModel> UserCalanders = new ArrayList<CalanderModel>();
+	private ArrayList<CalendarModel> calanders = new ArrayList<CalendarModel>();
+	private ArrayList<CalendarModel> UserCalanders = new ArrayList<CalendarModel>();
 
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
