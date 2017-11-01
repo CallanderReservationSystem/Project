@@ -103,15 +103,15 @@
 					</div>
 					<ul class="options">
 
-						<li class="active"><a href="Calander/CreateCalander.jsp">Create a
+						<li class="active"><a href="Calendar/CreateCalander.jsp">Create a
 								Calendar</a></li>
-						<li><a href="#deleteCalendar" data-toggle="collapse"
-							aria-expanded="false">Delete a Calendar</a>
-							<ul class="collapse list-unstyled" id="deleteCalendar">
+						<li><a href=DeleteCalendar>Delete a Calendar</a><!-- data-toggle="collapse"
+							aria-expanded="false" -->
+							<!-- <ul class="collapse list-unstyled" id="deleteCalendar">
 								<li>hello</li>
 								<li>this</li>
 								<li>will be replaced soon</li>
-							</ul></li>
+							</ul> --></li>
 						<li><a href="#editCalendar" data-toggle="collapse"
 							aria-expanded=false">Edit a Calendar</a>
 							<ul class="collapse list" id="editCalendar"></ul></li>

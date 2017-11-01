@@ -49,7 +49,7 @@ public class RegisterForEvent extends HttpServlet {
 			request.setAttribute("start", start);
 			request.setAttribute("end", end);
 
-			request.getRequestDispatcher("/Calander/RegisterForEvent.jsp").forward(request, response);
+			request.getRequestDispatcher("/Calendar/RegisterForEvent.jsp").forward(request, response);
 		} catch (SQLException e) {
 			throw new ServletException(e);
 		}

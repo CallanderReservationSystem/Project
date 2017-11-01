@@ -14,6 +14,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import models.CalendarModel;
 
@@ -103,6 +104,8 @@ public class Member extends HttpServlet {
 			}
 			
 			System.out.println("user cal size: " + calanders.size());
+			HttpSession session = request.getSession();
+			session.setAttribute("myCalanders", calanders);
 			request.setAttribute("myCalanders", calanders);
 			request.setAttribute("username", username);
 			request.setAttribute("userpostion", userposition);

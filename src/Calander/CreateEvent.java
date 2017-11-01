@@ -30,7 +30,7 @@ public class CreateEvent extends HttpServlet {
 	private ArrayList<Table> tabels = new ArrayList<Table>();
 	private String UserName;
 	private String CalName;
-	private String CalId;
+	private Integer CalId;
 	private Integer eventCount; // change to Int
 	private Integer uid = 0;
 	private Boolean hasError = false;
@@ -56,7 +56,7 @@ public class CreateEvent extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		CalId = request.getParameter("id");
+		CalId = Integer.parseInt(request.getParameter("id"));
 		
 		System.out.println("cal id: " + CalId);
 		
@@ -64,7 +64,7 @@ public class CreateEvent extends HttpServlet {
 		System.out.println("cal name: " + CalName);
 
 		request.setAttribute("Calendarname", CalName);
-		request.getRequestDispatcher("Calander/CreateEvent.jsp").forward(request, response);
+		request.getRequestDispatcher("Calendar/CreateEvent.jsp").forward(request, response);
 
 	}
 
@@ -139,7 +139,7 @@ public class CreateEvent extends HttpServlet {
 		} else {
 			Integer userId = getId(request);
 			System.out.println(userId);
-			Integer calendarId = Integer.parseInt(CalId);
+			Integer calendarId = CalId;
 			Connection c = null;
 			String url = "jdbc:mysql://cs3.calstatela.edu/cs3337stu03";
 			String SQLuser = "cs3337stu03";
@@ -152,7 +152,7 @@ public class CreateEvent extends HttpServlet {
 				PreparedStatement ps = c.prepareStatement(sql);
 				ps.executeUpdate();
 				System.out.println("Done!!!");
-				request.getRequestDispatcher("Calander/Calendar.jsp").forward(request, response);
+				request.getRequestDispatcher("Calendar/Calendar.jsp").forward(request, response);
 
 			} catch (SQLException e) {
 				throw new ServletException(e);

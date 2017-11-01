@@ -5,7 +5,7 @@ public class CalendarEventModel {
 
 	public int id;
 	public Integer uid;
-	public String cid; // need to change back to Integer
+	public Integer cid; // need to change back to Integer
 	public String title;
 	public String start;
 	public String end;
@@ -16,7 +16,7 @@ public class CalendarEventModel {
 	public Integer tableCount;
 	public Integer seatsPerTable;
 
-	public CalendarEventModel(int id, Integer uid, String cid, String title, String start, String end, String start_time, String end_time, String url, String color,
+	public CalendarEventModel(int id, Integer uid, Integer cid, String title, String start, String end, String start_time, String end_time, String url, String color,
 			Integer tableCount, Integer seatsPerTable) {
 		super();
 		this.id = id;

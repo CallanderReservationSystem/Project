@@ -32,7 +32,7 @@ public class CalendarEventFiller extends HttpServlet {
 
 		Integer id;
 		Integer uid;
-		String cid = (String) request.getSession().getAttribute("cId"); // need to change to Integer
+		Integer cid = (Integer) request.getSession().getAttribute("cId"); // need to change to Integer
 		System.out.println("event cal id: " + cid);
 		String title = null;
 		String start;
