@@ -14,7 +14,7 @@
 		</h1>
 	</div>
 	<div class="container">
-			<a class="btn btn-primary" href="Main">Home</a>	
+			<a class="btn btn-primary" href="../Main">Home</a>	
 	</div>
 </body>
 </html>

@@ -144,8 +144,8 @@ public class CreateEvent extends HttpServlet {
 			String url = "jdbc:mysql://cs3.calstatela.edu/cs3337stu03";
 			String SQLuser = "cs3337stu03";
 			String SQLpass = "K!c7YAg.";
-			String sql = "INSERT INTO events (uid, cid, title, start, end, details) VALUES ('" + userId + "','"
-					+ calendarId + "','" + eventName + "','" + startTime + "','" + endTime + "','" + description + "')";
+			String sql = "INSERT INTO events (uid, cid, title, start_date, end_date, start, end, details) VALUES ('" + userId + "','"
+					+ calendarId + "','" + eventName + "','" + date + "','" + date + "','" + startTime + "','" + endTime + "','" + description + "')";
 
 			try {
 				c = DriverManager.getConnection(url, SQLuser, SQLpass);
