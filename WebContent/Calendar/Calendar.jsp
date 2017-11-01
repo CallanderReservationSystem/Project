@@ -24,7 +24,7 @@
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
 	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
 	crossorigin="anonymous">
-<title>${username}Home ( ${cName} )</title>
+<title>${username} On ( ${cName} )</title>
 
 <link href='css/fullcalendar.min.css' rel='stylesheet' />
 <link href='css/fullcalendar.print.min.css' rel='stylesheet'
@@ -141,7 +141,7 @@ body {
 
 
 	<div>
-		<h1>${username}Calendar ( ${cName} )</h1>
+		<h1>${username} Calendar on ( ${cName} )</h1>
 		<div class="page-header">
 			<nav class="navbar navbar-default">
 			<div class="container-fluid">
