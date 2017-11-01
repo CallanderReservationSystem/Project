@@ -41,18 +41,19 @@ public class CalendarEventFiller extends HttpServlet {
 		String end = null;
 //		String details;
 		String color = null;
+		String url;
 		Integer tableCount = null;
 		Integer seatsPerTable = null;
 		Connection c = null;
 
-		String url = "jdbc:mysql://cs3.calstatela.edu/cs3337stu03";
+		String sqlUrl = "jdbc:mysql://cs3.calstatela.edu/cs3337stu03";
 		String SQLuser = "cs3337stu03";
 		String SQLpass = "K!c7YAg.";
 		String sql = "select * from events where cid =" + cid + " ";
 
 		try {
 
-			c = DriverManager.getConnection(url, SQLuser, SQLpass);
+			c = DriverManager.getConnection(sqlUrl, SQLuser, SQLpass);
 			Statement st = c.createStatement();
 			ResultSet rs = st.executeQuery(sql);
 
@@ -65,7 +66,8 @@ public class CalendarEventFiller extends HttpServlet {
 				end_date = rs.getDate("end_date");
 				start = rs.getString("start");
 				end = rs.getString("end");
-				events.add(new CalendarEventModel(id, uid, cid, title, start_date, end_date, start, end, color,
+				url = "RegisterForEvent?id=" + cid + "";
+				events.add(new CalendarEventModel(id, uid, cid, title, start_date, end_date, start, end, url, color,
 						tableCount, seatsPerTable));
 			}
 		} catch (SQLException e) {

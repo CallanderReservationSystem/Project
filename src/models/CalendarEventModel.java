@@ -12,11 +12,12 @@ public class CalendarEventModel {
 	public Date end_date;
 	public String start;
 	public String end;
+	public String url;
 	public String color;
 	public Integer tableCount;
 	public Integer seatsPerTable;
 
-	public CalendarEventModel(int id, Integer uid, String cid, String title, Date start_date, Date end_date, String start, String end, String color,
+	public CalendarEventModel(int id, Integer uid, String cid, String title, Date start_date, Date end_date, String start, String end, String url, String color,
 			Integer tableCount, Integer seatsPerTable) {
 		super();
 		this.id = id;
@@ -27,6 +28,7 @@ public class CalendarEventModel {
 		this.end_date = end_date;
 		this.start = start;
 		this.end = end;
+		this.url = url;
 		this.color = color;
 		this.tableCount = tableCount;
 		this.seatsPerTable = seatsPerTable;

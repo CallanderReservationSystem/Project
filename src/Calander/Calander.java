@@ -110,6 +110,7 @@ public class Calander extends HttpServlet {
 		String start = null;
 		String end = null;
 		String color = null;
+		String eventUrl = null;
 		Integer tableCount = null;
 		Integer seatsPerTable = null;
 
@@ -134,7 +135,8 @@ public class Calander extends HttpServlet {
 				end_date = rs.getDate("end_date");
 				start = rs.getString("start");
 				end = rs.getString("end");
-				events.add(new CalendarEventModel(id, userId, calendarId, title, start_date, end_date, start, end, color, tableCount,
+				eventUrl = "RegisterForEvent?id= " + calendarId + " ";
+				events.add(new CalendarEventModel(id, userId, calendarId, title, start_date, end_date, start, end, eventUrl, color, tableCount,
 						seatsPerTable));
 			}
 			// request.setAttribute("events", events);
