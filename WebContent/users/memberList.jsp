@@ -56,7 +56,7 @@
 						<td>${m.uid}</td>
 						<td>${m.name}</td>
 						<td>${m.upos}</td>
-						<td>${m.status}</td>
+						<td>${m.status}</td> <!-- display calendar count instead. -->
 					</tr>			
 				</c:forEach>
 			</table>

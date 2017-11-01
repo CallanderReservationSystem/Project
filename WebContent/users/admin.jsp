@@ -59,6 +59,18 @@
 				</nav>
 				<h1>Welcome to the admin page, ${username}.</h1>
 				<h1>user position: <%= userposition%></h1>
+				To Deactivate user: 
+				<input type="text" name="username" placeholder="Enter username here...">
+				<input type="submit" value="Deactivate">
+				 <br>
+				To Reactivate user:
+				<input type="text" name="username" placeholder="Enter username here...">
+				<input type="submit" value="Reactivate">
+				<br>
+				To Delete user:
+				<input type="text" name="username" placeholder="Enter username here..."> 
+				<input type="submit" value="Delete">
+				<br>
 			</div>
 		</div>
 	</div>
