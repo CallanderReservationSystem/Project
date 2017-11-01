@@ -35,10 +35,10 @@ public class CalendarEventFiller extends HttpServlet {
 		String cid = (String) request.getSession().getAttribute("cId"); // need to change to Integer
 		System.out.println("event cal id: " + cid);
 		String title = null;
-		Date start_date;
-		Date end_date;
-		String start = null;
-		String end = null;
+		String start;
+		String end;
+		String start_time = null;
+		String end_time = null;
 //		String details;
 		String color = null;
 		String url;
@@ -62,12 +62,12 @@ public class CalendarEventFiller extends HttpServlet {
 				id = rs.getInt("id");
 				uid = rs.getInt("uid");
 				title = rs.getString("title");
-				start_date = rs.getDate("start_date");
-				end_date = rs.getDate("end_date");
-				start = rs.getString("start");
-				end = rs.getString("end");
+				start = rs.getString("start_date");
+				end = rs.getString("end_date");
+				start_time = rs.getString("start");
+				end_time = rs.getString("end");
 				url = "RegisterForEvent?id=" + cid + "";
-				events.add(new CalendarEventModel(id, uid, cid, title, start_date, end_date, start, end, url, color,
+				events.add(new CalendarEventModel(id, uid, cid, title, start, end, start_time, end_time, url, color,
 						tableCount, seatsPerTable));
 			}
 		} catch (SQLException e) {

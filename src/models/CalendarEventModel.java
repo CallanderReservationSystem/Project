@@ -1,6 +1,5 @@
 package models;
 
-import java.util.Date;
 
 public class CalendarEventModel {
 
@@ -8,26 +7,26 @@ public class CalendarEventModel {
 	public Integer uid;
 	public String cid; // need to change back to Integer
 	public String title;
-	public Date start_date;
-	public Date end_date;
 	public String start;
 	public String end;
+	public String start_time;
+	public String end_time;
 	public String url;
 	public String color;
 	public Integer tableCount;
 	public Integer seatsPerTable;
 
-	public CalendarEventModel(int id, Integer uid, String cid, String title, Date start_date, Date end_date, String start, String end, String url, String color,
+	public CalendarEventModel(int id, Integer uid, String cid, String title, String start, String end, String start_time, String end_time, String url, String color,
 			Integer tableCount, Integer seatsPerTable) {
 		super();
 		this.id = id;
 		this.uid = uid;
 		this.cid = cid;
 		this.title = title;
-		this.start_date = start_date;
-		this.end_date = end_date;
 		this.start = start;
 		this.end = end;
+		this.start_time = start_time;
+		this.end_time = end_time;
 		this.url = url;
 		this.color = color;
 		this.tableCount = tableCount;
@@ -40,11 +39,11 @@ public class CalendarEventModel {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Date getStart_date() {
-		return start_date;
+	public String getStart() {
+		return start;
 	}
-	public void setStart_date(Date start_date) {
-		this.start_date = start_date;
+	public void setStart(String start) {
+		this.start = start;
 	}
 
 	public String getColor() {
@@ -71,12 +70,12 @@ public class CalendarEventModel {
 		this.title = title;
 	}
 
-	public String getStart() {
-		return start;
+	public String getStart_time() {
+		return start_time;
 	}
 
-	public void setStart(String start) {
-		this.start = start;
+	public void setStart_time(String start_time) {
+		this.start_time = start_time;
 	}
 
 	public String getEnd() {

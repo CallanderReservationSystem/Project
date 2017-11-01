@@ -105,8 +105,8 @@ public class Calander extends HttpServlet {
 		String calendarId = Id; // change back to Integer
 		System.out.println("cal id 2: " + calendarId);
 		String title = null;
-		Date start_date;
-		Date end_date;
+		String start_date;
+		String end_date;
 		String start = null;
 		String end = null;
 		String color = null;
@@ -131,8 +131,8 @@ public class Calander extends HttpServlet {
 			while (rs.next()) {
 				id = rs.getInt("id");
 				title = rs.getString("title");
-				start_date = rs.getDate("start_date");
-				end_date = rs.getDate("end_date");
+				start_date = rs.getString("start_date");
+				end_date = rs.getString("end_date");
 				start = rs.getString("start");
 				end = rs.getString("end");
 				eventUrl = "RegisterForEvent?id= " + calendarId + " ";
