@@ -1,4 +1,4 @@
-package main;
+package users;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -15,7 +15,7 @@ public class Admin extends HttpServlet {
 			throws ServletException, IOException {
 		String username = (String) request.getSession().getAttribute("Username");
 		request.setAttribute("username", username);
-		request.getRequestDispatcher("admin.jsp").forward(request, response);
+		request.getRequestDispatcher("/users/admin.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)

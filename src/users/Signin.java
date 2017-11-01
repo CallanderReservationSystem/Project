@@ -1,4 +1,4 @@
-package main;
+package users;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -16,6 +16,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import models.MyModel;
 
 @WebServlet("/Signin")
 public class Signin extends HttpServlet {

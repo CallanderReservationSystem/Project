@@ -1,4 +1,4 @@
-package main;
+package models;
 
 public class MyModel {
 
@@ -31,5 +31,4 @@ public class MyModel {
 		this.upos = upos;
 		this.uid = uid;
 	}
-
 }

@@ -1,4 +1,4 @@
-package main;
+package Calander;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -16,6 +16,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import models.CalendarModel;
+import models.MyModel;
+
 @WebServlet("/CreateCalander")
 public class CreateCalander extends HttpServlet {
 
@@ -31,7 +34,7 @@ public class CreateCalander extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		request.getRequestDispatcher("CreateCalander.jsp").forward(request, response);
+		request.getRequestDispatcher("Calander/CreateCalander.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -98,9 +101,9 @@ public class CreateCalander extends HttpServlet {
 						throw new ServletException(e);
 					}
 				}
-				request.setAttribute("user", UserName);
+				request.setAttribute("username", UserName);
 				request.setAttribute("calanderName", CalName);
-				request.getRequestDispatcher("Home.jsp").forward(request, response);
+				request.getRequestDispatcher("Member").forward(request, response);
 			}
 		}
 		hasError = false;

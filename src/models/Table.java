@@ -1,7 +1,7 @@
-package main;
+package models;
 
 public class Table {
-	
+
 	public int seatesPerTable;
 
 	public int getSeatesPerTable() {
@@ -17,9 +17,4 @@ public class Table {
 		this.seatesPerTable = seatesPerTable;
 	}
 	
-	
-	
-	
-	
-
 }

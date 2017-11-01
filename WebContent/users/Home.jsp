@@ -11,7 +11,7 @@
 		name = (String) session.getAttribute("Username");
 		userposition = (String) session.getAttribute("Userpos");
 	} else {
-		response.sendRedirect("Index.jsp");
+		response.sendRedirect("../Index.jsp");
 	}
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -63,11 +63,11 @@
 					<%
 						if (userposition.equals("A")) {
 					%>
-					<%@include file="inc/inc_admin_nav.jsp"%>
+					<%@include file="/inc/inc_admin_nav.jsp"%>
 					<%
 						} else {
 					%>
-					<%@include file="inc/inc_user_nav.jsp"%>
+					<%@include file="/inc/inc_user_nav.jsp"%>
 					<%
 						}
 					%>
@@ -87,31 +87,33 @@
 				<div class="wrapper">
 					<nav id="sidebar">
 					<div>
- 						<table class="table table-striped table-bordered table-hover table-condensed" border="1">
- 							<tr><td>user-id</td><td>cal-name</td><td>events count</td></tr>
- 							<c:forEach items="${myCalanders}" var="cal">
- 								<tr>
- 									<td>${cal.uid}</td>
- 									<td><a href=Calendar?cid=${cal.id}> ${cal.calName}</a></td>
- 									<td>${cal.events}</td>
- 								</tr>			
- 							</c:forEach>
- 						</table>
- 					</div>
+						<table class="table table-striped table-bordered table-hover table-condensed" border="1">
+							<tr><td>user-id</td><td>cal-name</td><td>events count</td></tr>
+							<c:forEach items="${myCalanders}" var="cal">
+								<tr>
+									<td>${cal.uid}</td>
+									<td><a href=Calander?cid=${cal.cid}>${cal.calName}</a></td>
+									<td>${cal.events}</td>
+								</tr>			
+							</c:forEach>
+						</table>
+					</div>
+
 					<div class="sidebar-header">
 						<h3>Options</h3>
 					</div>
 					<ul class="options">
 
-						<li class="active"><a href="CreateCalendar.jsp">Create a
+
+						<li class="active"><a href="Calendar/CreateCalander.jsp">Create a
 								Calendar</a></li>
-						<li><a href="#deleteCalendar" data-toggle="collapse"
-							aria-expanded="false">Delete a Calendar</a>
-							<ul class="collapse list-unstyled" id="deleteCalendar">
+						<li><a href=DeleteCalendar>Delete a Calendar</a><!-- data-toggle="collapse"
+							aria-expanded="false" -->
+							<!-- <ul class="collapse list-unstyled" id="deleteCalendar">
 								<li>hello</li>
 								<li>this</li>
 								<li>will be replaced soon</li>
-							</ul></li>
+							</ul> --></li>
 						<li><a href="#editCalendar" data-toggle="collapse"
 							aria-expanded=false">Edit a Calendar</a>
 							<ul class="collapse list" id="editCalendar"></ul></li>
