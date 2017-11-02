@@ -60,7 +60,7 @@ public class CreateEvent extends HttpServlet {
 		
 		System.out.println("cal id: " + CalId);
 		
-		CalName = request.getParameter("name");
+		CalName = request.getParameter("calName");
 		System.out.println("cal name: " + CalName);
 
 		request.setAttribute("Calendarname", CalName);
@@ -71,9 +71,9 @@ public class CreateEvent extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		String calId = request.getParameter("cid");
+		String calId = request.getParameter("id");
 		System.out.println("cal id: " + calId);
-		String calName = request.getParameter("name");
+		String calName = request.getParameter("calName");
 		System.out.println("cal name: " + calName);
 		request.setAttribute("Calendarname", calName);
 
