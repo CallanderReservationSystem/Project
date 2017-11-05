@@ -35,6 +35,14 @@ public class EditEventInfo extends HttpServlet {
 //		response.getWriter().append("Served at: ").append(request.getContextPath());
 		Connection c = null;
 		
+		Integer eventID = Integer.parseInt(request.getParameter("id"));
+		String title = null;
+		String location = null;
+		String start = null;
+		String end = null;
+		Integer maxOccupancy = null;
+		Integer seatsPerTable = null;
+		
 		String url = "jdbc:mysql://cs3.calstatela.edu/cs3337stu03";
 		String SQLuser = "cs3337stu03";
 		String SQLpass = "K!c7YAg.";

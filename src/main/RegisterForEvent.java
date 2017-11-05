@@ -55,7 +55,6 @@ public class RegisterForEvent extends HttpServlet {
 				id = rs.getInt("id");
 				userId = rs.getInt("uid");
 				eventName = rs.getString("title");
-				//calId = rs.getInt("cid");
 				location = rs.getString("location");
 				start = rs.getString("start");
 				end = rs.getString("end");
