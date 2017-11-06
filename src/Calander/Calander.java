@@ -20,6 +20,7 @@ public class Calander extends HttpServlet {
 	// private ArrayList<CalendarEventModel> events = new
 	// ArrayList<CalendarEventModel>();
 	Integer Id;
+	Integer calId;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -34,7 +35,9 @@ public class Calander extends HttpServlet {
 		System.out.println("name: " + name);
 		Integer uid = (Integer) request.getSession().getAttribute("ssuid");
 		System.out.println("id: " + uid);
-		Integer calId = Integer.parseInt(request.getParameter("cid"));
+		if (request.getParameter("cid") != null) {
+			calId = Integer.parseInt(request.getParameter("cid"));
+		}
 		if (calId != null)
 			Id = calId;
 		System.out.println("new cal id: " + calId);

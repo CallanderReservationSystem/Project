@@ -66,7 +66,7 @@ public class CalendarEventFiller extends HttpServlet {
 				end = rs.getString("end_date");
 				start_time = rs.getString("start");
 				end_time = rs.getString("end");
-				url = "RegisterForEvent?id=" + cid + "";
+				url = "CreateTables?id=" + id + "&name=" + title + "";
 				events.add(new CalendarEventModel(id, uid, cid, title, start, end, start_time, end_time, url, color,
 						tableCount, seatsPerTable));
 			}

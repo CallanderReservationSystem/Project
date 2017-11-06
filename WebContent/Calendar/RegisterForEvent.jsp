@@ -11,6 +11,7 @@
 <body>
 	<h1>Registration Confirmation</h1>
 	<form method="post" action="RegisterForEvent" id="page">
+		Name: <input type="text" value="${title}">
 		Location: <input type="text" value="${location}" readonly>  <br>
 		Time: from <input type="text" value="${start}" readonly> to <input type="text" value="${end}" readonly> <br>
 		Time to be at the event: <input type="datetime-local" name="fromTime"> to <input type="datetime-local" name="toTime"> <br>
