@@ -47,10 +47,8 @@ public class DeleteCalendar extends HttpServlet {
 			
 			PreparedStatement ps = c.prepareStatement(sql);
 			ps.executeUpdate();
-			//request.getRequestDispatcher("Calendar/DeleteCalendar.jsp").forward(request, response);
 			System.out.println("done!!!");
-			response.sendRedirect("Member");
-			//doPost(request, response);
+
 		} catch (SQLException e) {
 			throw new ServletException(e);
 		} finally {
@@ -61,9 +59,30 @@ public class DeleteCalendar extends HttpServlet {
 				throw new ServletException(e);
 			}
 		}
-//		response.sendRedirect("users/success.jsp");
 		
-	}
+	 try {
+			String url = "jdbc:mysql://cs3.calstatela.edu/cs3337stu03";
+			String SQLuser = "cs3337stu03";
+			String SQLpass = "K!c7YAg.";
+			String sql = "delete FROM events WHERE cid =" + id + "";
+			c = DriverManager.getConnection(url, SQLuser, SQLpass);
+			
+			PreparedStatement ps = c.prepareStatement(sql);
+			ps.executeUpdate();
+			System.out.println("done!!! again");
+			response.sendRedirect("Member");
+		} catch (SQLException e) {
+			throw new ServletException(e);
+		} finally {
+			try {
+				if (c != null)
+					c.close();
+			} catch (SQLException e) {
+				throw new ServletException(e);
+			}
+		}
+		 
+	 }
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);

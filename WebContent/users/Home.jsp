@@ -105,8 +105,7 @@
 					<ul class="options">
 
 
-						<li class="active"><a href="Calendar/CreateCalander.jsp">Create a
-								Calendar</a></li>
+						<li class="active"><a href="Calendar/CreateCalander.jsp">Create a Calendar</a></li>
 						<li><a href=DeleteCalendar>Delete a Calendar</a><!-- data-toggle="collapse"
 							aria-expanded="false" -->
 							<!-- <ul class="collapse list-unstyled" id="deleteCalendar">

@@ -17,7 +17,7 @@
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<head>
+<head>"src/Calander/Calander.java"
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet"
@@ -34,19 +34,46 @@
 <script src='js/fullcalendar.min.js'></script>
 
 
+
+
 <script>
+var date = moment().subtract( 1, "day");
+
+
 	$(document).ready(
 			function() {
 
 				$('#calendar').fullCalendar(
 						{
+							
 
 							header : {
-								left : 'prev,next today',
+								left : 'prev,next,dayForward today',
 								center : 'title',
-								right : 'month,agendaWeek,agendaDay'
+								right : 'month,agendaWeek,agendaDay,agendaCustom'
 							},
-							/* defaultDate : '2017-10-12', */
+							
+							/* customButtons: {
+								dayForward: {
+									text: '+',
+									click: function() {
+										incrementDate:
+									}
+								}
+							}, */
+							
+							
+						 	views: {
+							  agendaCustom: {
+								  type: 'agenda',
+								  duration: { days : 7 },
+								  firstDay: date,
+								  buttonText: 'Forcast'
+								  
+							  }	
+							}, 
+							
+							
 
 							navLinks : true, // can click day/week names to navigate views
 							selectable : true,
@@ -65,60 +92,11 @@
 								}
 								$('#calendar').fullCalendar('unselect');
 							},
-
-							/* dayClick : function() {
-								alert('a day has been clicked!');
-								window.location.href = "Member.jsp";
-							}, */
-
-							/* defaultDate : '2017-10-12', */
 							editable : true,
 							eventLimit : true, // allow "more" link when too many events
-							events : "/Calendar/CalendarEventFiller" 
-								/* [ {
-								title : 'All Day Event',
-								start : '2017-09-01'
-							}, {
-								title : 'Long Event',
-								start : '2017-09-07',
-								end : '2017-09-10'
-							}, {
-								id : 999,
-								title : 'Repeating Event',
-								start : '2017-09-09T16:00:00'
-							}, {
-								id : 999,
-								title : 'Repeating Event',
-								start : '2017-09-16T16:00:00'
-							}, {
-								title : 'Conference',
-								start : '2017-09-11',
-								end : '2017-09-13'
-							}, {
-								title : 'Meeting',
-								start : '2017-09-12T10:30:00',
-								end : '2017-09-12T12:30:00'
-							}, {
-								title : 'Lunch',
-								start : '2017-09-12T12:00:00'
-							}, {
-								title : 'Meeting',
-								start : '2017-09-12T14:30:00'
-							}, {
-								title : 'Happy Hour',
-								start : '2017-09-12T17:30:00'
-							}, {
-								title : 'Dinner',
-								start : '2017-09-12T20:00:00'
-							}, {
-								title : 'Birthday Party',
-								start : '2017-09-13T07:00:00'
-							}, {
-								title : 'Click for Google',
-								url : 'Home.jsp?username=${username}',
-								start : '2017-09-28'
-							} ] */
-
+							events : "/calanderProject/CalendarEventFiller"
+								
+							
 						});
 
 			});

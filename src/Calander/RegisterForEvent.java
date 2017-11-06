@@ -29,7 +29,7 @@ public class RegisterForEvent extends HttpServlet {
 		String url = "jdbc:mysql://cs3.calstatela.edu/cs3337stu03";
 		String SQLuser = "cs3337stu03";
 		String SQLpass = "K!c7YAg.";
-		String sql = "select * from events where cid = " + calId;
+		String sql = "select * from events where id = " + calId;
 
 		try {
 			c = DriverManager.getConnection(url, SQLuser, SQLpass);

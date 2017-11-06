@@ -56,13 +56,10 @@ public class CreateEvent extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		CalId = Integer.parseInt(request.getParameter("id"));
-		
+		CalId = Integer.parseInt(request.getParameter("id"));	
 		System.out.println("cal id: " + CalId);
-		
 		CalName = request.getParameter("calName");
 		System.out.println("cal name: " + CalName);
-
 		request.setAttribute("Calendarname", CalName);
 		request.getRequestDispatcher("Calendar/CreateEvent.jsp").forward(request, response);
 
