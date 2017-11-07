@@ -1,0 +1,98 @@
+package models;
+
+public class CalendarEventModel {
+
+	public int id;
+	public Integer uid;
+	public Integer cid; 
+	public String title;
+	public String start;
+	public String end;
+	public String start_time;
+	public String end_time;
+	public String details;
+	public String color;
+	public Integer tableCount;
+	public Integer seatsPerTable;
+	public String location;
+
+	public CalendarEventModel(int id, Integer uid, Integer cid, String title, String start, String end, String start_time, String end_time, String details, String color,
+			Integer tableCount, Integer seatsPerTable, String location) {
+		
+		this.id = id;
+		this.uid = uid;
+		this.cid = cid;
+		this.title = title;
+		this.start = start;
+		this.end = end;
+		this.start_time = start_time;
+		this.end_time = end_time;
+		this.details = details;
+		this.color = color;
+		this.tableCount = tableCount;
+		this.seatsPerTable = seatsPerTable;
+		this.location = location;
+	}
+
+	
+
+	public CalendarEventModel() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public String getStart() {
+		return start;
+	}
+	public void setStart(String start) {
+		this.start = start;
+	}
+
+	public String getColor() {
+		return color;
+	}
+
+	public void setColor(String color) {
+		this.color = color;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+	public Integer getCid() {
+		return cid;
+	}
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getStart_time() {
+		return start_time;
+	}
+
+	public void setStart_time(String start_time) {
+		this.start_time = start_time;
+	}
+
+	public String getEnd() {
+		return end;
+	}
+
+	public void setEnd(String end) {
+		this.end = end;
+	}
+	public String getLocation() {
+		return location;
+	}
+	public void setLocation(String location) {
+		this.location = location;
+	}
+
+}
