@@ -27,6 +27,7 @@ public class Calander extends HttpServlet {
 	private ArrayList<CalendarEventModel> events = new ArrayList<CalendarEventModel>();
 	Integer Id;
 
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// ArrayList<CalanderModel> calander = new ArrayList<CalanderModel>();
@@ -34,8 +35,7 @@ public class Calander extends HttpServlet {
 		Integer userId = null;
 		String calName = null;
 		String eventCount = null;
-		// request.getRequestDispatcher("Calendar.jsp").forward(request,
-		// response);
+
 		String name = (String) request.getSession().getAttribute("Username");
 		System.out.println("name: " + name);
 		Integer uid = (Integer) request.getSession().getAttribute("ssuid");
@@ -97,7 +97,6 @@ public class Calander extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 	}
-	
 
 	private void printEvents(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -112,7 +111,7 @@ public class Calander extends HttpServlet {
 		String end;
 		String start_time = null;
 		String end_time = null;
-//		String details;
+		// String details;
 		String color = null;
 		String url;
 		Integer tableCount = null;
@@ -129,23 +128,23 @@ public class Calander extends HttpServlet {
 			c = DriverManager.getConnection(sqlUrl, SQLuser, SQLpass);
 			Statement st = c.createStatement();
 			ResultSet rs = st.executeQuery(sql);
-			//events.clear();
-			
+			// events.clear();
+
 			while (rs.next()) {
 				id = rs.getInt("id");
-				System.out.println("Id is :" +id);
+				System.out.println("Id is :" + id);
 				uid = rs.getInt("uid");
-				System.out.println("uId is :" +uid);
+				System.out.println("uId is :" + uid);
 				title = rs.getString("title");
-				System.out.println("title is :" +title);
+				System.out.println("title is :" + title);
 				start = rs.getString("start_date");
-				System.out.println("start_date is :" +start);
+				System.out.println("start_date is :" + start);
 				end = rs.getString("end_date");
-				System.out.println("end_date is :" +end);
+				System.out.println("end_date is :" + end);
 				start_time = rs.getString("start");
-				System.out.println("start_time is :" +start_time);
+				System.out.println("start_time is :" + start_time);
 				end_time = rs.getString("end");
-				System.out.println("end_time is :" +end_time);
+				System.out.println("end_time is :" + end_time);
 				url = "RegisterForEvent?id=" + cid + "";
 				events.add(new CalendarEventModel(id, uid, cid, title, start, end, start_time, end_time, url, color,
 						tableCount, seatsPerTable));
@@ -166,9 +165,9 @@ public class Calander extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 		PrintWriter out = response.getWriter();
 		out.write(new Gson().toJson(events));
-		for(CalendarEventModel e : events ) {
+		for (CalendarEventModel e : events) {
 			System.out.println(e.id);
 		}
-		
+
 	}
 }
