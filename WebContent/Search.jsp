@@ -28,8 +28,9 @@
 				
 				<c:forEach var="user" items="${requestScope.users }">
 					<div >
-					<c:out value="${user }"/> 
-					<button class="btn btn-link">Follow</button>
+					<a href="View?name=${user}">
+					<c:out value="${user }"/>
+					</a>
 					</div>
 				</c:forEach>
 				
