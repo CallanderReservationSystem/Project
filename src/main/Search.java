@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/Search")
 public class Search extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+      String username = "";
     
     public void init(ServletConfig config) throws ServletException {
     		super.init(config);
@@ -34,15 +34,29 @@ public class Search extends HttpServlet {
 
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("Search.jsp").forward(request, response);
+		username = (String) request.getSession().getAttribute("username");
+		if(username == null) {
+			request.setAttribute("noUser", "You Must Login First!");
+			response.sendRedirect("Main");
+			
+		} else {
+			request.getRequestDispatcher("Search.jsp").forward(request, response);
+		}
 	}
 
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		username = (String) request.getSession().getAttribute("username");
+		if(username == null) {
+			request.setAttribute("noUser", "You Must Login First!");
+			response.sendRedirect("Main");
+			return;
+			
+		}
 		ArrayList<String> users = new ArrayList<String>();
 		String search = request.getParameter("search");
 		if (search == null || search.trim().length() == 0) {
-		
+			request.getRequestDispatcher("Search.jsp").forward(request, response);
 		}
 		else {
 			boolean notFound = true;
@@ -60,9 +74,10 @@ public class Search extends HttpServlet {
 					String name = rs.getString("username");
 					
 					if(name.toLowerCase().contains(search.toLowerCase())) {
-						users.add(name);
+						if(!(username.equals(name))) {
+							users.add(name);
 						notFound = false;
-						
+						}
 					}
 				}
 			} catch(SQLException e) {
