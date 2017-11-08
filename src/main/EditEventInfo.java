@@ -46,11 +46,13 @@ public class EditEventInfo extends HttpServlet {
 		String url = "jdbc:mysql://cs3.calstatela.edu/cs3337stu03";
 		String SQLuser = "cs3337stu03";
 		String SQLpass = "K!c7YAg.";
+		String sql = "update event set title = null where id = " + eventID;
 		
 		try
 		{
 			c = DriverManager.getConnection(url, SQLuser, SQLpass);
 			Statement st = c.createStatement();
+			
 			request.getRequestDispatcher("EditEventInfo.jsp").forward(request, response);
 		}
 		catch (SQLException e)

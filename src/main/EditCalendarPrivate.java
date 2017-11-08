@@ -35,9 +35,13 @@ public class EditCalendarPrivate extends HttpServlet {
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
 		Connection c = null;
 		
+		Integer calID = Integer.parseInt(request.getParameter("id"));
+		
 		String url = "jdbc:mysql://cs3.calstatela.edu/cs3337stu03";
 		String SQLuser = "cs3337stu03";
 		String SQLpass = "K!c7YAg.";
+		String sqlGrab = "select cal_name from calendar where id = " + calID;
+		String sqlName = "update calendar set cal_name = test where id = " + calID;
 		
 		try
 		{

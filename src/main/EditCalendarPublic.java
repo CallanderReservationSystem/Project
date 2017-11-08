@@ -36,14 +36,26 @@ public class EditCalendarPublic extends HttpServlet {
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
 		Connection c = null;
 		
+		Integer calID = Integer.parseInt(request.getParameter("id"));
+		String cal_name = null;
+		
 		String url = "jdbc:mysql://cs3.calstatela.edu/cs3337stu03";
 		String SQLuser = "cs3337stu03";
 		String SQLpass = "K!c7YAg.";
+		String sqlGrab = "select cal_name from calendar where id = " + calID;
+		String sql = "update calendar set cal_name = test where id = " + calID;
 		
 		try
 		{
 			c = DriverManager.getConnection(url, SQLuser, SQLpass);
 			Statement st = c.createStatement();
+			ResultSet rs = st.executeQuery(sqlGrab);
+			
+			while(rs.next())
+			{
+				cal_name = rs.getString("cal_name");
+			}
+			
 			request.getRequestDispatcher("EditCalendarPublic.jsp").forward(request, response);
 		}
 		catch (SQLException e)
