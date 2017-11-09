@@ -55,7 +55,7 @@ public class Search extends HttpServlet {
 		ArrayList<String> users = new ArrayList<String>();
 		String search = request.getParameter("search");
 		if (search == null || search.trim().length() == 0) {
-			request.getRequestDispatcher("Search.jsp").forward(request, response);
+			request.getRequestDispatcher("Calendar/Search.jsp").forward(request, response);
 		}
 		else {
 			boolean notFound = true;

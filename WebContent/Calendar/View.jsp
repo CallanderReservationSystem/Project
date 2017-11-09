@@ -20,7 +20,7 @@
           <ul class="nav navbar-nav">
           	<%--Set proper links to options --%>
             <li><a><strong>${sUser }</strong></a></li>
-            <li><a href="Memeber">Home</a></li>
+            <li><a href="Member">Home</a></li>
             <li><a href="Search">Back to Search</a></li>
           </ul>
         </div>
@@ -62,6 +62,9 @@
 						<c:if test="${eventsFound eq false}">
 							<p>No events for this calendar</p>
 						</c:if>	
+						<form action="Member" method="get">
+						<input type="submit" class="btn" value="Follow ">
+						</form>
 						</div>
 					
 				</c:forEach>
