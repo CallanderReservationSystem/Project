@@ -15,9 +15,10 @@ public class CalendarEventModel {
 	public String color;
 	public Integer tableCount;
 	public Integer seatsPerTable;
+	public String location;
 
 	public CalendarEventModel(int id, Integer uid, Integer cid, String title, String start, String end, String start_time, String end_time, String url, String color,
-			Integer tableCount, Integer seatsPerTable) {
+			Integer tableCount, Integer seatsPerTable, String location) {
 		super();
 		this.id = id;
 		this.uid = uid;
@@ -31,12 +32,23 @@ public class CalendarEventModel {
 		this.color = color;
 		this.tableCount = tableCount;
 		this.seatsPerTable = seatsPerTable;
+		this.location = location;
+	}
+	
+	public CalendarEventModel() {
+		// TODO Auto-generated constructor stub
 	}
 
 	
 
-	public CalendarEventModel() {
-		// TODO Auto-generated constructor stub
+	public String getLocation() {
+		return location;
+	}
+
+
+
+	public void setLocation(String location) {
+		this.location = location;
 	}
 
 	public String getStart() {

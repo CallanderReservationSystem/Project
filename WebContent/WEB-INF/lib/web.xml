@@ -9,4 +9,15 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+  
+  <servlet-mapping>
+	<servlet-name>Calander</servlet-name>	
+	<url-pattern>/Calander/</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+	<servlet-name>CreateEvent</servlet-name>	
+	<url-pattern>/CreateEvent/</url-pattern>
+  </servlet-mapping>
+  
 </web-app>

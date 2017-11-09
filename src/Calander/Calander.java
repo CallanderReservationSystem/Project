@@ -35,15 +35,24 @@ public class Calander extends HttpServlet {
 		Integer userId = null;
 		String calName = null;
 		String eventCount = null;
-
+		Integer calId;
 		String name = (String) request.getSession().getAttribute("Username");
 		System.out.println("name: " + name);
 		Integer uid = (Integer) request.getSession().getAttribute("ssuid");
 		System.out.println("id: " + uid);
-		Integer calId = Integer.parseInt(request.getParameter("cid"));
-		if (calId != null)
+		
+		String calIdString = request.getParameter("cid");
+		System.out.println(calIdString);
+		if (calIdString != null) {
+			calId = Integer.parseInt(calIdString);
 			Id = calId;
-		System.out.println("new cal id: " + calId);
+		}
+		else {
+			Id = (Integer) request.getSession().getAttribute("cid");
+		}
+	
+		
+		System.out.println("new cal id: " + Id);
 
 		System.out.println("my id: " + Id);
 
@@ -52,7 +61,7 @@ public class Calander extends HttpServlet {
 		String url = "jdbc:mysql://cs3.calstatela.edu/cs3337stu03";
 		String SQLuser = "cs3337stu03";
 		String SQLpass = "K!c7YAg.";
-		String sql = "select * from calendar where id = " + calId + "";
+		String sql = "select * from calendar where id = " + Id + "";
 
 		try {
 
@@ -77,7 +86,7 @@ public class Calander extends HttpServlet {
 			request.setAttribute("cName", calName);
 			request.setAttribute("eCount", eventCount);
 
-			printEvents(request, response);
+	
 
 			request.getRequestDispatcher("Calendar/Calendar.jsp").forward(request, response);
 
@@ -98,76 +107,4 @@ public class Calander extends HttpServlet {
 			throws ServletException, IOException {
 	}
 
-	private void printEvents(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		List<CalendarEventModel> events = new ArrayList<CalendarEventModel>();
-
-		Integer id;
-		Integer uid;
-		Integer cid = (Integer) request.getSession().getAttribute("cId"); // need to change to Integer
-		System.out.println("event cal id: " + cid);
-		String title = null;
-		String start;
-		String end;
-		String start_time = null;
-		String end_time = null;
-		// String details;
-		String color = null;
-		String url;
-		Integer tableCount = null;
-		Integer seatsPerTable = null;
-		Connection c = null;
-
-		String sqlUrl = "jdbc:mysql://cs3.calstatela.edu/cs3337stu03";
-		String SQLuser = "cs3337stu03";
-		String SQLpass = "K!c7YAg.";
-		String sql = "select * from events where cid =" + cid + " ";
-
-		try {
-
-			c = DriverManager.getConnection(sqlUrl, SQLuser, SQLpass);
-			Statement st = c.createStatement();
-			ResultSet rs = st.executeQuery(sql);
-			// events.clear();
-
-			while (rs.next()) {
-				id = rs.getInt("id");
-				System.out.println("Id is :" + id);
-				uid = rs.getInt("uid");
-				System.out.println("uId is :" + uid);
-				title = rs.getString("title");
-				System.out.println("title is :" + title);
-				start = rs.getString("start_date");
-				System.out.println("start_date is :" + start);
-				end = rs.getString("end_date");
-				System.out.println("end_date is :" + end);
-				start_time = rs.getString("start");
-				System.out.println("start_time is :" + start_time);
-				end_time = rs.getString("end");
-				System.out.println("end_time is :" + end_time);
-				url = "RegisterForEvent?id=" + cid + "";
-				events.add(new CalendarEventModel(id, uid, cid, title, start, end, start_time, end_time, url, color,
-						tableCount, seatsPerTable));
-				System.out.println(events.size());
-			}
-		} catch (SQLException e) {
-			throw new ServletException(e);
-		} finally {
-			try {
-				if (c != null)
-					c.close();
-			} catch (SQLException e) {
-				throw new ServletException(e);
-			}
-		}
-
-		response.setContentType("application/json");
-		response.setCharacterEncoding("UTF-8");
-		PrintWriter out = response.getWriter();
-		out.write(new Gson().toJson(events));
-		for (CalendarEventModel e : events) {
-			System.out.println(e.id);
-		}
-
-	}
 }

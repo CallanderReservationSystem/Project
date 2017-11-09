@@ -40,6 +40,7 @@ public class CalendarEventFiller extends HttpServlet {
 		String start_time = null;
 		String end_time = null;
 //		String details;
+		String location = null;
 		String color = null;
 		String url;
 		Integer tableCount = null;
@@ -73,9 +74,10 @@ public class CalendarEventFiller extends HttpServlet {
 				System.out.println("start_time is :" +start_time);
 				end_time = rs.getString("end");
 				System.out.println("end_time is :" +end_time);
-				url = "CreateTables?id=" + id + "&name=" + title + "";
+				url = "CreateTables?id=" + id + "&name=" + title + "&cid=" + cid;
+				location =rs.getString("location");
 				events.add(new CalendarEventModel(id, uid, cid, title, start, end, start_time, end_time, url, color,
-						tableCount, seatsPerTable));
+						tableCount, seatsPerTable,location));
 			}
 		} catch (SQLException e) {
 			throw new ServletException(e);

@@ -44,7 +44,7 @@
 			</nav>
 		</div>
 		<div>
-			<a href="DeleteEvent?id=${eventId}">Delete This Event</a> <br>
+			<a href="DeleteEvent?id=${eventId}&cid=${cid}">Delete This Event</a> <br>
 			
 			<table class="table table-striped table-bordered table-hover table-condensed" border="1">
 				<tr>

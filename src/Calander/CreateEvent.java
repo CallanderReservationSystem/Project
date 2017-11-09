@@ -67,10 +67,11 @@ public class CreateEvent extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		System.out.println("CreateEvent");
 
-		String calId = request.getParameter("id");
+		Integer calId = CalId;// request.getParameter("id");
 		System.out.println("cal id: " + calId);
-		String calName = request.getParameter("calName");
+		String calName = CalName;//request.getParameter("calName");
 		System.out.println("cal name: " + calName);
 		request.setAttribute("Calendarname", calName);
 
@@ -148,9 +149,14 @@ public class CreateEvent extends HttpServlet {
 				c = DriverManager.getConnection(url, SQLuser, SQLpass);
 				PreparedStatement ps = c.prepareStatement(sql);
 				ps.executeUpdate();
+				
+				request.setAttribute("id", userId);
+				request.setAttribute("cid", CalId);
+				request.getPathInfo();
+				request.getRequestDispatcher("/Calander").forward(request, response);
+				
 				System.out.println("Done!!!");
-				request.getRequestDispatcher("Calendar/Calendar.jsp").forward(request, response);
-
+				
 			} catch (SQLException e) {
 				throw new ServletException(e);
 			} finally {

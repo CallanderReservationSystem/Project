@@ -11,7 +11,7 @@
 		name = (String) session.getAttribute("Username");
 		userposition = (String) session.getAttribute("Userpos");
 	} else {
-		response.sendRedirect("../Index.jsp");
+		response.sendRedirect("/Index.jsp");
 	}
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -129,7 +129,7 @@
 							<h3>Options</h3>
 						</div>
 						<ul class="options">
-							<li class="active"><a href="#findCalendar">Find a Calendar</a></li>
+							<li class="active"><a href=Search?username=${username}>Find a Calendar</a></li>
 							<li><a href="#unfollowCalendar" data-toggle="collapse" aria-expanded="false">Unfollow a Calendar</a>
 								<ul class="collapse list-unstyled" id="unfollowCalendar">
 									<li>hello</li>

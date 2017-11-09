@@ -31,7 +31,7 @@
 	
 	<h2>${Calendarname}:Create Event</h2>
 
-	<form method="post" action="CreateEvent">
+	<form name="filler" method="post" action="CreateEvent">
 
 		<c:if test="${not empty eventError }">
 			<p style="color: RED;">*${eventError}</p>
@@ -85,9 +85,7 @@
 			Location <input type="text" name="location" size="45" value="${param.location }">
 		</p>
 		
-		<!--  	<p>Location <input type="text" name="location" size="45" value="${param.location }"></p>
- -				 +		-->
- 
+
 		<p>Description</p>
 		
 		<textarea rows="5" cols="35" name="description" placeholder="Optional">${param.description }</textarea><br>
@@ -111,8 +109,9 @@
 		<input type="checkbox" name="tablesCheck" id="tablesCheck"> Remove Tables<br>
 		
 		<br>
-
-		<input type="submit" value="Create"><input type="reset" value="Reset">
+		
+		<input type="hidden" name="cid">
+		<input type="submit" value="Create" onclick="{document.filler.cid.value=${id}; document.filler.submit();}"><input type="reset" value="Reset">
 	
 	</form>
 		

@@ -24,7 +24,7 @@ public class DeleteEvent extends HttpServlet {
 		String url = "jdbc:mysql://cs3.calstatela.edu/cs3337stu03";
 		String SQLuser = "cs3337stu03";
 		String SQLpass = "K!c7YAg.";
-		String sql = "delete from events where id=" + id +  " ";
+		String sql = "delete from events where id = " + id +  " ";
 
 		try {
 
@@ -42,7 +42,9 @@ public class DeleteEvent extends HttpServlet {
 				throw new ServletException(e);
 			}
 		}
+		request.setAttribute("cid", id);
 		request.getRequestDispatcher("Calander").forward(request, response);
+		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
