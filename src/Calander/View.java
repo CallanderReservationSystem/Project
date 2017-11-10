@@ -81,17 +81,17 @@ public class View extends HttpServlet {
 						calendars.add(
 								new CalendarModel(Integer.parseInt(cId), Integer.parseInt(uId), calName, eventCount));
 					}
-					
+
 					if (calFound) {
 						Statement cs1 = c.createStatement();
 						System.out.println(cId);
-						ResultSet eq2 = cs1.executeQuery("SELECT * FROM events WHERE cid =" + cId + "");
+						ResultSet eq2 = cs1.executeQuery("SELECT * FROM events WHERE uid =" + uId + "");
 						System.out.println(eq2);
-						while(eq2.next()) {
-							System.out.println("working");
+						while (eq2.next()) {
 							eventFound = true;
-							System.out.println(eventFound);
 							String eId = eq2.getString("id");
+							String cid = eq2.getString("cid");
+							System.out.println(cId);
 							String title = eq2.getString("title");
 							String start = eq2.getString("start_date");
 							String end = eq2.getString("end_date");
@@ -116,7 +116,7 @@ public class View extends HttpServlet {
 							}
 
 							events.add(new CalendarEventModel(Integer.parseInt(eId), Integer.parseInt(uId),
-									Integer.parseInt(cId), title, start, end, startTime, endTime, url, color,
+									Integer.parseInt(cid), title, start, end, startTime, endTime, url, color,
 									Integer.parseInt(tableCount), Integer.parseInt(seatsPerTable), location));
 						}
 					}
@@ -159,52 +159,57 @@ public class View extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// String username = (String) request.getSession().getAttribute("Username");
-		// Integer uid = (Integer) request.getSession().getAttribute("ssuid");
-		// ArrayList<CalendarModel> calendars = new ArrayList<CalendarModel>();
-		// ArrayList<CalendarEventModel> events = new ArrayList<CalendarEventModel>();
-		// boolean found = false;
-		// boolean calFound = false;
-		// boolean eventFound = false;
-		// //String user = name[0];
-		// String followingString;
-		//
-		//
-		// String sql2 = "";
-		// String check;
-		// Connection c = null;
-		// String url = "jdbc:mysql://cs3.calstatela.edu/cs3337stu03";
-		// String SQLuser = "cs3337stu03";
-		// String SQLpass = "K!c7YAg.";
-		// String sql1 = "SELECT cidFollowing FROM users WHERE id =" + uid + "";
-		//
-		// try {
-		//
-		// c = DriverManager.getConnection(url, SQLuser, SQLpass);
-		// Statement st = c.createStatement();
-		// ResultSet rs = st.executeQuery(sql1);
-		// followingString = rs.getString("username");
-		//
-		// if(followingString == null) {
-		// Statement cs = c.createStatement();
-		// ResultSet eq = cs.executeQuery("UPDATE user SET cidFollowing = '' WHERE id ="
-		// + uid + "");
-		//
-		// } else {
-		//
-		// }
-		//
-		// } catch (SQLException e) {
-		// throw new ServletException(e);
-		// } finally {
-		// try {
-		// if (c != null) {
-		// c.close();
-		// }
-		// } catch (SQLException e) {
-		// throw new ServletException(e);
-		// }
-		// }
+		String username = (String) request.getSession().getAttribute("Username");
+		Integer uid = (Integer) request.getSession().getAttribute("ssuid");
+		ArrayList<CalendarModel> calendars = new ArrayList<CalendarModel>();
+		ArrayList<CalendarEventModel> events = new ArrayList<CalendarEventModel>();
+		ArrayList<String> followingStrings = new ArrayList<String>();
+		// String user = name[0];
+		String followingString = "0";
+
+		String sql2 = "";
+		String check;
+		Connection c = null;
+		String url = "jdbc:mysql://cs3.calstatela.edu/cs3337stu03";
+		String SQLuser = "cs3337stu03";
+		String SQLpass = "K!c7YAg.";
+		String sql1 = "SELECT cidFollowing FROM users WHERE uid =" + uid + "";
+		System.out.println(uid);
+		System.out.println(request.getParameter("cid"));
+
+		try {
+
+			c = DriverManager.getConnection(url, SQLuser, SQLpass);
+			Statement st = c.createStatement();
+			ResultSet rs = st.executeQuery(sql1);
+			
+			while (rs.next()) {
+				followingString = rs.getString("cidFollowing");
+				followingStrings.add(followingString);
+			}
+
+
+			if (followingString == null || followingString.equals("null") || followingString.equals("")) {
+				Statement cs = c.createStatement();
+				int eq = cs.executeUpdate("UPDATE users SET cidFollowing = '"+ request.getParameter("cid") +"' WHERE uid =" + uid + "");
+		
+			} else {
+				Statement cs = c.createStatement();
+				//int eq = cs.executeUpdate("UPDATE users SET cidFollowing = CONCAT(cidFollowing, ',"+ request.getParameter("cid") + "') Where uid ="+uid+"");
+
+			}
+
+		} catch (SQLException e) {
+			throw new ServletException(e);
+		} finally {
+			try {
+				if (c != null) {
+					c.close();
+				}
+			} catch (SQLException e) {
+				throw new ServletException(e);
+			}
+		}
 
 		doGet(request, response);
 	}

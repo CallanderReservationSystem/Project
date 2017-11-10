@@ -55,15 +55,16 @@
 						<h2><c:out value="${cal.calName } "/></h2>
 							<h4>Events on calendar</h4>
 							<c:forEach var="event" items="${requestScope.events }">
-								<c:if test="${cal.cid eq event.cid }">
+							  	<c:if test="${cal.cid eq event.cid }">
 									<li><c:out value="${event.title }"/></li>
 								<c:set var="eventsFound" value="true"/>
-								</c:if>
+							  	</c:if> 
+							  	
 							</c:forEach>
 						<c:if test="${eventsFound eq false}">
+						<c:out value="${cal.cid eq event.cid }"  />
 							<p>No events for this calendar</p>
 						</c:if>	
-						
 						<input type="submit" class="btn" value="Follow ">
 						
 						</div>
