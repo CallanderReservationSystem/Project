@@ -10,6 +10,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import javax.servlet.ServletConfig;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -149,11 +150,15 @@ public class CreateEvent extends HttpServlet {
 				c = DriverManager.getConnection(url, SQLuser, SQLpass);
 				PreparedStatement ps = c.prepareStatement(sql);
 				ps.executeUpdate();
+				ServletContext context = getServletContext();
+				
+				
+				
 				
 				request.setAttribute("id", userId);
 				request.setAttribute("cid", CalId);
-				request.getPathInfo();
-				request.getRequestDispatcher("/Calander").forward(request, response);
+				response.sendRedirect("/Calander");
+			//	request.getRequestDispatcher("/Calander").forward(request, response);
 				
 				System.out.println("Done!!!");
 				

@@ -10,6 +10,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -26,6 +27,7 @@ public class Calander extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private ArrayList<CalendarEventModel> events = new ArrayList<CalendarEventModel>();
 	Integer Id;
+
 
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -48,7 +50,7 @@ public class Calander extends HttpServlet {
 			Id = calId;
 		}
 		else {
-			Id = (Integer) request.getSession().getAttribute("cid");
+			
 		}
 	
 		
@@ -79,6 +81,7 @@ public class Calander extends HttpServlet {
 				// eventCount));
 			}
 			HttpSession session = request.getSession();
+			
 			session.setAttribute("cId", Id);
 			request.setAttribute("cid", id);
 			request.setAttribute("uid", userId);

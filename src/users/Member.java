@@ -23,6 +23,9 @@ public class Member extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private ArrayList<CalendarModel> calanders = new ArrayList<CalendarModel>();
  	private ArrayList<CalendarModel> UserCalanders = new ArrayList<CalendarModel>();
+ 	private ArrayList<CalendarModel> FollowingCalanders = new ArrayList<CalendarModel>();
+ 	
+ 	
 
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
@@ -118,5 +121,13 @@ public class Member extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		doGet(request, response);
+	}
+	
+	
+	protected ArrayList<CalendarModel> calendarFollowing(HttpServletRequest request, HttpServletResponse response){
+		
+		
+		return FollowingCalanders;
+		
 	}
 }

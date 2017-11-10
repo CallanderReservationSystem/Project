@@ -34,7 +34,8 @@ public class CreateCalander extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		request.getRequestDispatcher("CreateCalander.jsp").forward(request, response);
+		
+		doPost(request,response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -54,7 +55,6 @@ public class CreateCalander extends HttpServlet {
 			// hasError = true;
 			System.out.println("No user was found");
 			request.setAttribute("NoUser", "You Must Login First!");
-			// response.sendRedirect("Main");
 			request.getRequestDispatcher("Main").forward(request, response);
 
 		} else {
@@ -72,7 +72,7 @@ public class CreateCalander extends HttpServlet {
 			}
 
 			if (hasError) {
-				doGet(request, response);
+				request.getRequestDispatcher("/Calendar/CreateCalander.jsp").forward(request, response);
 				System.out.println("input field is missing");
 
 			} else {

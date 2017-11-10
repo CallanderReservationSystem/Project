@@ -7,6 +7,11 @@ public class CalendarEventModel {
 	public Integer uid;
 	public Integer cid; // need to change back to Integer
 	public String title;
+	public Integer getUid() {
+		return uid;
+	}
+
+
 	public String start;
 	public String end;
 	public String start_time;
@@ -35,11 +40,49 @@ public class CalendarEventModel {
 		this.location = location;
 	}
 	
-	public CalendarEventModel() {
-		// TODO Auto-generated constructor stub
+	public void setUid(Integer uid) {
+		this.uid = uid;
 	}
 
-	
+	public Integer getCid() {
+		return cid;
+	}
+
+	public void setCid(Integer cid) {
+		this.cid = cid;
+	}
+
+	public String getEnd_time() {
+		return end_time;
+	}
+
+	public void setEnd_time(String end_time) {
+		this.end_time = end_time;
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	public Integer getTableCount() {
+		return tableCount;
+	}
+
+	public void setTableCount(Integer tableCount) {
+		this.tableCount = tableCount;
+	}
+
+	public Integer getSeatsPerTable() {
+		return seatsPerTable;
+	}
+
+	public void setSeatsPerTable(Integer seatsPerTable) {
+		this.seatsPerTable = seatsPerTable;
+	}
 
 	public String getLocation() {
 		return location;
