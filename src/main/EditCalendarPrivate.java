@@ -35,21 +35,18 @@ public class EditCalendarPrivate extends HttpServlet {
 		// TODO Auto-generated method stub
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
 		String name = request.getParameter("newPrivateCalendar");
-		System.out.println(name);
 		Connection c = null;
 		Integer calID = null;
 		if (request.getParameter("id") != null)
 		{
-			System.out.println("Good going!");
 			calID = Integer.parseInt(request.getParameter("id"));
 		}
 		else
 		{
-			System.out.println("Other test");
 			calID = Integer.parseInt(request.getParameter("calendarID"));
 		}
-		System.out.println(calID);
 		String cal_name = null;
+		
 		String url = "jdbc:mysql://cs3.calstatela.edu/cs3337stu03";
 		String SQLuser = "cs3337stu03";
 		String SQLpass = "K!c7YAg.";
@@ -71,7 +68,6 @@ public class EditCalendarPrivate extends HttpServlet {
 				
 				request.setAttribute("calID", calID);
 				request.setAttribute("cal_name", cal_name);
-				System.out.println("test print prior");
 				request.getRequestDispatcher("EditCalendarPrivate.jsp").forward(request, response);
 			}
 			catch (SQLException e)
@@ -88,8 +84,6 @@ public class EditCalendarPrivate extends HttpServlet {
 				c = DriverManager.getConnection(url, SQLuser, SQLpass);
 				Statement st = c.createStatement();
 				st.executeUpdate(sqlName);
-				System.out.println("test print");
-				System.out.println(name + " " + calID);
 				response.sendRedirect("Member");
 			}
 			catch (SQLException e)
@@ -97,9 +91,6 @@ public class EditCalendarPrivate extends HttpServlet {
 				throw new ServletException(e);
 			}
 		}
-		
-
-//		request.getRequestDispatcher("Home.jsp").forward(request, response);
 	}
 
 	/**

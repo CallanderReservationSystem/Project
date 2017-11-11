@@ -40,32 +40,54 @@ public class EditCalendarPublic extends HttpServlet {
 		Integer calID = null;
 		if (request.getParameter("id") != null)
 			calID = Integer.parseInt(request.getParameter("id"));
+		else
+			calID = Integer.parseInt(request.getParameter("calendarID"));
 		String cal_name = null;
 		
 		String url = "jdbc:mysql://cs3.calstatela.edu/cs3337stu03";
 		String SQLuser = "cs3337stu03";
 		String SQLpass = "K!c7YAg.";
 		String sqlGrab = "select cal_name from calendar where id = " + calID;
-		String sql = "update calendar set cal_name = test where id = " + calID;
+		String sqlName = "update calendar set cal_name = '" + name + "' where id = " + calID;
 		
-		try
+		if (name == null)
 		{
-			c = DriverManager.getConnection(url, SQLuser, SQLpass);
-			Statement st = c.createStatement();
-			ResultSet rs = st.executeQuery(sqlGrab);
-			
-			while(rs.next())
+			try
 			{
-				cal_name = rs.getString("cal_name");
+				c = DriverManager.getConnection(url, SQLuser, SQLpass);
+				Statement st = c.createStatement();
+				ResultSet rs = st.executeQuery(sqlGrab);
+				
+				while(rs.next())
+				{
+					cal_name = rs.getString("cal_name");
+				}
+				
+				request.setAttribute("calID", calID);
+				request.setAttribute("cal_name", cal_name);
+				request.getRequestDispatcher("EditCalendarPublic.jsp").forward(request, response);
 			}
-			
-			request.setAttribute("cal_name", cal_name);
-			request.getRequestDispatcher("EditCalendarPublic.jsp").forward(request, response);
-		}
-		catch (SQLException e)
+			catch (SQLException e)
+			{
+				throw new ServletException(e);
+			}
+		}		
+		
+		if (name != null)
 		{
-			throw new ServletException(e);
+			try
+			{
+				c = DriverManager.getConnection(url, SQLuser, SQLpass);
+				Statement st = c.createStatement();
+				st.executeUpdate(sqlName);
+				response.sendRedirect("Member");
+			}
+			catch (SQLException e)
+			{
+				throw new ServletException(e);
+			}
 		}
+		
 	}
 
 	/**

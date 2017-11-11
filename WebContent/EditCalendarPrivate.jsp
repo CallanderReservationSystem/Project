@@ -16,7 +16,7 @@
 			<option value="normalAdmin">A</option>
 			<option value="normalUser">U</option>
 		</select> </br>
-		<button type="submit">Submit to calendar ${calID}</button>
+		<button type="submit">Submit</button>
 	</form>
 </body>
 </html>

@@ -9,8 +9,8 @@
 </head>
 <body>
 	<h1>Edit a Public Calendar</h1>
-	<form method="post" action="EditCalendarPublic" id="page">
-		New name of Calendar: <input type="text" value="${cal_name}" name="newPublicCalendar"> </br>
+	<form method="get" action="EditCalendarPublic" id="page">
+		New name of Calendar: <input type="text" value="${cal_name}" name="newPublicCalendar"> <input type="hidden" name="calendarID" value="${calID}"> </br>
 		<button type="submit">Submit</button>
 	</form>
 </body>
