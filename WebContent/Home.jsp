@@ -88,12 +88,13 @@
 					<nav id="sidebar">
 					<div>
 						<table class="table table-striped table-bordered table-hover table-condensed" border="1">
-							<tr><td>user-id</td><td>cal-name</td><td>events count</td></tr>
+							<tr><td>user-id</td><td>cal-name</td><td>events count</td><td>Commands</td></tr>
 							<c:forEach items="${myCalanders}" var="cal">
 								<tr>
 									<td>${cal.uid}</td>
 									<td><a href=Calendar?cid=${cal.cid}>${cal.calName}</a></td>
 									<td>${cal.events}</td>
+									<td><a href=EditCalendarPrivate?id=${cal.cid}>Edit</a></td>
 								</tr>			
 							</c:forEach>
 						</table>
@@ -103,7 +104,7 @@
 					</div>
 					<ul class="options">
 
-						<li class="active"><a href="Calander/CreateCalander.jsp">Create a
+						<li class="active"><a href="CreateCalander.jsp">Create a
 								Calendar</a></li>
 						<li><a href="#deleteCalendar" data-toggle="collapse"
 							aria-expanded="false">Delete a Calendar</a>
@@ -112,8 +113,7 @@
 								<li>this</li>
 								<li>will be replaced soon</li>
 							</ul></li>
-						<li><a href="#editCalendar" data-toggle="collapse"
-							aria-expanded=false">Edit a Calendar</a>
+						<li><a href="EditCalendarPrivate.jsp">Edit a Calendar</a>
 							<ul class="collapse list" id="editCalendar"></ul></li>
 					</ul>
 					</nav>
@@ -134,8 +134,7 @@
 									<li>this</li>
 									<li>will be replaced soon</li>
 								</ul>
-							<li><a href="#editCalendar" data-toggle="collapse"
-								aria-expanded=false">Edit a Calendar</a>
+							<li><a href="EditCalendarPublic.jsp">Edit a Calendar</a>
 								<ul class="collapse list" id="editCalendar"></ul></li>
 						</ul>
 						</nav>

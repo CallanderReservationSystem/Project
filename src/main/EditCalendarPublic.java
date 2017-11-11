@@ -34,9 +34,12 @@ public class EditCalendarPublic extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
+		String name = request.getParameter("newPublicCalendar");
 		Connection c = null;
 		
-		Integer calID = Integer.parseInt(request.getParameter("id"));
+		Integer calID = null;
+		if (request.getParameter("id") != null)
+			calID = Integer.parseInt(request.getParameter("id"));
 		String cal_name = null;
 		
 		String url = "jdbc:mysql://cs3.calstatela.edu/cs3337stu03";
@@ -56,6 +59,7 @@ public class EditCalendarPublic extends HttpServlet {
 				cal_name = rs.getString("cal_name");
 			}
 			
+			request.setAttribute("cal_name", cal_name);
 			request.getRequestDispatcher("EditCalendarPublic.jsp").forward(request, response);
 		}
 		catch (SQLException e)

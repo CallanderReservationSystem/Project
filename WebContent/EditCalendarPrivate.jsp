@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -9,14 +9,14 @@
 </head>
 <body>
 	<h1>Edit a Private Calendar</h1>
-	<form method="post" action="EditCalendarPrivate" id="page">
-		New name of Calendar: <input type="text" id="newPrivateName"> </br>
+	<form method="get" action="EditCalendarPrivate" id="page">
+		New name of Calendar: <input type="text" value="${cal_name}" name="newPrivateCalendar"> <input type="hidden" name="calendarID" value="${calID}"> </br>
 		New access restriction of Calendar:
 		<select id="accessTypes">
 			<option value="normalAdmin">A</option>
 			<option value="normalUser">U</option>
 		</select> </br>
-		<button type="submit">Submit</button>
+		<button type="submit">Submit to calendar ${calID}</button>
 	</form>
 </body>
 </html>
