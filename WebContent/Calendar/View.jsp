@@ -47,9 +47,9 @@
 				</c:if>	
 				<c:if test="${empty noCal }">
 				<div class="row">
-				<form action="View" method="post">
+				
 				<c:forEach var="cal" items="${requestScope.calendars }">
-					
+					<form action="View" method="post">
 						<div class="col-xs-6 col-lg-4">
 						<c:set var="eventsFound" value="false"/>
 						<h2><c:out value="${cal.calName } "/></h2>
@@ -57,7 +57,9 @@
 							<c:forEach var="event" items="${requestScope.events }">
 							  	<c:if test="${cal.cid eq event.cid }">
 									<li><c:out value="${event.title }"/></li>
-								<c:set var="eventsFound" value="true"/>
+									<input type="hidden" name="cid" value="${event.cid}" />
+									<c:set var="eventsFound" value="true"/>
+									<input type="submit" name="button${event.cid}" class="btn" value="Follow ${cal.calName}">
 							  	</c:if> 
 							  	
 							</c:forEach>
@@ -65,12 +67,13 @@
 						<c:out value="${cal.cid eq event.cid }"  />
 							<p>No events for this calendar</p>
 						</c:if>	
-						<input type="submit" class="btn" value="Follow ">
+						
+						
 						
 						</div>
-					
+					</form>
 				</c:forEach>
-				</form>
+				
 				</div>
 				</c:if>
 			</c:if>

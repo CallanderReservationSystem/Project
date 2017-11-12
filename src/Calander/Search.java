@@ -37,7 +37,6 @@ public class Search extends HttpServlet {
 		
 		
 		username = (String) request.getSession().getAttribute("Username");
-		System.out.print(username);
 		if(username == null) {
 			request.setAttribute("noUser", "You Must Login First!");
 			response.sendRedirect("Main");

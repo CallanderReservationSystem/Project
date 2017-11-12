@@ -74,7 +74,7 @@ public class View extends HttpServlet {
 					ResultSet eq = cs.executeQuery("SELECT * FROM calendar WHERE uid =" + uId + "");
 					while (eq.next()) {
 						calFound = true;
-						System.out.println(calFound);
+						// System.out.println(calFound);
 						cId = eq.getString("id");
 						String calName = eq.getString("cal_name");
 						String eventCount = eq.getString("event_count");
@@ -84,14 +84,14 @@ public class View extends HttpServlet {
 
 					if (calFound) {
 						Statement cs1 = c.createStatement();
-						System.out.println(cId);
+						// System.out.println(cId);
 						ResultSet eq2 = cs1.executeQuery("SELECT * FROM events WHERE uid =" + uId + "");
-						System.out.println(eq2);
+						// System.out.println(eq2);
 						while (eq2.next()) {
 							eventFound = true;
 							String eId = eq2.getString("id");
 							String cid = eq2.getString("cid");
-							System.out.println(cId);
+							// System.out.println(cId);
 							String title = eq2.getString("title");
 							String start = eq2.getString("start_date");
 							String end = eq2.getString("end_date");
@@ -164,38 +164,51 @@ public class View extends HttpServlet {
 		ArrayList<CalendarModel> calendars = new ArrayList<CalendarModel>();
 		ArrayList<CalendarEventModel> events = new ArrayList<CalendarEventModel>();
 		ArrayList<String> followingStrings = new ArrayList<String>();
-		// String user = name[0];
+		ArrayList<String> ids = new ArrayList<String>();
+		int y = 0;
 		String followingString = "0";
+		// THIS IS NOT WORKING!!!!!!
+		// String calendaridSelected = request.getParameter("cid");
+		// System.out.println("This is the id you selected: "+calendaridSelected);
 
-		String sql2 = "";
-		String check;
+		// This is working
+		for (String cid : request.getParameterValues("cid")) {
+			String x = request.getParameter("get_" + cid);
+			System.out.print(x + ",");
+			ids.add(x);
+		}
+
+		// Working
+		System.out.println();
 		Connection c = null;
 		String url = "jdbc:mysql://cs3.calstatela.edu/cs3337stu03";
 		String SQLuser = "cs3337stu03";
 		String SQLpass = "K!c7YAg.";
 		String sql1 = "SELECT cidFollowing FROM users WHERE uid =" + uid + "";
-		System.out.println(uid);
-		System.out.println(request.getParameter("cid"));
+		String z = null;
 
 		try {
 
 			c = DriverManager.getConnection(url, SQLuser, SQLpass);
 			Statement st = c.createStatement();
 			ResultSet rs = st.executeQuery(sql1);
-			
+			// Working
 			while (rs.next()) {
 				followingString = rs.getString("cidFollowing");
 				followingStrings.add(followingString);
 			}
 
-
 			if (followingString == null || followingString.equals("null") || followingString.equals("")) {
+
 				Statement cs = c.createStatement();
-				int eq = cs.executeUpdate("UPDATE users SET cidFollowing = '"+ request.getParameter("cid") +"' WHERE uid =" + uid + "");
-		
+				int eq = cs.executeUpdate(
+						"UPDATE users SET cidFollowing = '" + request.getParameter("cid") + "' WHERE uid =" + uid + "");
+
 			} else {
+
 				Statement cs = c.createStatement();
-				//int eq = cs.executeUpdate("UPDATE users SET cidFollowing = CONCAT(cidFollowing, ',"+ request.getParameter("cid") + "') Where uid ="+uid+"");
+				int eq = cs.executeUpdate("UPDATE users SET cidFollowing = CONCAT(cidFollowing, ',"
+						+ request.getParameter("cid") + "') Where uid =" + uid + "");
 
 			}
 
