@@ -156,7 +156,7 @@
 							<c:forEach items="${followCalenders}" var="cal">
 								<tr>
 									<td>${cal.uid}</td>
-									<td><a href=Calander?cid=${cal.cid}>${cal.calName}</a></td>
+									<td><a href=UserCalendar?cid=${cal.cid}>${cal.calName}</a></td>
 									<td>${cal.events}</td>
 								</tr>			
 							</c:forEach>

@@ -96,6 +96,7 @@ public class Member extends HttpServlet {
 
 				
 				while (rs2.next()) {
+					FollowingCalanders.clear();
 					String cidFollowingString = rs2.getString(1);
 					System.out.println(rs2.getString(1));
 					String[] individualCids = cidFollowingString.split(",");
