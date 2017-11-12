@@ -19,8 +19,7 @@
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
           	<%--Set proper links to options --%>
-            <li><a><strong>${sUser }</strong></a></li>
-            <li><a href="Member">Home</a></li>
+            <li><a href="Member"><strong>${sUser}'s Home</strong></a></li>
             <li><a href="Search">Back to Search</a></li>
           </ul>
         </div>

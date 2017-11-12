@@ -9,7 +9,21 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
 </head>
+
 <body>
+	
+	<nav class="navbar navbar-fixed-top navbar-inverse">
+      <div class="container">
+        
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+          	<%--Set proper links to options --%>
+            <li><a href="Member"><strong>${user}'s Home</strong></a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+	
 	<div class="container">
 		<div class="jumbotron">
 			<h1> Search for user</h1>

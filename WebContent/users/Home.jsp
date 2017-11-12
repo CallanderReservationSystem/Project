@@ -23,6 +23,8 @@
 		href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
 		integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4VaPmSTsz/K68vbdEjh4u"
 		crossorigin="anonymous">
+		
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 	<!-- These are the style sheets that come with jQuery as well as the Legacy jQuery  && 
 				 the jQuery-UI Content Delivery Networks (CDN) respectivly-->
 	<link rel="stylesheet"
@@ -151,7 +153,7 @@
 					<div id="table">
 						<table class="table table-bordered table-hover table-condensed" border="1">
 							<tr><td>user-id</td><td>cal-name</td><td>events count</td></tr>
-							<c:forEach items="${myCalanders}" var="cal">
+							<c:forEach items="${followCalenders}" var="cal">
 								<tr>
 									<td>${cal.uid}</td>
 									<td><a href=Calander?cid=${cal.cid}>${cal.calName}</a></td>
