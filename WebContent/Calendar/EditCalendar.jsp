@@ -5,19 +5,22 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>New Calendar</title>
+	<title>Edit Calendar</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 </head>
 <body>
 	<div class="container">
-		<form class="form-horizontal" method="post" action="../CreateCalander">
+		<form class="form-horizontal" method="get" action="EditCalendar">
+			<div class="form-group">
+				<label class="col-sm-2 control-label">Calendar Id:</label>
+				<div class="col-sm-10">
+					<input class="form-control" type="text" name="Cal-id" value="${cid}">
+				</div>	
+			</div>
 			<div class="form-group">
 				<label class="col-sm-2 control-label">Calendar Name:</label>
-				<c:if test="${not empty CalError }">
-					<h9 style="color:RED;">*${CalError}</h9>
-				</c:if>
 				<div class="col-sm-10">
-					<input class="form-control" type="text" name="CalName" value="${param.CalName}">
+					<input class="form-control" type="text" name="CalName" value="${name}">
 				</div>	
 			</div>
 			<br>
@@ -27,12 +30,12 @@
 					<h9 style="color:RED;">*${EventError}</h9>
 				</c:if>
 				<div class="col-sm-10">
-					<input class="form-control" type="text" name="AdminUser" value="${param.AdminUser}">
+					<input class="form-control" type="text" name="AdminUser" value="${admins}">
 				</div>	
 			</div>	
 			<br>
 			<div class="col-sm-offset-2 col-sm-10">
-				<input type="submit" value="Create">
+				<input type="submit" value="Edit">
 			</div>	
 		</form>
 	</div>

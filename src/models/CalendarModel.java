@@ -53,4 +53,10 @@ public class CalendarModel {
 
 	}
 
+	public CalendarModel(Integer id, Integer uid0, String name) {
+		this.cid = id;
+		this.uid = uid0;
+		this.calName = name;
+	}
+
 }

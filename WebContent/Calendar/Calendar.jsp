@@ -52,7 +52,7 @@
 							selectable : true,
 							selectHelper : true,
 							select : function(start, end) {
-								var title = prompt('Event Title:');
+								var title = prompt('Event Title:'); // add url here instead
 								var eventData;
 								if (title) {
 									eventData = {
@@ -160,9 +160,13 @@ body {
 			</nav>
 		</div>
 	</div>
+	
+	
 	<p>
 		<a href="CreateEvent?id=${cid}">create event.</a>
 	</p>
+	
+	
 	<h4>Cal Name: ${cName}</h4>
 	<div id="calendar" class="fc fc-unthemed fc-ltr"></div>
 

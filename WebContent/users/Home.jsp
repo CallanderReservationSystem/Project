@@ -88,12 +88,13 @@
 					<nav id="sidebar">
 					<div>
 						<table class="table table-striped table-bordered table-hover table-condensed" border="1">
-							<tr><td>user-id</td><td>cal-name</td><td>events count</td></tr>
+							<tr><td>user-id</td><td>cal-name</td><td>events count</td><td>Action</td></tr>
 							<c:forEach items="${myCalanders}" var="cal">
 								<tr>
 									<td>${cal.uid}</td>
 									<td><a href=Calander?cid=${cal.cid}>${cal.calName}</a></td>
 									<td>${cal.events}</td>
+									<td><a href=EditCalendar?id=${cal.cid}>Edit</a> | <a href=DeleteCalendar?id=${cal.cid}>Delete</a></td>
 								</tr>			
 							</c:forEach>
 						</table>
@@ -103,18 +104,16 @@
 					</div>
 					<ul class="options">
 
-						<li class="active"><a href="Calendar/CreateCalander.jsp">Create a
-								Calendar</a></li>
-						<li><a href=DeleteCalendar>Delete a Calendar</a><!-- data-toggle="collapse"
-							aria-expanded="false" -->
-							<!-- <ul class="collapse list-unstyled" id="deleteCalendar">
-								<li>hello</li>
-								<li>this</li>
-								<li>will be replaced soon</li>
-							</ul> --></li>
-						<li><a href="#editCalendar" data-toggle="collapse"
-							aria-expanded=false">Edit a Calendar</a>
-							<ul class="collapse list" id="editCalendar"></ul></li>
+						<li class="active">
+							<a href="Calendar/CreateCalander.jsp">Create a Calendar</a>
+						</li>
+						<li>
+							<a href=DeleteCalendar>Delete a Calendar</a>
+						</li>
+						<li>
+							<a href="EditCalendar">Edit a Calendar</a>
+						</li>
+						
 					</ul>
 					</nav>
 				</div>
