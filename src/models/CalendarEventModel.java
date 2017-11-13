@@ -3,6 +3,64 @@ package models;
 
 public class CalendarEventModel {
 
+	public Integer getUid() {
+		return uid;
+	}
+
+
+
+	public void setUid(Integer uid) {
+		this.uid = uid;
+	}
+
+
+
+	public Integer getCid() {
+		return cid;
+	}
+
+
+
+	public void setCid(Integer cid) {
+		this.cid = cid;
+	}
+
+
+
+	public String getEnd_time() {
+		return end_time;
+	}
+
+
+
+	public void setEnd_time(String end_time) {
+		this.end_time = end_time;
+	}
+
+
+
+	public Integer getTableCount() {
+		return tableCount;
+	}
+
+
+
+	public void setTableCount(Integer tableCount) {
+		this.tableCount = tableCount;
+	}
+
+
+
+	public Integer getSeatsPerTable() {
+		return seatsPerTable;
+	}
+
+
+
+	public void setSeatsPerTable(Integer seatsPerTable) {
+		this.seatsPerTable = seatsPerTable;
+	}
+
 	public int id;
 	public Integer uid;
 	public Integer cid; // need to change back to Integer
@@ -38,6 +96,25 @@ public class CalendarEventModel {
 	public CalendarEventModel() {
 		// TODO Auto-generated constructor stub
 	}
+
+	public CalendarEventModel(int eid, int uid, int cid, String title, String start, String end,
+			String startTime, String endTime, String detail, String color, int tableCount, int seatsPerTable,
+			String location) {
+		super();
+		this.id = eid;
+		this.uid = uid;
+		this.cid = cid;
+		this.title = title;
+		this.start = start;
+		this.end = end;
+		this.start_time = startTime;
+		this.end_time = endTime;
+		this.color = color;
+		this.tableCount = tableCount;
+		this.seatsPerTable = seatsPerTable;
+	}
+
+
 
 	public String getStart() {
 		return start;

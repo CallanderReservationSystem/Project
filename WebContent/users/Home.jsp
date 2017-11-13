@@ -128,7 +128,7 @@
 							<h3>Options</h3>
 						</div>
 						<ul class="options">
-							<li class="active"><a href="#findCalendar">Find a Calendar</a></li>
+							<li class="active"><a href="Search">Find a Calendar</a></li>
 							<li><a href="#unfollowCalendar" data-toggle="collapse" aria-expanded="false">Unfollow a Calendar</a>
 								<ul class="collapse list-unstyled" id="unfollowCalendar">
 									<li>hello</li>
