@@ -27,10 +27,9 @@ public class EditCalendar extends HttpServlet {
 	private Integer id;
 	private String admin;
 	private String name = null;
-	// private String admins;
 	private Integer owner_id;
 	private Integer user_id;
-
+	private List<String> admins = new ArrayList<String>();
 	private List<CalendarModel> calendars = new ArrayList<CalendarModel>();
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -46,10 +45,11 @@ public class EditCalendar extends HttpServlet {
 		}
 		if (request.getParameter("CalName") != null) {
 			cal_name = request.getParameter("CalName");
+
 		}
 		if (request.getParameter("AdminUser") != null) {
 			AdminUsers = request.getParameter("AdminUser");
-			// System.out.println("input user: " + AdminUsers);
+			System.out.println("input user: " + AdminUsers);
 
 			//////////// -- PULL UID FROM SQL SERVER--//////////////
 			String sql00 = "select * from users where username like '" + AdminUsers + "' ";
@@ -60,8 +60,12 @@ public class EditCalendar extends HttpServlet {
 				while (rs.next()) {
 					user_id = rs.getInt("uid");
 				}
+				if (!rs.next()) {
+					System.out.println("not found!");
+				}
 				// System.out.println("new to be admin id: " + user_id); //
 			} catch (SQLException e) {
+
 				throw new ServletException(e);
 			} finally {
 				try {
@@ -72,10 +76,8 @@ public class EditCalendar extends HttpServlet {
 				}
 			}
 		}
-
 		// System.out.println("new values: " + id01 + " " + cal_name + " " +
 		// AdminUsers);
-
 		if (request.getParameter("id") != null) {
 			id00 = Integer.parseInt(request.getParameter("id"));
 		}
@@ -130,10 +132,35 @@ public class EditCalendar extends HttpServlet {
 			}
 		}
 
+		admin = "";
+		admins = new ArrayList<String>();
+		//////////// -- PULL ADMIN & CAL LINKING FROM SQL SERVER--//////////////
+		String sql04 = "select * from admin_users where cal_id = " + id + "";
+		try {
+			c = DriverManager.getConnection(url, SQLuser, SQLpass);
+			Statement st = c.createStatement();
+			ResultSet rs = st.executeQuery(sql04);
+			while (rs.next()) {
+				user_id = rs.getInt("user_id");
+				admin = rs.getString("username");
+				admins.add(admin);
+			}
+		} catch (SQLException e) {
+			throw new ServletException(e);
+		} finally {
+			try {
+				if (c != null)
+					c.close();
+			} catch (SQLException e) {
+				throw new ServletException(e);
+			}
+		}
+
 		//////////// -- UPDATE ADMIN & CAL LINKING ON SQL SERVER--//////////////
 		String sql03 = "INSERT INTO admin_users (owner_id, user_id, username, cal_id) values ('" + owner_id + "','"
 				+ user_id + "','" + AdminUsers + "','" + id + "')";
-		if (AdminUsers != null) {
+		// System.out.println("admins: " + admins);
+		if (AdminUsers != null && AdminUsers.trim().length() != 0) {
 			try {
 				c = DriverManager.getConnection(url, SQLuser, SQLpass);
 				Statement st = c.createStatement();
@@ -153,30 +180,8 @@ public class EditCalendar extends HttpServlet {
 			}
 		}
 
-		//////////// -- PULL ADMIN & CAL LINKING FROM SQL SERVER--//////////////
-		String sql04 = "select * from admin_users where cal_id = " + id + "";
-		try {
-			c = DriverManager.getConnection(url, SQLuser, SQLpass);
-			Statement st = c.createStatement();
-			ResultSet rs = st.executeQuery(sql04);
-			while (rs.next()) {
-				user_id = rs.getInt("user_id");
-				admin = rs.getString("username");
-				// admins = rs.getString("admins");
-				// calendars.add(new CalendarModel(id, uid0, name));
-			}
-		} catch (SQLException e) {
-			throw new ServletException(e);
-		} finally {
-			try {
-				if (c != null)
-					c.close();
-			} catch (SQLException e) {
-				throw new ServletException(e);
-			}
-		}
-		System.out.print("name: " + name);
-		request.setAttribute("admins", admin);
+		// System.out.print("name: " + name);
+		request.setAttribute("admins", admins);
 		request.setAttribute("name", name);
 		request.setAttribute("cid", id);
 
@@ -185,8 +190,6 @@ public class EditCalendar extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
 		doGet(request, response);
 	}
-
 }
