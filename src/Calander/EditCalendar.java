@@ -63,9 +63,7 @@ public class EditCalendar extends HttpServlet {
 					user_id = rs.getInt("uid");
 					Found = true;
 					while (rs.next()) {
-						
-						
-					}
+					}// finish off this part!
 				} else {
 					System.out.println("not found!");
 					Found = false;

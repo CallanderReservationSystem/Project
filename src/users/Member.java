@@ -52,7 +52,7 @@ public class Member extends HttpServlet {
 			String SQLuser = "cs3337stu03";
 			String SQLpass = "K!c7YAg.";
 			String sql01 = "select * from calendar where uid = '" + ssuid + "'";
-			String sql02 = "select * from shared_calendars";
+			String sql02 = "select * from shared_calendars where follower_id = '" + ssuid + "'";
 
 			//////// --PRIVATE--///////
 			try {
@@ -105,6 +105,7 @@ public class Member extends HttpServlet {
 			}
 
 			//////// --PUBLIC--///////
+			followedCalendars.clear();
 			try {
 
 				c = DriverManager.getConnection(url, SQLuser, SQLpass);
