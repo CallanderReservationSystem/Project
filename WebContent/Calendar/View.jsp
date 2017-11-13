@@ -73,8 +73,10 @@
 										<%-- <c:out value="${cal.cid eq event.cid }"/> --%>
 										<p>No events for this calendar</p>
 									</c:if>
+									
+							   <%-- <input type="submit" name="button${event.cid}" class="btn" value="Follow ${cal.calName}"> --%>	
+									<a class="btn" href="FollowCalendar?cid=${cal.cid}">Follow ${cal.calName}</a>
 										
-									<input type="submit" name="button${event.cid}" class="btn" value="Follow ${cal.calName}">	
 										
 								</div>	
 						</c:forEach>

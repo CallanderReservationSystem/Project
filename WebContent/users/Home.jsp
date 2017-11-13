@@ -124,6 +124,18 @@
 				<div class="wrapper">
 					<div class="wrapper">
 						<nav id="sidebar">
+							<div>
+								<table class="table table-striped table-bordered table-hover table-condensed" border="1">
+									<tr><td>user-id</td><td>cal-name</td><td>events count</td></tr>
+									<c:forEach items="${myFCals}" var="cal">
+										<tr>
+											<td>${cal.uid}</td>
+											<td><a href=Calander?cid=${cal.cid}>${cal.calName}</a></td>
+											<td>${cal.events}</td>
+										</tr>			
+									</c:forEach>
+								</table>
+							</div>
 						<div class="sidebar-header">
 							<h3>Options</h3>
 						</div>

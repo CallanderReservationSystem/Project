@@ -38,12 +38,19 @@ public class CalendarModel {
 	public Integer uid;
 	public String calName;
 	public String events;
-	
+
 	public CalendarModel(Integer cid, Integer uid, String calName, String events) {
 		this.cid = cid;
 		this.uid = uid;
 		this.calName = calName;
 		this.events = events;
+	}
+
+	public CalendarModel(Integer ownerId, Integer followerId, Integer calanderId, String title) {
+		this.uid = ownerId;
+		this.cid = calanderId;
+		this.calName = title;
+
 	}
 
 }
