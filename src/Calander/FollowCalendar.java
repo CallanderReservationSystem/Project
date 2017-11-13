@@ -19,22 +19,22 @@ public class FollowCalendar extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private Integer fid;
 	private Integer id;
-	private Integer uid;
+	private Integer uid, uid01, cid;
 	private String title;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+
 		fid = (Integer) request.getSession().getAttribute("ssuid");
-		// System.out.println("passed follower id: " + fid);
 		id = Integer.parseInt(request.getParameter("cid"));
-		// System.out.println("passed public cal id: " + id);
 		Connection c = null;
+
 		String url = "jdbc:mysql://cs3.calstatela.edu/cs3337stu03";
 		String SQLuser = "cs3337stu03";
 		String SQLpass = "K!c7YAg.";
-		String sql01 = "select * from calendar where id = '" + id + "'";
 
 		////////////// --SELECT--/////////////////
+		String sql01 = "select * from calendar where id = '" + id + "'";
 		try {
 			c = DriverManager.getConnection(url, SQLuser, SQLpass);
 			Statement st = c.createStatement();
@@ -54,14 +54,44 @@ public class FollowCalendar extends HttpServlet {
 			}
 		}
 
-		////////////// --INSERT--/////////////////
-		String sql02 = "INSERT INTO shared_calendars (owner_uid, follower_id, cid, title) values('" + uid + "','" + fid
-				+ "','" + id + "','" + title + "')";
+		/////// --CHECK-USER-AUTHORIZATION--////////// IF USER IS ADMIN ON THAT
+		/////// CALENDAR
+		String sql02 = "select * from admin_users where user_id = '" + fid + "'";
 		try {
 			c = DriverManager.getConnection(url, SQLuser, SQLpass);
-			PreparedStatement ps = c.prepareStatement(sql02);
-			ps.executeUpdate();
-			System.out.println("Done!!!");
+			Statement st = c.createStatement();
+			ResultSet rs = st.executeQuery(sql02);
+			if (rs.next()) {
+				while (rs.next()) {
+					uid01 = rs.getInt("user_id");
+					cid = rs.getInt("cal_id");
+				}
+
+				////////////// --INSERT--/////////////////
+				String sql03 = "INSERT INTO shared_calendars (owner_uid, follower_id, cid, title) values('" + uid
+						+ "','" + fid + "','" + id + "','" + title + "')";
+				try {
+					c = DriverManager.getConnection(url, SQLuser, SQLpass);
+					PreparedStatement ps = c.prepareStatement(sql03);
+					ps.executeUpdate();
+					System.out.println("Done!!!");
+				} catch (SQLException e) {
+					throw new ServletException(e);
+				} finally {
+					try {
+						if (c != null)
+							c.close();
+					} catch (SQLException e) {
+						throw new ServletException(e);
+					}
+				}
+				response.sendRedirect("Member");
+
+			} else {
+				System.out.println("not found!");
+				request.setAttribute("userAuth", "User does not have admin level over this calendar");
+				request.getRequestDispatcher("Search").forward(request, response);
+			}
 
 		} catch (SQLException e) {
 			throw new ServletException(e);
@@ -73,7 +103,6 @@ public class FollowCalendar extends HttpServlet {
 				throw new ServletException(e);
 			}
 		}
-		response.sendRedirect("Member");
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)

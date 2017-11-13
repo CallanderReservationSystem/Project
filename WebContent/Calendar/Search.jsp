@@ -35,8 +35,10 @@
 			<c:if test="${not empty notFound }">
 				<p style="color: RED;">*${notFound }</p>
 			</c:if>
+			<c:if test="${not empty userAuth }">
+				<p style="color: RED;">*${userAuth}</p>
+			</c:if>
 			<c:if test="${not empty users }">
-				
 				<c:forEach var="user" items="${requestScope.users }">
 					<div >
 					<a href="View?name=${user}">
