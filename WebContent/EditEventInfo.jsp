@@ -11,12 +11,12 @@
 <body>
 	<h1>Edit Event Info</h1>
 	<form method="post" action="EditEventInfo" id="page">
-		Change Title: <input type="text" id="newTitle"> </br>
-		Change Location: <input type="text" id="newLocation"> </br>
-		Change Duration: from <input type="date" id="newDurationFromDate"> at <input type="time" id="newDurationFromTime"> to <input type="date" id="newDurationToDate"> at <input type="time" id="newDurationToTime"> </br>
-		Change Max Occupancy: <input type="number" id="newMaxOccupancy"> </br>
-		Change Table Count: <input type="number" id="newTableCount"> </br>
-		Change Seats Per Table: <input type="number" id="newSeatsPerTable"> </br>
+		Change Title: <input type="text" value="${title}"> <input type="hidden" name="eventID" value="${eventID}"></br>
+		Change Location: <input type="text" value="${location}"> </br>
+		Change Duration: from <input type="date" value="${start_date}"> at <input type="time" value="${start}"> to <input type="date" value="${end_date}"> at <input type="time" value="${end}"> </br>
+		<!-- Change Max Occupancy: <input type="number" id="newMaxOccupancy"> </br>  -->
+		Change Table Count: <input type="number" value="${tableCount}"> </br>
+		Change Seats Per Table: <input type="number" value="${seatsPerTable}"> </br>
 		<button type="reset">Clear</button>
 		<button type="submit">Submit</button>
 	</form>
