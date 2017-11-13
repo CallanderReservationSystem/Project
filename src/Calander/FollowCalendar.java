@@ -53,10 +53,10 @@ public class FollowCalendar extends HttpServlet {
 				throw new ServletException(e);
 			}
 		}
-
+		System.out.println("calendar id to follow: " + id);
 		/////// --CHECK-USER-AUTHORIZATION--////////// IF USER IS ADMIN ON THAT
 		/////// CALENDAR
-		String sql02 = "select * from admin_users where user_id = '" + fid + "'";
+		String sql02 = "select * from admin_users where user_id = '" + fid + "' and cal_id = '" + id + "' ";
 		try {
 			c = DriverManager.getConnection(url, SQLuser, SQLpass);
 			Statement st = c.createStatement();
