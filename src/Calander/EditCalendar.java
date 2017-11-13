@@ -20,10 +20,11 @@ import models.CalendarModel;
 @WebServlet("/EditCalendar")
 public class EditCalendar extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private Boolean Found = true;
 	private Integer id00;
 	private Integer uid0;
 	private String cal_name;
-	private String AdminUsers;
+	private String AdminUsers = "";
 	private Integer id;
 	private String admin;
 	private String name = null;
@@ -57,13 +58,20 @@ public class EditCalendar extends HttpServlet {
 				c = DriverManager.getConnection(url, SQLuser, SQLpass);
 				Statement st = c.createStatement();
 				ResultSet rs = st.executeQuery(sql00);
-				while (rs.next()) {
+				if (rs.next()) {
+					System.out.println("found!!!");
 					user_id = rs.getInt("uid");
-				}
-				if (!rs.next()) {
+					Found = true;
+					while (rs.next()) {
+						
+						
+					}
+				} else {
 					System.out.println("not found!");
+					Found = false;
+					request.setAttribute("AdminError", "username was not found!"); //
 				}
-				// System.out.println("new to be admin id: " + user_id); //
+
 			} catch (SQLException e) {
 
 				throw new ServletException(e);
@@ -119,7 +127,8 @@ public class EditCalendar extends HttpServlet {
 				st.executeUpdate(sql02);
 				// System.out.println("updated!");
 				cal_name = null;
-				request.getRequestDispatcher("Member").forward(request, response);
+				// request.getRequestDispatcher("Member").forward(request,
+				// response);
 			} catch (SQLException e) {
 				throw new ServletException(e);
 			} finally {
@@ -160,22 +169,25 @@ public class EditCalendar extends HttpServlet {
 		String sql03 = "INSERT INTO admin_users (owner_id, user_id, username, cal_id) values ('" + owner_id + "','"
 				+ user_id + "','" + AdminUsers + "','" + id + "')";
 		// System.out.println("admins: " + admins);
-		if (AdminUsers != null && AdminUsers.trim().length() != 0) {
-			try {
-				c = DriverManager.getConnection(url, SQLuser, SQLpass);
-				Statement st = c.createStatement();
-				st.executeUpdate(sql03);
-				System.out.println("UPDATE ADMIN & CAL");
-				AdminUsers = null;
-				request.getRequestDispatcher("Member").forward(request, response);
-			} catch (SQLException e) {
-				throw new ServletException(e);
-			} finally {
+		System.out.println("status: " + Found);
+		if (Found) {
+			if (AdminUsers != null && AdminUsers.trim().length() != 0) {
 				try {
-					if (c != null)
-						c.close();
+					c = DriverManager.getConnection(url, SQLuser, SQLpass);
+					Statement st = c.createStatement();
+					st.executeUpdate(sql03);
+					System.out.println("UPDATE ADMIN & CAL");
+					AdminUsers = null;
+					request.getRequestDispatcher("Member").forward(request, response);
 				} catch (SQLException e) {
 					throw new ServletException(e);
+				} finally {
+					try {
+						if (c != null)
+							c.close();
+					} catch (SQLException e) {
+						throw new ServletException(e);
+					}
 				}
 			}
 		}

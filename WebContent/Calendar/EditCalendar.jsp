@@ -26,8 +26,8 @@
 			<br>
 			<div class="form-group">
 				<label class="col-sm-2 control-label">Admin users:</label>
-				<c:if test="${not empty EventError }">
-					<h9 style="color:RED;">*${EventError}</h9>
+				<c:if test="${not empty AdminError }">
+					<h9 style="color:RED;">*${AdminError}</h9>
 				</c:if>
 				<div class="col-sm-10">
 					<input class="form-control" type="text" name="AdminUser" value="">
