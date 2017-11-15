@@ -125,12 +125,18 @@
 						<nav id="sidebar">
 							<div>
 								<table class="table table-striped table-bordered table-hover table-condensed" border="1">
-									<tr><td>user-id</td><td>cal-name</td><td>events count</td></tr>
+									<tr><td>user-id</td><td>cal-name</td><td>events count</td><td>Action</td></tr>
 									<c:forEach items="${myFCals}" var="cal">
 										<tr>
 											<td>${cal.uid}</td>
 											<td><a href=Calander?cid=${cal.cid}>${cal.calName}</a></td>
 											<td>${cal.events}</td>
+											<td>
+												<a href=UnfollowCalendar?id=${cal.cid}>Unfollow</a> 
+												<c:if test=""> <!-- for user validation -->
+													| <a href=DeleteCalendar?id=${cal.cid}>Delete</a>
+												</c:if>
+											</td>
 										</tr>			
 									</c:forEach>
 								</table>

@@ -21,7 +21,7 @@ public class Search extends HttpServlet {
 	private String username = "";
 	private String search;
 	private boolean notFound;
-	
+
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
 		try {
@@ -36,19 +36,12 @@ public class Search extends HttpServlet {
 			throws ServletException, IOException {
 		username = (String) request.getSession().getAttribute("Username");
 		request.setAttribute("user", username);
-//		if (username == null) {
-//			request.setAttribute("noUser", "You Must Login First!");
-//			response.sendRedirect("Main");
-//
-//		} else {
-			request.getRequestDispatcher("Calendar/Search.jsp").forward(request, response);
-		// }
+		request.getRequestDispatcher("Calendar/Search.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		username = (String) request.getSession().getAttribute("Username");
-		//System.out.println("passed username: " + username);
 		request.setAttribute("user", username);
 		if (username == null) {
 			request.setAttribute("noUser", "You Must Login First!");
@@ -96,7 +89,7 @@ public class Search extends HttpServlet {
 					throw new ServletException(e);
 				}
 			}
-			
+
 			if (notFound) {
 				request.setAttribute("notFound", "No users with that username found.");
 				doGet(request, response);
@@ -104,7 +97,7 @@ public class Search extends HttpServlet {
 				request.setAttribute("users", users);
 			}
 		}
-		
+
 		doGet(request, response);
 	}
 
