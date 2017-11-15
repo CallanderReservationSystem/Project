@@ -20,7 +20,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet"
 		href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-		integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4VaPmSTsz/K68vbdEjh4u"
+		integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
 		crossorigin="anonymous">
 	<title>Tables</title>
 </head>
@@ -44,7 +44,7 @@
 			</nav>
 		</div>
 		<div>
-			<a href="DeleteEvent?id=${eventId}&cid=${cid}">Delete This Event</a> <br>
+			<a href="DeleteEvent?id=${eventId}">Delete This Event</a> <br>
 			
 			<table class="table table-striped table-bordered table-hover table-condensed" border="1">
 				<tr>
@@ -68,4 +68,4 @@
 		</div>
 	</div>
 </body>
-</html> 
+</html>

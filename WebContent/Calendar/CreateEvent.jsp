@@ -5,7 +5,7 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>${username}Home</title>
+	<title>${username}: ${Calendarname} Event </title>
 	<link href='fullcalendar.min.css' rel='stylesheet' />
 	<link href='fullcalendar.print.min.css' rel='stylesheet' media='print' />
 	<script src='lib/moment.min.js'></script>
@@ -110,7 +110,8 @@
 		
 		<br>
 		
-		<input type="hidden" name="cid">
+		<input type="hidden" name="cid" value="${id}">
+		<input type="hidden" name="calName" value="${Calendarname}">
 		<input type="submit" value="Create" onclick="{document.filler.cid.value=${id}; document.filler.submit();}"><input type="reset" value="Reset">
 	
 	</form>

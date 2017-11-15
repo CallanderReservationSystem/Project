@@ -58,15 +58,14 @@
 									<li><c:out value="${event.title }"/></li>
 									<input type="hidden" name="cid" value="${event.cid}" />
 									<c:set var="eventsFound" value="true"/>
-									<input type="submit" name="button${event.cid}" class="btn" value="Follow ${cal.calName}">
+									
 							  	</c:if> 
-							  	
 							</c:forEach>
 						<c:if test="${eventsFound eq false}">
 						<c:out value="${cal.cid eq event.cid }"  />
 							<p>No events for this calendar</p>
 						</c:if>	
-						
+						 <input type="submit" name="button${event.cid}" class="btn" value="Follow ${cal.calName}">
 						
 						
 						</div>

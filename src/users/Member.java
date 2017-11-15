@@ -44,7 +44,7 @@ public class Member extends HttpServlet {
 		if (username == null) {
 			System.out.println("No user was found");
 			request.setAttribute("NoUser", "You Must Login First!");
-			response.sendRedirect("Main");
+			response.sendRedirect("../Index.jsp");
 		} else {
 			calanders.clear();
 			Connection c = null;
@@ -98,6 +98,9 @@ public class Member extends HttpServlet {
 				while (rs2.next()) {
 					FollowingCalanders.clear();
 					String cidFollowingString = rs2.getString(1);
+					if(cidFollowingString == null) {
+						
+					} else {
 					System.out.println(rs2.getString(1));
 					String[] individualCids = cidFollowingString.split(",");
 					for (String id : individualCids) {
@@ -119,6 +122,7 @@ public class Member extends HttpServlet {
 
 						}
 					}
+				}
 				}
 
 			} catch (SQLException e) {

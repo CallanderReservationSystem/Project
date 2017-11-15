@@ -56,8 +56,14 @@ public class CreateEvent extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
-		CalId = Integer.parseInt(request.getParameter("id"));	
+		if(request.getParameter("id") != null) {
+			CalId = Integer.parseInt(request.getParameter("id"));		
+			request.setAttribute("id", request.getParameter("id") );
+		} else {
+			CalId = Integer.parseInt(request.getParameter("cid"));	
+		}
+		
+		request.setAttribute("username", (String)request.getSession().getAttribute("Username"));
 		System.out.println("cal id: " + CalId);
 		CalName = request.getParameter("calName");
 		System.out.println("cal name: " + CalName);
@@ -74,8 +80,8 @@ public class CreateEvent extends HttpServlet {
 		System.out.println("cal id: " + calId);
 		String calName = CalName;//request.getParameter("calName");
 		System.out.println("cal name: " + calName);
-		request.setAttribute("Calendarname", calName);
-
+		request.setAttribute("Calendarname", request.getParameter("calName"));
+		
 		String name = (String) request.getSession().getAttribute("Username");
 		System.out.println("name: " + name);
 		Integer uid = (Integer) request.getSession().getAttribute("ssuid");
@@ -136,7 +142,7 @@ public class CreateEvent extends HttpServlet {
 			}
 			doGet(request, response);
 		} else {
-			Integer userId = getId(request);
+			Integer userId = (Integer) request.getSession().getAttribute("ssuid");;
 			System.out.println(userId);
 			Integer calendarId = CalId;
 			Connection c = null;
@@ -151,15 +157,9 @@ public class CreateEvent extends HttpServlet {
 				PreparedStatement ps = c.prepareStatement(sql);
 				ps.executeUpdate();
 				ServletContext context = getServletContext();
-				
-				
-				
-				
-				request.setAttribute("id", userId);
-				request.setAttribute("cid", CalId);
-				response.sendRedirect("/Calander");
-			//	request.getRequestDispatcher("/Calander").forward(request, response);
-				
+
+			 	
+				request.getRequestDispatcher("/Calander").forward(request, response);
 				System.out.println("Done!!!");
 				
 			} catch (SQLException e) {
@@ -172,53 +172,55 @@ public class CreateEvent extends HttpServlet {
 					throw new ServletException(e);
 				}
 			}
+			
 		}
-	}
-
-	// This Method is working.
-	private Integer getId(HttpServletRequest request) throws ServletException {
-
-		UserName = (String) request.getSession().getAttribute("Username");
-		System.out.print(UserName);
-
-		Connection c = null;
-		String url = "jdbc:mysql://cs3.calstatela.edu/cs3337stu03";
-		String SQLuser = "cs3337stu03";
-		String SQLpass = "K!c7YAg.";
-		String sql = "select * from users";
-		try {
-
-			c = DriverManager.getConnection(url, SQLuser, SQLpass);
-			Statement st = c.createStatement();
-			ResultSet rs = st.executeQuery(sql);
-
-			while (rs.next()) {
-				String name = rs.getString("username");
-				String pas = rs.getString("password");
-				String status = rs.getString("status");
-				String upos = rs.getString("position");
-				Integer uid0 = rs.getInt("uid");
-				users.add(new MyModel(name, pas, status, upos, uid0));
-			}
-
-			for (MyModel u : users) {
-				if (u.name.equals(UserName)) {
-
-					found = true;
-					return u.uid;
-				}
-			}
-
-		} catch (SQLException e) {
-			throw new ServletException(e);
-		} finally {
-			try {
-				if (c != null)
-					c.close();
-			} catch (SQLException e) {
-				throw new ServletException(e);
-			}
-		}
-		return null;
 	}
 }
+
+	// This Method is working.
+//	private Integer getId(HttpServletRequest request) throws ServletException {
+//
+//		UserName = (String) request.getSession().getAttribute("Username");
+//		System.out.print(UserName);
+//
+//		Connection c = null;
+//		String url = "jdbc:mysql://cs3.calstatela.edu/cs3337stu03";
+//		String SQLuser = "cs3337stu03";
+//		String SQLpass = "K!c7YAg.";
+//		String sql = "select * from users";
+//		try {
+//
+//			c = DriverManager.getConnection(url, SQLuser, SQLpass);
+//			Statement st = c.createStatement();
+//			ResultSet rs = st.executeQuery(sql);
+//
+//			while (rs.next()) {
+//				String name = rs.getString("username");
+//				String pas = rs.getString("password");
+//				String status = rs.getString("status");
+//				String upos = rs.getString("position");
+//				Integer uid0 = rs.getInt("uid");
+//				users.add(new MyModel(name, pas, status, upos, uid0));
+//			}
+//
+//			for (MyModel u : users) {
+//				if (u.name.equals(UserName)) {
+//
+//					found = true;
+//					return u.uid;
+//				}
+//			}
+//
+//		} catch (SQLException e) {
+//			throw new ServletException(e);
+//		} finally {
+//			try {
+//				if (c != null)
+//					c.close();
+//			} catch (SQLException e) {
+//				throw new ServletException(e);
+//			}
+//		}
+//		return null;
+//	}
+//}
