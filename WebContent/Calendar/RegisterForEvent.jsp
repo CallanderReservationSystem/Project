@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,21 +18,30 @@
 </head>
 <body>
 	<h1>Registration Confirmation for: ${eventName}</h1>
-	<form method="post" action="RegisterForEvent" id="page">
+	<form method="post" action="RegisterForEvent" id="page" >
 		<div class="form-group row align-items-center">
 			<div class="form-group col-sm-3">
-				<label for="name">Name</label>
-				<input type="text" class="form-control" id="name" placeholder="Name for Reservation">
+				<label for="name">Name</label> 
+				<c:if test="${ not empty nameError}">
+					<p style="color: RED;">*${nameError}</p>
+				</c:if>
+				<input type="text" class="form-control" id="name" name='name' placeholder="Name for Reservation">
 			</div>
 		</div>
 		<div class="form-group row ">
 			<div class="form-group col-sm-3">
 				<label>Time of Reservation</label><br />
+				<c:if test="${ not empty timeError}">
+					<p style="color: RED;">*${timeError}</p>
+				</c:if>
 				Begin: <input type="time" class="form-control" id="startTimepicker" name="startTime">
 				End: <input type="time" class="form-control" id="endtTimepicker" name="endTime">
 			</div>
 			<div class="form-group col-sm-3"> 
 				<label>Registration Date</label><br />
+				<c:if test="${ not empty dateError}">
+					<p style="color: RED;">*${dateError}</p>
+				</c:if>
 				Begin: <input type="date" class="form-control" name="startDate" id="startDatePick">
 				End: <input type="date" class="form-control" name="endDate" id="endDatePick">
 			</div>		
@@ -39,6 +49,9 @@
 		<div class="form-group row ">
 			<div class="form-group col-sm-3">
 			<label>Number of People in Party</label>
+			<c:if test="${ not empty numOfPeopleError}">
+					<p style="color: RED;">*${numOfPeopleError}</p>
+				</c:if>
 				<input type="number" class="form-control" name="numOfPeople" id="numOfPeople" min="1" max="10">
 			</div>
 		</div>
@@ -48,6 +61,8 @@
 			<textarea rows="5"class=" form-control" id="details" name="details" placeholder="Anything Special?"></textarea>
 			</div>
 		</div>
+		<input type="hidden " name="user_name" value="${user_name}">
+		<input type="hidden " name="id" value="${id}">
 		<button type="reset" class=" btn btn-danger">Clear</button>
 		<button type="submit" class="btn btn-success">Register</button>
 
