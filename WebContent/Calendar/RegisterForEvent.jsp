@@ -7,18 +7,56 @@
 	<title>Event Registration</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 	<meta charset="UTF-8">
+	<script src='lib/jquery.min.js'></script>
+	
+	<script>
+
+	
+	</script>
+	
 </head>
 <body>
-	<h1>Registration Confirmation</h1>
+	<h1>Registration Confirmation for: ${eventName}</h1>
 	<form method="post" action="RegisterForEvent" id="page">
-		Name: <input type="text" value="${title}">
-		Location: <input type="text" value="${location}" readonly>  <br>
-		Time: from <input type="text" value="${start}" readonly> to <input type="text" value="${end}" readonly> <br>
-		Time to be at the event: <input type="datetime-local" name="fromTime"> to <input type="datetime-local" name="toTime"> <br>
-		Number of people: <input type="number" name="party#" min="1" max="10"> <br>
-		Table to reserve: <input type="number" name="table" min="1" max="10"> <br>
-		<button type="reset">Clear</button>
-		<button type="submit">Register</button>
+		<div class="form-group row align-items-center">
+			<div class="form-group col-sm-3">
+				<label for="name">Name</label>
+				<input type="text" class="form-control" id="name" placeholder="Name for Reservation">
+			</div>
+		</div>
+		<div class="form-group row ">
+			<div class="form-group col-sm-3">
+				<label>Time of Reservation</label><br />
+				Begin: <input type="time" class="form-control" id="startTimepicker" name="startTime">
+				End: <input type="time" class="form-control" id="endtTimepicker" name="endTime">
+			</div>
+			<div class="form-group col-sm-3"> 
+				<label>Registration Date</label><br />
+				Begin: <input type="date" class="form-control" name="startDate" id="startDatePick">
+				End: <input type="date" class="form-control" name="endDate" id="endDatePick">
+			</div>		
+		</div>
+		<div class="form-group row ">
+			<div class="form-group col-sm-3">
+			<label>Number of People in Party</label>
+				<input type="number" class="form-control" name="numOfPeople" id="numOfPeople" min="1" max="10">
+			</div>
+		</div>
+		<div class="form-group row">
+			<div class="form-group col-sm-8">
+			<label for="details">Additional Information</label>
+			<textarea rows="5"class=" form-control" id="details" name="details" placeholder="Anything Special?"></textarea>
+			</div>
+		</div>
+		<button type="reset" class=" btn btn-danger">Clear</button>
+		<button type="submit" class="btn btn-success">Register</button>
+
+		
+			
+			<%-- Location: <input type="text" value="${location}" readonly>  <br> --%>
+			
+		
 	</form>
+
 </body>
 </html>
