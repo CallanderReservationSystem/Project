@@ -24,7 +24,7 @@
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
 	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
 	crossorigin="anonymous">
-<title>${username}Home ( ${cName} )</title>
+<title>${currentUserName} Viewing: ${username}'s Calendar (${cName})</title>
 
 <link href='css/fullcalendar.min.css' rel='stylesheet' />
 <link href='css/fullcalendar.print.min.css' rel='stylesheet'
@@ -119,7 +119,7 @@ body {
 
 
 	<div>
-		<h1>${username}Calendar ( ${cName} )</h1>
+		<h1>${username}'s Calendar ( ${cName} )</h1>
 		<div class="page-header">
 			<nav class="navbar navbar-default">
 			<div class="container-fluid">
@@ -138,9 +138,6 @@ body {
 			</nav>
 		</div>
 	</div>
-	<p>
-		<a href="CreateEvent?id=${cid}&calName=${cName}">create event.</a>
-	</p>
 	<h4>Cal Name: ${cName}</h4>
 	<div id="calendar" class="fc fc-unthemed fc-ltr"></div>
 

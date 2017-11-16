@@ -38,8 +38,8 @@ public class UserCalendar extends HttpServlet {
 		String calName = null;
 		String eventCount = null;
 		Integer calId;
-		String name = (String) request.getSession().getAttribute("Username");
-		System.out.println("name: " + name);
+		String username = (String) request.getSession().getAttribute("Username");
+		String name = null;
 		Integer uid = (Integer) request.getSession().getAttribute("ssuid");
 		System.out.println("id: " + uid);
 		
@@ -77,12 +77,22 @@ public class UserCalendar extends HttpServlet {
 				calName = rs.getString("cal_name");
 				eventCount = rs.getString("event_count");
 
-				// calander.add(new CalanderModel(id, userId, calName,
-				// eventCount));
 			}
 			HttpSession session = request.getSession();
 			
+			String sql2 = "SELECT username FROM users where uid = " + userId + "";
+			Statement st2 = c.createStatement();
+			ResultSet rs2 = st2.executeQuery(sql2);
+			
+			while (rs2.next()) {
+				name = rs2.getString("username");
+				System.out.println(name);
+			}
+			
+			
+			
 			session.setAttribute("cId", Id);
+			request.setAttribute("currentUserName", username);
 			request.setAttribute("cid", id);
 			request.setAttribute("uid", userId);
 			request.setAttribute("username", name);

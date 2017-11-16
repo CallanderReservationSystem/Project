@@ -10,13 +10,42 @@
 	<meta charset="UTF-8">
 	<script src='lib/jquery.min.js'></script>
 	
-	<script>
+<%
+	String check = (String) session.getAttribute("Username");
+	String name = "";
+	String userposition = "";
 
-	
-	</script>
+	if (check != null) {
+		name = (String) session.getAttribute("Username");
+		userposition = (String) session.getAttribute("Userpos");
+	} else {
+		response.sendRedirect("../Index.jsp");
+	}
+%>
 	
 </head>
 <body>
+	
+		<div>
+		<div class="page-header">
+			<nav class="navbar navbar-default">
+			<div class="container-fluid">
+				<%
+					if (userposition.equals("A")) {
+				%>
+				<%@include file="/inc/inc_admin_nav.jsp"%>
+				<%
+					} else {
+				%>
+				<%@include file="/inc/inc_user_nav.jsp"%>
+				<%
+					}
+				%>
+			</div>
+			</nav>
+		</div>
+	</div>
+	
 	<h1>Registration Confirmation for: ${eventName}</h1>
 	<form method="post" action="RegisterForEvent" id="page" >
 		<div class="form-group row align-items-center">
@@ -26,6 +55,15 @@
 					<p style="color: RED;">*${nameError}</p>
 				</c:if>
 				<input type="text" class="form-control" id="name" name='name' placeholder="Name for Reservation">
+			</div>
+			<div class="form-group col-sm-3">
+			</div>
+			<div class="form-group col-sm-3">
+			</div>
+			<div class="form-group col-sm-3">
+				<label for="list">List of Seats</label>
+				<c:forEach>
+				</c:forEach>
 			</div>
 		</div>
 		<div class="form-group row ">

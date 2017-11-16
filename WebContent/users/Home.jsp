@@ -97,7 +97,7 @@
 					<ul class="options">
 
 
-						<li class="active"><a href="Calendar/CreateCalander.jsp">Create a Calendar</a></li>
+						<li class="active"><a href="CreateCalander">Create a Calendar</a></li>
 						<li><a href=DeleteCalendar>Delete a Calendar</a></li>
 						<li><a href="EditCalendar">Edit a Calendar</a>
 					</ul>
