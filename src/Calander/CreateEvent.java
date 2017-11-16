@@ -62,6 +62,8 @@ public class CreateEvent extends HttpServlet {
 		CalName = request.getParameter("calName");
 		System.out.println("cal name: " + CalName);
 		request.setAttribute("Calendarname", CalName);
+		ServletContext context = getServletContext();
+		context.setAttribute("calendarName", CalName);
 		request.getRequestDispatcher("Calendar/CreateEvent.jsp").forward(request, response);
 
 	}
@@ -87,7 +89,7 @@ public class CreateEvent extends HttpServlet {
 		String startTime = request.getParameter("startTime");
 		String endTime = request.getParameter("endTime");
 		String pr = request.getParameter("pr");
-		// String location = request.getParameter("location");
+		String location = request.getParameter("location");
 		String description = request.getParameter("description");
 		String seats = request.getParameter("seats");
 		String checkTables = request.getParameter("tablesCheck");
@@ -99,14 +101,13 @@ public class CreateEvent extends HttpServlet {
 		boolean inValidSTime = (startTime == null) || (startTime.trim().length() == 0);
 		boolean inValidETime = (endTime == null) || (endTime.trim().length() == 0);
 		boolean inValidPri = (pr == null);
-		// boolean inValidLocation = (location == null) ||
-		// (location.trim().length() == 0);
+		boolean inValidLocation = (location == null) || (location.trim().length() == 0);
 		boolean inValidSeats = (seats == null) || (seats.trim().length() == 0);
 		boolean checkTable = checkTables == null;
 		boolean inValidTables = (tables == null) || (tables.trim().length() == 0);
 
 		// Message so the user knows what they need to do
-		if (inValidName || inValidDate || inValidSTime || inValidETime || inValidPri /* || inValidLocation */
+		if (inValidName || inValidDate || inValidSTime || inValidETime || inValidPri || inValidLocation
 				|| inValidSeats) {
 			if (inValidName) {
 				request.setAttribute("eventError", "Must Enter Valid Event Name");
@@ -123,9 +124,9 @@ public class CreateEvent extends HttpServlet {
 			if (inValidPri) {
 				request.setAttribute("pri", "Must Select Private or Public Event");
 			}
-			// if(inValidLocation) {
-			// request.setAttribute("locaError", "Must Enter Valid Location");
-			// }
+			if(inValidLocation) {
+			request.setAttribute("locaError", "Must Enter Valid Location");
+			}
 			if (inValidSeats) {
 				request.setAttribute("seatsError", "Must Enter Ammount of Seats");
 			}
@@ -134,7 +135,10 @@ public class CreateEvent extends HttpServlet {
 					request.setAttribute("tableError", "Must Enter Ammount of Tables");
 				}
 			}
-			doGet(request, response);
+			String calendarID = (String) getServletContext().getAttribute("calendarID");
+			String calendarName = (String) getServletContext().getAttribute("calendarName");
+			//response.sendRedirect("CreateEvent?id=" + calendarID + "&calName=" + calendarName);
+			request.getRequestDispatcher("Calendar/CreateEvent.jsp").forward(request, response);
 		} else {
 			ArrayList<CalendarEventModel> events = new ArrayList<CalendarEventModel>();
 			Integer userId = getId(request);
@@ -185,7 +189,9 @@ public class CreateEvent extends HttpServlet {
 			 */
 			request.setAttribute("id", userId);
 			request.setAttribute("cid", CalId);
-			response.sendRedirect("Calander");
+			String calendarID = (String) getServletContext().getAttribute("calendarID");
+			
+			response.sendRedirect("Calander?cid="+calendarID);
 		//	request.getRequestDispatcher("/Calander").forward(request, response);
 			
 		}
