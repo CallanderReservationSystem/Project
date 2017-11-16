@@ -1,17 +1,33 @@
+# Ignore everything
 *
 
-.DS_Store
+# But not these files...
+!.gitignore
 
+!src
 !src/
 !src/**
 
-!WebContent
-!WebContent/**
+!bin/
 
+!build 
 !build/
 !build/**
 
+!WebContent
+!WebContent/
+!WebContent/**
+
+!libs
+!libs/
+!libs/**
+
+!*.txt
 !*.md
+!*.sh
+!*.py
+!*.java
 
-!.gitignore
-
+# MAC HIDDEN FILES
+.DS_Store
+/build/
