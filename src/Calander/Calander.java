@@ -33,6 +33,14 @@ public class Calander extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// ArrayList<CalanderModel> calander = new ArrayList<CalanderModel>();
+		
+		//to get id of the calendar
+		String calendarID = request.getParameter("cid");
+		ServletContext context = getServletContext();
+		context.setAttribute("calendarID", calendarID);
+		
+		
+		//get the event that was just created if any there was any created
 		events =  (ArrayList<CalendarEventModel>) getServletContext().getAttribute("events");
 		boolean newEvent = false;
 		if(events == null ) {
