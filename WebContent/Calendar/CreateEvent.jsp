@@ -11,6 +11,19 @@
 	<script src='lib/moment.min.js'></script>
 	<script src='lib/jquery.min.js'></script>
 	<script src='fullcalendar.min.js'></script>
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<script>
+		$(function (){
+			$("#datepicker").datepicker({
+				showButtonPanel: true,
+				minDate: 0,
+				maxDate: "4M + 10D"
+			});
+		});
+	</script>
 	<style>
 		body {
 			margin: 40px 10px;
@@ -43,7 +56,7 @@
 			<p style="color:RED;">*${dateError}</p>
 		</c:if>
 		
-		<p>Select date<input type="date" name= "date" id="datepicker" value="${param.date}"></p>
+		<p>Select date<input type="text" name= "date" id="datepicker" value="${param.date}"></p>
 		
 		<p>Event time</p>
 		
