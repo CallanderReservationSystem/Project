@@ -60,11 +60,12 @@
 						<td>${t.eventId}</td>
 						<td>${t.eventName}</td>
 						<td>${t.tableAmount}</td>
-						<td>${t.seatesPerTable}</td> <!-- display calendar count instead. -->
+						<td>${t.seatsPerTable}</td> <!-- display calendar count instead. -->
+						<td><a href=DeleteTable?id=${t.id}&eventId=${t.eventId}&name=${t.eventName}>Delete</a></td>
 					</tr>			
 				</c:forEach>
 			</table>
-			<a href="AddTable?eid=${eventId}&name=${eventName}">Add Tables</a>
+			<a href="AddTable?eid=${eventId}&name=${eventName}&cid=${cid}">Add Tables</a>
 		</div>
 	</div>
 </body>

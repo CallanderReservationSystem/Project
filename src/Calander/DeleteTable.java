@@ -12,34 +12,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/DeleteEvent")
-public class DeleteEvent extends HttpServlet {
+@WebServlet("/DeleteTable")
+public class DeleteTable extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		Integer id = Integer.parseInt(request.getParameter("id"));
+		Integer eventId = Integer.parseInt(request.getParameter("eventId"));
 
 		Connection c = null;
+		String url = "jdbc:mysql://cs3.calstatela.edu/cs3337stu03";
+		String SQLuser = "cs3337stu03";
+		String SQLpass = "K!c7YAg.";
+		String sql = "DELETE FROM tables WHERE id = " + id +  " ";
 
 		try {
-			String url = "jdbc:mysql://cs3.calstatela.edu/cs3337stu03";
-			String SQLuser = "cs3337stu03";
-			String SQLpass = "K!c7YAg.";
-			String sql = "delete from events where id = " + id + " ";
-
-			c = DriverManager.getConnection(url, SQLuser, SQLpass);
-			Statement st = c.createStatement();
-			st.executeUpdate(sql);
-
-		} catch (SQLException e) {
-			throw new ServletException(e);
-		}
-		try {
-			String url = "jdbc:mysql://cs3.calstatela.edu/cs3337stu03";
-			String SQLuser = "cs3337stu03";
-			String SQLpass = "K!c7YAg.";
-			String sql = "delete from tables where eventId = " + id + " ";
 
 			c = DriverManager.getConnection(url, SQLuser, SQLpass);
 			Statement st = c.createStatement();
@@ -55,9 +43,9 @@ public class DeleteEvent extends HttpServlet {
 				throw new ServletException(e);
 			}
 		}
-		request.setAttribute("cid", id);
-		request.getRequestDispatcher("Calander").forward(request, response);
-
+		request.setAttribute("id", eventId);
+		response.sendRedirect("CreateTables");
+		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)

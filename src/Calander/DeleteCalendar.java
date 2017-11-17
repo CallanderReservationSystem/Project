@@ -70,6 +70,20 @@ public class DeleteCalendar extends HttpServlet {
 			PreparedStatement ps = c.prepareStatement(sql);
 			ps.executeUpdate();
 			System.out.println("done!!! again");
+		} catch (SQLException e) {
+			throw new ServletException(e);
+		}
+	 
+	 try {
+			String url = "jdbc:mysql://cs3.calstatela.edu/cs3337stu03";
+			String SQLuser = "cs3337stu03";
+			String SQLpass = "K!c7YAg.";
+			String sql = "delete FROM tables WHERE cid =" + id + "";
+			c = DriverManager.getConnection(url, SQLuser, SQLpass);
+			
+			PreparedStatement ps = c.prepareStatement(sql);
+			ps.executeUpdate();
+			System.out.println("done!!! again, for the last Time");
 			response.sendRedirect("Member");
 		} catch (SQLException e) {
 			throw new ServletException(e);

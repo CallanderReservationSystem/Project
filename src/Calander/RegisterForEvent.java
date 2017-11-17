@@ -17,6 +17,7 @@ import java.util.ArrayList;
 public class RegisterForEvent extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private ArrayList<Table> tables = new ArrayList<Table>();
+	private ArrayList<Table> tables2 = new ArrayList<Table>();
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -38,21 +39,41 @@ public class RegisterForEvent extends HttpServlet {
 		String SQLuser = "cs3337stu03";
 		String SQLpass = "K!c7YAg.";
 		String sql = "SELECT * from events where id = " + eventId;
+		String sql2 = "SELECT * from tables WHERE eventId ="+eventId;
 
 		try {
 			c = DriverManager.getConnection(url, SQLuser, SQLpass);
+			
+			//for first sql query
 			Statement st = c.createStatement();
 			ResultSet rs = st.executeQuery(sql);
+			
+			//for second sql query
+			Statement st2 = c.createStatement();
+			ResultSet rs2 = st2.executeQuery(sql2);
+			
 
 			while (rs.next()) {
 				id = rs.getInt("id");
 				userId = rs.getInt("uid");
 				eventName = rs.getString("title");
 				location = rs.getString("location");
-				System.out.println(eventName);
 			}
-			System.out.println(eventName);
-
+			
+			tables2.clear();
+			while (rs2.next()) {
+				Integer tableId = rs2.getInt("id");
+				Integer tableEventId = rs2.getInt("eventId");
+				Integer cid =rs2.getInt("cid");
+				Integer tableAmount = rs2.getInt("tableAmount");
+				Integer seatsPerTable = rs2.getInt("seatsPerTable");
+				String tableEventName = rs2.getString("eventName");
+				
+				tables2.add(new Table(tableId,tableEventId,cid,tableEventName,tableAmount,seatsPerTable));
+			}
+			
+			System.out.println(tables2.size());
+			request.setAttribute("eventTable", tables2);
 			request.setAttribute("user_name", user_name);
 			request.setAttribute("eventName", eventName);
 			request.setAttribute("id", id);
@@ -134,10 +155,11 @@ public class RegisterForEvent extends HttpServlet {
 
 					Integer tableId = rs.getInt("id");
 					Integer eventId = rs.getInt("eventId");
+					Integer cid =rs.getInt("cid");
 					String eventName = rs.getString("eventName");
 					Integer tableAmount = rs.getInt("tableAmount");
 					Integer seatsPerTable = rs.getInt("seatsPerTable");
-					tables.add(new Table(tableId, eventId, eventName, tableAmount, seatsPerTable));
+					tables.add(new Table(tableId, eventId,cid, eventName, tableAmount, seatsPerTable));
 				}
 				System.out.println(tables.size());
 				
