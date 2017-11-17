@@ -69,10 +69,8 @@
 						<table class="table table-bordered table-hover table-condensed"
 							border="1">
 							<tr>
-								<th>Table's
-								</td>
-								<th>Seats Per Table
-								</td>
+								<th>Tables </th>
+								<th>Seats Per Table</th>
 							</tr>
 							<c:forEach items="${eventTable}" var="tab">
 								<tr>
@@ -122,8 +120,8 @@
 					placeholder="Anything Special?"></textarea>
 			</div>
 		</div>
-		<input type="hidden " name="user_name" value="${user_name}"> <input
-			type="hidden " name="id" value="${id}">
+		<input type="hidden" name="user_name" value="${user_name}"> 
+		<input type="hidden" name="id" value="${id}">
 		<button type="reset" class=" btn btn-danger">Clear</button>
 		<button type="submit" class="btn btn-success">Register</button>
 

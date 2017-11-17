@@ -39,19 +39,18 @@ public class RegisterForEvent extends HttpServlet {
 		String SQLuser = "cs3337stu03";
 		String SQLpass = "K!c7YAg.";
 		String sql = "SELECT * from events where id = " + eventId;
-		String sql2 = "SELECT * from tables WHERE eventId ="+eventId;
+		String sql2 = "SELECT * from tables WHERE eventId =" + eventId;
 
 		try {
 			c = DriverManager.getConnection(url, SQLuser, SQLpass);
-			
-			//for first sql query
+
+			// for first sql query
 			Statement st = c.createStatement();
 			ResultSet rs = st.executeQuery(sql);
-			
-			//for second sql query
+
+			// for second sql query
 			Statement st2 = c.createStatement();
 			ResultSet rs2 = st2.executeQuery(sql2);
-			
 
 			while (rs.next()) {
 				id = rs.getInt("id");
@@ -59,20 +58,20 @@ public class RegisterForEvent extends HttpServlet {
 				eventName = rs.getString("title");
 				location = rs.getString("location");
 			}
-			
+
 			tables2.clear();
 			while (rs2.next()) {
 				Integer tableId = rs2.getInt("id");
 				Integer tableEventId = rs2.getInt("eventId");
-				Integer cid =rs2.getInt("cid");
+				Integer cid = rs2.getInt("cid");
 				Integer tableAmount = rs2.getInt("tableAmount");
 				Integer seatsPerTable = rs2.getInt("seatsPerTable");
 				String tableEventName = rs2.getString("eventName");
-				
-				tables2.add(new Table(tableId,tableEventId,cid,tableEventName,tableAmount,seatsPerTable));
+
+				tables2.add(new Table(tableId, tableEventId, cid, tableEventName, tableAmount, seatsPerTable));
 			}
-			
-			System.out.println(tables2.size());
+
+			System.out.println("Amount of tables in Table List: " + tables2.size());
 			request.setAttribute("eventTable", tables2);
 			request.setAttribute("user_name", user_name);
 			request.setAttribute("eventName", eventName);
@@ -144,29 +143,74 @@ public class RegisterForEvent extends HttpServlet {
 			String SQLuser = "cs3337stu03";
 			String SQLpass = "K!c7YAg.";
 			String reorderSql = "SELECT * FROM tables ORDER BY seatsPerTable";
-			String sql = "SELECT * FROM tables WHERE eventId =" + id + " AND seatsPerTable >=" + numOfPeople;
+
+			Integer selectedTableId = null;
+			Integer selectedCalId = null;
+			Integer selectedUserId = (Integer) request.getSession().getAttribute("ssuid");
+			Integer selcetedEventId = null;
+
 			Connection c = null;
+			Integer optimalTableId = 0;
+
 			try {
+				String sql = "SELECT * FROM tables WHERE eventId =" + id + " AND seatsPerTable >=" + numOfPeople
+						+ " AND seatsPerTable <" + (numOfPeople + 4);
 				c = DriverManager.getConnection(url, SQLuser, SQLpass);
 				Statement st = c.createStatement();
 				ResultSet rs = st.executeQuery(sql);
 
+				
+
+				tables.clear();
 				while (rs.next()) {
 
 					Integer tableId = rs.getInt("id");
 					Integer eventId = rs.getInt("eventId");
-					Integer cid =rs.getInt("cid");
+					Integer cid = rs.getInt("cid");
 					String eventName = rs.getString("eventName");
 					Integer tableAmount = rs.getInt("tableAmount");
 					Integer seatsPerTable = rs.getInt("seatsPerTable");
-					tables.add(new Table(tableId, eventId,cid, eventName, tableAmount, seatsPerTable));
+					tables.add(new Table(tableId, eventId, cid, eventName, tableAmount, seatsPerTable));
 				}
-				System.out.println(tables.size());
+				System.out.println("This is the number of table objects found whose seat count is >= " + numOfPeople
+						+ " : " + tables.size());
+
+				for (Table t : tables) {
+					if (t.getSeatsPerTable() == numOfPeople) {
+						optimalTableId = t.getId();
+						break;
+					} else if (t.getSeatsPerTable() == numOfPeople + 1) {
+						optimalTableId = t.getId();
+						break;
+					} else if (t.getSeatsPerTable() == numOfPeople + 2) {
+						optimalTableId = t.getId();
+						break;
+					}
+				}
 				
+				System.out.println(optimalTableId);
+
+				String sql2 = "SELECT * FROM tables WHERE id =" + optimalTableId;
+				Statement st2 = c.createStatement();
+				ResultSet rs2 = st2.executeQuery(sql2);
+
+				while (rs2.next()) {
+
+					selectedTableId = rs2.getInt("id");
+					selectedCalId = rs2.getInt("cid");
+					selcetedEventId = rs2.getInt("eventId");
+				}
+				
+				String sql3 = "INSERT INTO reservations (calId,eventId,userId,tableId,start_time,end_time,start_date,end_date,user_name,reservation_name,details) VALUES "
+						+ "('" +selectedCalId+ "','" +selcetedEventId+ "','" +selectedUserId + "','" +selectedTableId+ "','" +startTime + "','" +endTime+ "','" +startDate+ "','"
+						+endDate+ "','" +username+ "','"+ reservation_name +"','"+details+"')";
+				c.createStatement().executeUpdate(sql3);
 
 			} catch (SQLException e) {
 				throw new ServletException(e);
-			} finally {
+			}
+
+			finally {
 				try {
 					if (c != null)
 						c.close();
@@ -174,7 +218,8 @@ public class RegisterForEvent extends HttpServlet {
 					throw new ServletException(e);
 				}
 
-				//request.getRequestDispatcher("Calendar/UserCalendar.jsp").forward(request, response);
+				// request.getRequestDispatcher("Calendar/UserCalendar.jsp").forward(request,
+				// response);
 			}
 		}
 	}
