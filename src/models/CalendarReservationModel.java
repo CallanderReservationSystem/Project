@@ -8,10 +8,22 @@ public class CalendarReservationModel {
 	String end_date;
 	String user_name;
 	String details;
+	public Integer getTableId() {
+		return tableId;
+	}
+
+	public void setTableId(Integer tableId) {
+		this.tableId = tableId;
+	}
+	Integer calId;
+	Integer eventId;
+	Integer userId;
+	Integer tableId;
+	
 	
 	
 	public CalendarReservationModel(String start_time, String end_time, String start_date, String end_date,
-			String user_name, String details, Integer calId, Integer eventId, Integer userId) {
+			String user_name, String details, Integer calId, Integer eventId, Integer userId,Integer tableId) {
 		super();
 		this.start_time = start_time;
 		this.end_time = end_time;
@@ -22,6 +34,11 @@ public class CalendarReservationModel {
 		this.calId = calId;
 		this.eventId = eventId;
 		this.userId = userId;
+		this.tableId = tableId;
+	}
+	
+	public CalendarReservationModel() {
+		
 	}
 	
 	
@@ -79,10 +96,7 @@ public class CalendarReservationModel {
 	public void setUserId(Integer userId) {
 		this.userId = userId;
 	}
-	Integer calId;
-	Integer eventId;
-	Integer userId;
-	
+
 	
 
 }
