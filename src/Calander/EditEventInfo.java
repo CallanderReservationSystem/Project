@@ -43,11 +43,6 @@ public class EditEventInfo extends HttpServlet {
 			System.out.println("ok");
 			eventID = Integer.parseInt(request.getParameter("id"));
 		}
-		else
-		{
-			System.out.println("ok2");
-			eventID = Integer.parseInt(request.getParameter("eventID"));
-		}
 		String oldTitle = null;
 		String oldLocation = null;
 		String oldStart = null;
@@ -57,32 +52,11 @@ public class EditEventInfo extends HttpServlet {
 		Integer oldTableCount = null;
 		Integer oldSeatsPerTable = null;
 		
-		String title = request.getParameter("newTitle");
-		String location = request.getParameter("newLocation");
-		String start = request.getParameter("newStart");
-		String end = request.getParameter("newEnd");
-		String start_date = request.getParameter("newStart_date");
-		String end_date = request.getParameter("newEnd_date");
-		Integer tableCount = Integer.parseInt(request.getParameter("newTableCount"));
-		Integer seatsPerTable = Integer.parseInt(request.getParameter("newSeatsPerTable"));
-		
 		String url = "jdbc:mysql://cs3.calstatela.edu/cs3337stu03";
 		String SQLuser = "cs3337stu03";
 		String SQLpass = "K!c7YAg.";
 		String sqlGrab = "select * from events where id = " + eventID;
-		String sqlThrow = "update event "
-				+ "set title = '" + title + 
-				"', location = '" + location + 
-				"', start = '" + start + 
-				"', end = '" + end +
-				"', start_date = '" + start_date +
-				"', end_date = '" + end_date +
-				"', tableCount = '" + tableCount +
-				"', seatsPerTable = '" + seatsPerTable +
-				"' where id = " + eventID;
 		
-		if (title == null)
-		{
 			try
 			{
 				c = DriverManager.getConnection(url, SQLuser, SQLpass);
@@ -116,21 +90,6 @@ public class EditEventInfo extends HttpServlet {
 			{
 				throw new ServletException(e);
 			}
-		}
-		if (title != null)
-		{
-			try
-			{
-				c = DriverManager.getConnection(url, SQLuser, SQLpass);
-				Statement st = c.createStatement();
-				st.executeUpdate(sqlThrow);
-				response.sendRedirect("Member");
-			}
-			catch (SQLException e)
-			{
-				throw new ServletException(e);
-			}
-		}
 	}
 
 	/**
@@ -138,7 +97,50 @@ public class EditEventInfo extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
+//		doGet(request, response);
+		Connection c = null;
+		
+		Integer eventID = Integer.parseInt(request.getParameter("theEventID"));
+		String title = request.getParameter("newTitle");
+		String location = request.getParameter("newLocation");
+		String start = request.getParameter("newStart");
+		String end = request.getParameter("newEnd");
+		String start_date = request.getParameter("newStart_date");
+		String end_date = request.getParameter("newEnd_date");
+		Integer tableCount = null;
+		if (request.getParameter("newTableCount") != null)
+			tableCount = Integer.parseInt(request.getParameter("newTableCount"));
+		Integer seatsPerTable = null;
+		if (request.getParameter("newSeatsPerTable") != null)
+			seatsPerTable = Integer.parseInt(request.getParameter("newSeatsPerTable"));
+		
+		String url = "jdbc:mysql://cs3.calstatela.edu/cs3337stu03";
+		String SQLuser = "cs3337stu03";
+		String SQLpass = "K!c7YAg.";
+		String sqlThrow = "update events set title = '" + title + 
+				"', end_date = '" + end_date + 
+				"', start_date = '" + start_date +
+				"', start = '" + start + 
+				"', end = '" + end +
+				"', tableCount = '" + tableCount +
+				"', seatsPerTable = '" + seatsPerTable +
+				"', location = '" + location + 				
+				"' where id = " + eventID;
+//		String sqlThrow2 = "update events set end_date = '" + end_date + "' where id = " + eventID;
+		try
+		{
+			c = DriverManager.getConnection(url, SQLuser, SQLpass);
+			Statement st = c.createStatement();
+			System.out.println("test " + eventID);
+			st.executeUpdate(sqlThrow);
+			System.out.println(end_date);
+//			st.executeUpdate(sqlThrow2);
+			response.sendRedirect("Member");
+		}
+		catch (SQLException e)
+		{
+			throw new ServletException(e);
+		}
 	}
 
 }

@@ -74,7 +74,7 @@
 							/* defaultDate : '2017-10-12', */
 							editable : true,
 							eventLimit : true, // allow "more" link when too many events
-							events : "/Calendar/CalendarEventFiller" 
+							events : "/Project/CalendarEventFiller" 
 								/* [ {
 								title : 'All Day Event',
 								start : '2017-09-01'

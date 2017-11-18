@@ -1,5 +1,7 @@
 package Calander;
 
+import com.google.gson.Gson;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -18,8 +20,6 @@ import models.CalendarEventModel;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import com.google.gson.Gson;
 
 @WebServlet("/CalendarEventFiller")
 public class CalendarEventFiller extends HttpServlet {
