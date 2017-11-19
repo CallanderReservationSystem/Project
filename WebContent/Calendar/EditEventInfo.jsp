@@ -11,13 +11,17 @@
 <body>
 	<h1>Edit Event Info</h1>
 	<form method="post" action="EditEventInfo" id="page">
-		Change Title: <input type="text" value="${title}" name="newTitle"> <input type="hidden" name="theEventID" value="${eventID}"> </br> 
-		Change Location: <input type="text" value="${location}" name="newLocation"> </br>
-		Change Duration: from <input type="date" value="${start_date}" name="newStart_date"> at <input type="time" value="${start}" name="newStart"> to <input type="date" value="${end_date}" name="newEnd_date"> at <input type="time" value="${end}" name="newEnd"> </br>
-		Change Table Count: <input type="number" value="${tableCount}" name="newTableCount"> </br>
-		Change Seats Per Table: <input type="number" value="${seatsPerTable}" name="newSeatsPerTable"> </br>
-		<button type="reset">Clear</button>
-		<button type="submit">Submit</button>
+	<div class="form-group col-sm-3">
+		Change Title: <input type="text" value="${title}" name="newTitle" class="form-control"> <input type="hidden" name="theEventID" value="${eventID}"> </br> 
+		Change Location: <input type="text" value="${location}" name="newLocation" class="form-control"> </br>
+		Change Duration: </br> 
+		from <input type="date" value="${start_date}" name="newStart_date" class="form-control"> 
+		at <input type="time" value="${start}" name="newStart" class="form-control"> 
+		to <input type="date" value="${end_date}" name="newEnd_date" class="form-control"> 
+		at <input type="time" value="${end}" name="newEnd" class="form-control"> </br>
+		<button type="reset" class="btn btn-primary">Clear</button>
+		<button type="submit" class="btn btn-success">Submit</button>
+	</div>
 	</form>
 </body>
 </html>
