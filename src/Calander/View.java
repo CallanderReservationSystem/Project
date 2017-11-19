@@ -77,7 +77,7 @@ public class View extends HttpServlet {
 						// System.out.println(calFound);
 						cId = eq.getString("id");
 						String calName = eq.getString("cal_name");
-						String eventCount = eq.getString("event_count");
+						Integer eventCount = eq.getInt("event_count");
 						calendars.add(
 								new CalendarModel(Integer.parseInt(cId), Integer.parseInt(uId), calName, eventCount));
 					}
@@ -139,11 +139,13 @@ public class View extends HttpServlet {
 			} else {
 				if (calFound) {
 					request.setAttribute("calendars", calendars);
-					if (eventFound) {
-						request.setAttribute("events", events);
-					}
 				} else {
 					request.setAttribute("noCal", "This user has no calendars");
+				}
+				if (eventFound) {
+					request.setAttribute("events", events);
+				} else {
+					request.setAttribute("noEvt", "This user has no events");
 				}
 
 			}

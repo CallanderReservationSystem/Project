@@ -54,46 +54,65 @@ public class Member extends HttpServlet {
 
 			String sql = "select * from calendar where uid = '" + ssuid + "'";
 			String sql2 = "SELECT cidFollowing FROM users WHERE uid ='" + ssuid + "'";
+			
 
 			try {
 
 				c = DriverManager.getConnection(url, SQLuser, SQLpass);
+				ArrayList<Integer> eventcount = new ArrayList<Integer>();
 				Statement st = c.createStatement();
-				Statement st2 = c.createStatement();
-				Statement st3 = c.createStatement();
+				
+				
+				Statement st0 = c.createStatement();
 				// for Users' Own Calendars
 				ResultSet rs = st.executeQuery(sql);
 				// For Following Calendars
-				ResultSet rs2 = st2.executeQuery(sql2);
-				System.out.println(rs2);
+
+				ResultSet rs0 = null;
 
 				while (rs.next()) {
+					String sql0 = "SELECT id FROM events WHERE cid =" + rs.getInt("id");
 					Integer calId = rs.getInt("id");
 					Integer userId = Integer.parseInt(rs.getString("uid"));
+					Integer events = 0;
 					String calanderName = rs.getString("cal_name");
-					String events = rs.getString("event_count");
-
+					rs0 = st0.executeQuery(sql0);
+					
+					eventcount.clear();
+					while(rs0.next()) {
+						events = rs0.getInt("id");
+						eventcount.add(events);
+					}
+					events = eventcount.size();
 					calanders.add(new CalendarModel(calId, userId, calanderName, events));
 					System.out.println("Done retreving data!!!");
 
 				}
-
-				for (CalendarModel cal : calanders) {
-					System.out.println("user id: " + ssuid);
-					System.out.println("Cal user id: " + cal.uid);
-					//
-					UserCalanders.clear();
-					// if (cal.uid.equals(ssuid)) {
-					// System.out.println("we have a match");
-					//
-					Integer uid = cal.uid;
-					Integer cid = cal.cid;
-					String calName = cal.calName;
-					String eventCount = cal.events;
-					//// UserCalanders.clear();
-					UserCalanders.add(new CalendarModel(uid, cid, calName, eventCount));
+			} catch (SQLException e) {
+				throw new ServletException(e);
+			} finally {
+				try {
+					if (c != null)
+						c.close();
+				} catch (SQLException e) {
+					throw new ServletException(e);
 				}
+			}
 
+
+			try {		
+				
+				c = DriverManager.getConnection(url, SQLuser, SQLpass);
+				ArrayList<Integer> followingEventCount = new ArrayList<Integer>();
+				Statement st2 = c.createStatement();
+				ResultSet rs2 = st2.executeQuery(sql2);
+				Statement st3 = c.createStatement();
+				Statement st0 = c.createStatement();
+				String sql3 = "";
+				ResultSet rs3 = null;
+				ResultSet rs0 = null;
+				String sql0 = "";
+				
 				
 				while (rs2.next()) {
 					FollowingCalanders.clear();
@@ -105,18 +124,28 @@ public class Member extends HttpServlet {
 					String[] individualCids = cidFollowingString.split(",");
 					for (String id : individualCids) {
 						System.out.println("Im an id! :"+ id);
-						String sql3 = "SELECT * FROM calendar WHERE id = '" + id + "'";
-						ResultSet rs3 = st3.executeQuery(sql3);
+						 sql3 = "SELECT * FROM calendar WHERE id = '" + id + "'";
+						 rs3 = st3.executeQuery(sql3);
 						while (rs3.next()) {
+							sql0 = "SELECT id FROM events WHERE cid ="+rs3.getInt("id");
 							Integer followCalId = rs3.getInt("id");
 							System.out.println(followCalId);
 							System.out.println("jeff");
 							Integer followUserId = Integer.parseInt(rs3.getString("uid"));
 							System.out.println(followUserId);
 							String followCalendarName = rs3.getString("cal_name");
-							System.out.println(followCalendarName);
-							String followEvents = rs3.getString("event_count");
-							System.out.println(followEvents);
+							Integer followEvents = 0;
+							rs0 = st0.executeQuery(sql0);
+							
+							followingEventCount.clear();
+							while(rs0.next()) {
+								followEvents = rs0.getInt("id");
+								followingEventCount.add(followEvents);
+							}
+							
+							followEvents = followingEventCount.size();
+							
+							
 							FollowingCalanders.add(
 									new CalendarModel(followCalId, followUserId, followCalendarName, followEvents));
 
