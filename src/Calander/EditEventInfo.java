@@ -135,7 +135,7 @@ public class EditEventInfo extends HttpServlet {
 			st.executeUpdate(sqlThrow);
 			System.out.println(end_date);
 //			st.executeUpdate(sqlThrow2);
-			response.sendRedirect("Member");
+			response.sendRedirect("Calander");
 		}
 		catch (SQLException e)
 		{
