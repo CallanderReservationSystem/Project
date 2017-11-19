@@ -211,7 +211,7 @@ public class CreateEvent extends HttpServlet {
 			else if (currentChar != '/' && i < 5) {
 				day += currentChar;
 			}
-			else if( currentChar != '/' & i < 9) {
+			else if( currentChar != '/' & i < 10) {
 				year += currentChar;
 			}
 		}
