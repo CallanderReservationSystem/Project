@@ -10,9 +10,10 @@
 </head>
 <body>
 	<div class="container">
-		<form class="form-horizontal" method="post" action="../CreateCalander">
+		<form class="form-horizontal" method="post" action="CreateCalander">
 			<div class="form-group">
-				<label class="col-sm-2 control-label">Calendar Name:</label>
+				<label class="col-sm-2 control-label">	Calendar Name:</label>
+				<br><br>
 				<c:if test="${not empty CalError }">
 					<h9 style="color:RED;">*${CalError}</h9>
 				</c:if>
@@ -21,7 +22,7 @@
 				</div>	
 			</div>
 			<br>
-			<div class="form-group">
+			<%-- <div class="form-group">
 				<label class="col-sm-2 control-label">Admin user:</label>
 				<c:if test="${not empty EventError }">
 					<h9 style="color:RED;">*${EventError}</h9>
@@ -29,7 +30,7 @@
 				<div class="col-sm-10">
 					<input class="form-control" type="text" name="AdminUser" value="${param.AdminUser}">
 				</div>	
-			</div>	
+			</div>	 --%>
 			<br>
 			<div class="col-sm-offset-2 col-sm-10">
 				<input type="submit" value="Create">

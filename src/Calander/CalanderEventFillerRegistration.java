@@ -21,8 +21,8 @@ import java.util.List;
 
 import com.google.gson.Gson;
 
-@WebServlet("/CalendarEventFiller")
-public class CalendarEventFiller extends HttpServlet {
+@WebServlet("/CalanderEventFillerRegistration")
+public class CalanderEventFillerRegistration extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -32,14 +32,19 @@ public class CalendarEventFiller extends HttpServlet {
 
 		Integer id;
 		Integer uid;
-		Integer cid = (Integer) request.getSession().getAttribute("cId"); // need to change to Integer
+		Integer cid = (Integer) request.getSession().getAttribute("cId"); // need
+																			// to
+																			// change
+																			// to
+																			// Integer
 		System.out.println("event cal id: " + cid);
 		String title = null;
 		String start;
 		String end;
 		String start_time = null;
 		String end_time = null;
-//		String details;
+		// String details;
+		String location = null;
 		String color = null;
 		String url;
 		Integer tableCount = null;
@@ -60,15 +65,23 @@ public class CalendarEventFiller extends HttpServlet {
 			events.clear();
 			while (rs.next()) {
 				id = rs.getInt("id");
+				System.out.println("Id is :" + id);
 				uid = rs.getInt("uid");
+				System.out.println("uId is :" + uid);
 				title = rs.getString("title");
+				System.out.println("title is :" + title);
 				start = rs.getString("start_date");
+				System.out.println("start_date is :" + start);
 				end = rs.getString("end_date");
+				System.out.println("end_date is :" + end);
 				start_time = rs.getString("start");
+				System.out.println("start_time is :" + start_time);
 				end_time = rs.getString("end");
-				url = "CreateTables?id=" + id + "&name=" + title + "&cid=" + cid + "";
-				events.add(new CalendarEventModel(id, uid, cid, title, start, end, start_time, end_time, url, color,
-						tableCount, seatsPerTable));
+				System.out.println("end_time is :" + end_time);
+				url = "RegisterForEvent?cid=" + cid + "&id=" + id;
+				location = rs.getString("location");
+				events.add(new CalendarEventModel(id, uid, cid, title, start, end, start_time, end_time, url, color, location));
+				// tableCount, seatsPerTable, 
 			}
 		} catch (SQLException e) {
 			throw new ServletException(e);
@@ -80,18 +93,6 @@ public class CalendarEventFiller extends HttpServlet {
 				throw new ServletException(e);
 			}
 		}
-		// CalendarEventModel c = new CalendarEventModel();
-		// c.setId(1);
-		// c.setStart("2017-10-02");
-		// c.setEnd("2017-10-20");
-		// c.setTitle("Task in Progress 1");
-		// CalendarEventModel d = new CalendarEventModel();
-		// d.setId(2);
-		// d.setStart("2017-10-21");
-		// d.setEnd("2017-11-29");
-		// d.setTitle("Task in Progress 2");
-		// events.add(c);
-		// events.add(d);
 
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");

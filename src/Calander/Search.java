@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/Search")
 public class Search extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private Integer fid;
 	private String username = "";
 	private String search;
 	private boolean notFound;
@@ -36,6 +37,8 @@ public class Search extends HttpServlet {
 			throws ServletException, IOException {
 		username = (String) request.getSession().getAttribute("Username");
 		request.setAttribute("user", username);
+		fid = (Integer) request.getSession().getAttribute("ssuid");
+		request.setAttribute("fid", fid);
 		request.getRequestDispatcher("Calendar/Search.jsp").forward(request, response);
 	}
 
@@ -43,6 +46,9 @@ public class Search extends HttpServlet {
 			throws ServletException, IOException {
 		username = (String) request.getSession().getAttribute("Username");
 		request.setAttribute("user", username);
+		fid = (Integer) request.getSession().getAttribute("ssuid");
+		request.setAttribute("fid", fid);
+
 		if (username == null) {
 			request.setAttribute("noUser", "You Must Login First!");
 			response.sendRedirect("Main");

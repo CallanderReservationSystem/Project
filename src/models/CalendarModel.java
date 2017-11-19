@@ -59,4 +59,9 @@ public class CalendarModel {
 		this.calName = name;
 	}
 
+	public CalendarModel(Integer cid2, Integer uid2) {
+		this.cid = cid2;
+		this.uid = uid2;
+	}
+
 }

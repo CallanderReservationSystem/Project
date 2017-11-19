@@ -41,7 +41,7 @@
 			<c:if test="${not empty users }">
 				<c:forEach var="user" items="${requestScope.users }">
 					<div >
-					<a href="View?name=${user}">
+					<a href="View?name=${user}&fid=${fid}">
 					<c:out value="${user }"/>
 					</a>
 					</div>

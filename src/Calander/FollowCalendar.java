@@ -13,10 +13,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.apache.catalina.Session;
 
 @WebServlet("/FollowCalendar")
 public class FollowCalendar extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private boolean found = false;
 	private Integer fid;
 	private Integer id;
 	private Integer uid, uid01, cid;
@@ -54,20 +58,23 @@ public class FollowCalendar extends HttpServlet {
 			}
 		}
 		System.out.println("calendar id to follow: " + id);
+		
 		/////// --CHECK-USER-AUTHORIZATION--////////// IF USER IS ADMIN ON THAT
 		/////// CALENDAR
-		String sql02 = "select * from admin_users where user_id = '" + fid + "' and cal_id = '" + id + "' ";
-		try {
-			c = DriverManager.getConnection(url, SQLuser, SQLpass);
-			Statement st = c.createStatement();
-			ResultSet rs = st.executeQuery(sql02);
-			if (rs.next()) {
-				while (rs.next()) {
-					uid01 = rs.getInt("user_id");
-					cid = rs.getInt("cal_id");
-				}
+//		String sql02 = "select * from admin_users where user_id = '" + fid + "' and cal_id = '" + id + "' ";
+//		try {
+//			c = DriverManager.getConnection(url, SQLuser, SQLpass);
+//			Statement st = c.createStatement();
+//			ResultSet rs = st.executeQuery(sql02);
+//			HttpSession session = request.getSession();
+//			if (rs.next()) {
+//				while (rs.next()) {
+//					uid01 = rs.getInt("user_id");
+//					cid = rs.getInt("cal_id");
+//				}
 
 				////////////// --INSERT--/////////////////
+				
 				String sql03 = "INSERT INTO shared_calendars (owner_uid, follower_id, cid, title) values('" + uid
 						+ "','" + fid + "','" + id + "','" + title + "')";
 				try {
@@ -85,24 +92,34 @@ public class FollowCalendar extends HttpServlet {
 						throw new ServletException(e);
 					}
 				}
+				System.out.println("admin user!");
+				found = true;
+				// session.setAttribute("found", found);
+				//request.setAttribute("found", found);
 				response.sendRedirect("Member");
 
-			} else {
-				System.out.println("not found!");
-				request.setAttribute("userAuth", "User does not have admin level over this calendar");
-				request.getRequestDispatcher("Search").forward(request, response);
-			}
-
-		} catch (SQLException e) {
-			throw new ServletException(e);
-		} finally {
-			try {
-				if (c != null)
-					c.close();
-			} catch (SQLException e) {
-				throw new ServletException(e);
-			}
-		}
+//			} else {
+//				System.out.println("not admin!");
+//				found = false;
+//				session.setAttribute("found", found);
+////				request.setAttribute("found", found);
+//				response.sendRedirect("Member");
+//				
+////				request.setAttribute("userCalendar", "/UserCalendar");
+////				request.setAttribute("userAuth", "User does not have admin level over this calendar");
+////				request.getRequestDispatcher("Search").forward(request, response);
+//			}
+//
+//		} catch (SQLException e) {
+//			throw new ServletException(e);
+//		} finally {
+//			try {
+//				if (c != null)
+//					c.close();
+//			} catch (SQLException e) {
+//				throw new ServletException(e);
+//			}
+//		}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)

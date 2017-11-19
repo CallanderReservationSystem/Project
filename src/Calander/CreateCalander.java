@@ -14,27 +14,25 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-import models.CalendarModel;
+//import javax.servlet.http.HttpSession;
+//
+//import models.CalendarModel;
 import models.MyModel;
 
 @WebServlet("/CreateCalander")
 public class CreateCalander extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
-	private ArrayList<CalendarModel> calanders = new ArrayList<CalendarModel>();
 	private ArrayList<MyModel> users = new ArrayList<MyModel>();
 	private String CalName;
 	private String UserName;
-	private String eventCount; // change to Int
-	private Integer uid = 0;
+	// private Integer uid = 0;
 	private Boolean hasError = false;
-	private Boolean found = false;
+	// private Boolean found = false;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		request.getRequestDispatcher("Calander/CreateCalander.jsp").forward(request, response);
+		request.getRequestDispatcher("Calendar/CreateCalander.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -46,8 +44,9 @@ public class CreateCalander extends HttpServlet {
 		CalName = request.getParameter("CalName");
 		System.out.println("passed CalName: " + CalName);
 
-		eventCount = request.getParameter("eventCount"); // change type to int
-		System.out.println("passed event#: " + eventCount);
+		// eventCount = request.getParameter("eventCount"); // change type to
+		// int
+		// System.out.println("passed event#: " + eventCount);
 
 		if (UserName == null || UserName.trim().length() == 0) {
 
@@ -65,11 +64,12 @@ public class CreateCalander extends HttpServlet {
 				request.setAttribute("CalError", "Please Enter calander Name first!");
 			}
 
-			if (eventCount == null || eventCount.trim().length() == 0) {
-				System.out.println("empty count parameter");
-				hasError = true;
-				request.setAttribute("EventError", "Please Enter valid event count first!");
-			}
+			// if (eventCount == null || eventCount.trim().length() == 0) {
+			// System.out.println("empty count parameter");
+			// hasError = true;
+			// request.setAttribute("EventError", "Please Enter valid event
+			// count first!");
+			// }
 
 			if (hasError) {
 				doGet(request, response);
@@ -81,15 +81,13 @@ public class CreateCalander extends HttpServlet {
 				String url = "jdbc:mysql://cs3.calstatela.edu/cs3337stu03";
 				String SQLuser = "cs3337stu03";
 				String SQLpass = "K!c7YAg.";
-				String sql = "INSERT INTO calendar (uid, cal_name, event_count) VALUES ('" + userId + "','" + CalName
-						+ "','" + eventCount + "')";
+				String sql = "INSERT INTO calendar (uid, cal_name) VALUES ('" + userId + "','" + CalName + "')";
 
 				try {
 					c = DriverManager.getConnection(url, SQLuser, SQLpass);
 					PreparedStatement ps = c.prepareStatement(sql);
 					ps.executeUpdate();
 					System.out.println("Done!!!");
-					// response.sendRedirect("success.jsp");
 
 				} catch (SQLException e) {
 					throw new ServletException(e);
@@ -134,7 +132,7 @@ public class CreateCalander extends HttpServlet {
 
 			for (MyModel u : users) {
 				if (u.name.equals(UserName)) {
-					found = true;
+					// found = true;
 					return u.uid;
 				}
 			}

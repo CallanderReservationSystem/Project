@@ -116,6 +116,22 @@ public class CalendarEventModel {
 
 
 
+	public CalendarEventModel(Integer id2, Integer uid2, Integer cid2, String title2, String start2, String end2,
+			String start_time2, String end_time2, String url2, String color2, String location) {
+		this.id = id2;
+		this.uid = uid2;
+		this.cid = cid2;
+		this.title = title2;
+		this.start = start2;
+		this.end = end2;
+		this.start_time = start_time2;
+		this.end_time = end_time2;
+		this.url = url2;
+		this.color = color2;
+	}
+
+
+
 	public String getStart() {
 		return start;
 	}

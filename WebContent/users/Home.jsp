@@ -56,7 +56,7 @@
 	<div class="container">
 		<div>
 			<h1>${username} Home</h1>
-			<h1>user id: ${ssuid}</h1>
+			<%-- <h1>user id: ${ssuid}</h1> --%>
 			<div class="page-header">
 				<nav class="navbar navbar-default">
 				<div class="container-fluid">
@@ -74,7 +74,7 @@
 				</div>
 				</nav>
 				<h1>Welcome home, ${username}.</h1>
-				<h1>user position: <%= userposition%></h1>
+				<%-- <h1>user position: <%= userposition%></h1> --%>
 			</div>
 		</div>
 		<!--  -->
@@ -88,31 +88,30 @@
 					<nav id="sidebar">
 					<div>
 						<table class="table table-striped table-bordered table-hover table-condensed" border="1">
-							<tr><td>user-id</td><td>cal-name</td><td>events count</td><td>Action</td></tr>
+							<tr><td>user-id</td><td>cal-name</td><td>Action</td></tr>
 							<c:forEach items="${myCalanders}" var="cal">
 								<tr>
 									<td>${cal.uid}</td>
 									<td><a href=Calander?cid=${cal.cid}>${cal.calName}</a></td>
-									<td>${cal.events}</td>
 									<td><a href=EditCalendar?id=${cal.cid}>Edit</a> | <a href=DeleteCalendar?id=${cal.cid}>Delete</a></td>
 								</tr>			
 							</c:forEach>
 						</table>
 					</div>
-					<div class="sidebar-header">
+					<!-- <div class="sidebar-header">
 						<h3>Options</h3>
-					</div>
+					</div> -->
 					<ul class="options">
 
 						<li class="active">
-							<a href="Calendar/CreateCalander.jsp">Create a Calendar</a>
+							<a href="CreateCalander">Create a Calendar</a>
 						</li>
-						<li>
+						<!-- <li>
 							<a href=DeleteCalendar>Delete a Calendar</a>
 						</li>
 						<li>
 							<a href="EditCalendar">Edit a Calendar</a>
-						</li>
+						</li> -->
 						
 					</ul>
 					</nav>
@@ -125,37 +124,27 @@
 						<nav id="sidebar">
 							<div>
 								<table class="table table-striped table-bordered table-hover table-condensed" border="1">
-									<tr><td>user-id</td><td>cal-name</td><td>events count</td><td>Action</td></tr>
+									<tr><td>user-id</td><td>cal-name</td><td>Action</td></tr>
 									<c:forEach items="${myFCals}" var="cal">
 										<tr>
 											<td>${cal.uid}</td>
-											<td><a href=Calander?cid=${cal.cid}>${cal.calName}</a></td>
-											<td>${cal.events}</td>
+												<td><a href=UserCalendar?cid=${cal.cid}>${cal.calName}</a></td>
 											<td>
-												<a href=UnfollowCalendar?id=${cal.cid}>Unfollow</a> 
-												<c:if test=""> <!-- for user validation -->
-													| <a href=DeleteCalendar?id=${cal.cid}>Delete</a>
-												</c:if>
+												<a href=UnfollowCalendar?cid=${cal.cid}>Unfollow</a> 
 											</td>
 										</tr>			
 									</c:forEach>
 								</table>
 							</div>
-						<div class="sidebar-header">
+						<!-- <div class="sidebar-header">
 							<h3>Options</h3>
-						</div>
-						<ul class="options">
-							<li class="active"><a href="Search">Find a Calendar</a></li>
-							<li><a href="#unfollowCalendar" data-toggle="collapse" aria-expanded="false">Unfollow a Calendar</a>
-								<ul class="collapse list-unstyled" id="unfollowCalendar">
-									<li>hello</li>
-									<li>this</li>
-									<li>will be replaced soon</li>
-								</ul>
-							<li><a href="#editCalendar" data-toggle="collapse"
+						</div> -->
+							<li class="active"><a href="Search">Find a Calendar</a></li>	
+							<!-- <li><a href="#editCalendar" data-toggle="collapse"
 								aria-expanded=false">Edit a Calendar</a>
-								<ul class="collapse list" id="editCalendar"></ul></li>
-						</ul>
+								<ul class="collapse list" id="editCalendar"></ul>
+							</li> -->
+						<!-- </ul> -->
 						</nav>
 					</div>
 				</div>

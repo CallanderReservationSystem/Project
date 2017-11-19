@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -54,10 +56,11 @@
 								<div class="col-xs-6 col-lg-4">
 								
 									<c:set var="eventsFound" value="false"/>
+									<c:set var="followedFound" value="false"/>
 									
-									<h2><c:out value="${cal.calName }"/></h2>
-									
+									<h2><c:out value="${cal.calName}"/></h2>
 									<h4>Events on calendar</h4>
+									
 									<c:forEach var="event" items="${requestScope.events }">
 										<c:if test="${cal.uid eq event.uid }">
 											<c:if test="${event.cid eq cal.cid}">
@@ -70,14 +73,22 @@
 									</c:forEach>
 									
 									<c:if test="${eventsFound eq false}">
-										<%-- <c:out value="${cal.cid eq event.cid }"/> --%>
 										<p>No events for this calendar</p>
 									</c:if>
+												
+									<c:forEach items="${followedCalendars}" var="fCal">
+										<c:if test="${cal.uid eq fCal.uid}">
+											<c:if test="${fCal.cid eq cal.cid}">
+												<a class="btn" href="UnfollowCalendar?cid=${cal.cid}">Unfollow ${cal.calName}</a>
+												<c:set var="followedFound" value="true"/>
+											</c:if>
+										</c:if>
+									</c:forEach>
 									
-							   <%-- <input type="submit" name="button${event.cid}" class="btn" value="Follow ${cal.calName}"> --%>	
-									<a class="btn" href="FollowCalendar?cid=${cal.cid}">Follow ${cal.calName}</a>
-										
-										
+									<c:if test="${followedFound eq false}">
+										<a class="btn" href="FollowCalendar?cid=${cal.cid}">Follow ${cal.calName}</a>
+									</c:if>
+									
 								</div>	
 						</c:forEach>
 					</div>

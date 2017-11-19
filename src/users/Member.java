@@ -39,6 +39,8 @@ public class Member extends HttpServlet {
 		String username = (String) request.getSession().getAttribute("Username");
 		String userposition = (String) request.getSession().getAttribute("Userpos");
 		Integer ssuid = (Integer) request.getSession().getAttribute("ssuid");
+		Boolean adminFound = (Boolean) request.getSession().getAttribute("found");
+		System.out.println("found admin: "  + adminFound);
 
 		// System.out.println("passed user id: " + ssuid);
 		if (username == null) {
@@ -66,9 +68,9 @@ public class Member extends HttpServlet {
 					Integer calId = rs.getInt("id");
 					Integer userId = Integer.parseInt(rs.getString("uid"));
 					String calanderName = rs.getString("cal_name");
-					String events = rs.getString("event_count");
+//					String events = rs.getString("event_count");
 
-					calanders.add(new CalendarModel(calId, userId, calanderName, events));
+					calanders.add(new CalendarModel(calId, userId, calanderName));
 					System.out.println("Done retreving data!!!");
 					// session.setAttribute("Username", calanders);
 				}
@@ -84,9 +86,9 @@ public class Member extends HttpServlet {
 					Integer uid = cal.uid;
 					Integer cid = cal.cid;
 					String calName = cal.calName;
-					String eventCount = cal.events;
+//					String eventCount = cal.events;
 					//// UserCalanders.clear();
-					UserCalanders.add(new CalendarModel(uid, cid, calName, eventCount));
+					UserCalanders.add(new CalendarModel(uid, cid, calName));
 					// } else {
 					// System.out.println("no match found");
 					// UserCalanders.clear();
