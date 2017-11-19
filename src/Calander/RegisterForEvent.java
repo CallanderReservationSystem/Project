@@ -19,10 +19,11 @@ public class RegisterForEvent extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private ArrayList<Table> tables = new ArrayList<Table>();
 	private ArrayList<Table> tables2 = new ArrayList<Table>();
-	private ArrayList<Table> optimalTables = new ArrayList<Table>();
+	ArrayList<Integer> reservationCount = new  ArrayList<Integer>();;
+//	private ArrayList<Table> optimalTables = new ArrayList<Table>();
 	private ArrayList<CalendarReservationModel> currentReservationsAtTargetTime = new ArrayList<CalendarReservationModel>();
 	private ArrayList<String> sqlArray = new ArrayList<String>();
-	private ArrayList<ResultSet> resultSets = new  ArrayList<ResultSet>();
+	private ArrayList<ResultSet> resultSets = new ArrayList<ResultSet>();
 	private Integer avaliableTablesAmount = 0;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -33,10 +34,10 @@ public class RegisterForEvent extends HttpServlet {
 		Integer userId = null;
 		String eventName = null;
 		String eventId = (String) request.getParameter("id");
-//		System.out.println(+eventId);
+		// System.out.println(+eventId);
 
 		String user_name = (String) request.getSession().getAttribute("Username");
-//		System.out.println(user_name);
+		// System.out.println(user_name);
 		String location = null;
 		String start = null;
 		String end = null;
@@ -129,8 +130,7 @@ public class RegisterForEvent extends HttpServlet {
 		boolean inValidETime = (endTime == null) || (endTime.trim().length() == 0);
 		boolean inValidnumOfPeople = (numOfPeople == null);
 
-		
-		// Checks to see if there are any blank or incorrect forms 
+		// Checks to see if there are any blank or incorrect forms
 		if (inValidName || inValidStartDate || inValidEndDate || inValidSTime || inValidETime || inValidnumOfPeople) {
 			if (inValidName) {
 				request.setAttribute("nameError", "Must Enter Name for Reservation.");
@@ -159,8 +159,9 @@ public class RegisterForEvent extends HttpServlet {
 
 			Connection c = null;
 			Table optimalTable = null;
-			
-			// Selects a set of tables that exsist in the event that have at most 4 more seats then the size of the party.
+
+			// Selects a set of tables that exsist in the event that have at most 4 more
+			// seats then the size of the party.
 			try {
 				String sql = "SELECT * FROM tables WHERE eventId =" + id + " AND seatsPerTable >=" + numOfPeople
 						+ " AND seatsPerTable <" + (numOfPeople + 4);
@@ -194,52 +195,53 @@ public class RegisterForEvent extends HttpServlet {
 			}
 
 			try {
-
-				// Selects optimal table size and then determin if all tables in that catagory
-				// are reserved. if
-				// all are reserved then jumps to the next availabel table set.
-				// This is not working right here!!!!!
-				for (Table t : tables) {
-					System.out.println("This is the amount of seatsPerTable for each itteration of the table Array: "+t.getSeatsPerTable());
-					System.out.println("Number of people in party:" +numOfPeople);
-					if (t.getSeatsPerTable() == numOfPeople) {
-						System.out.println("Number of people in party:" +numOfPeople);
-						System.out.println(t.getSeatsPerTable());
-						optimalTable = t;
-						break;
-//					} else if (t.getSeatsPerTable() == numOfPeople + 1) {
-//						System.out.println("Number of people in party:" +numOfPeople);
-//						System.out.println(t.getSeatsPerTable());
-//						optimalTable = t;
-//						break;
-//					} else if (t.getSeatsPerTable() == numOfPeople + 2) {
-//						System.out.println("Number of people in party:" +numOfPeople);
-//						System.out.println(t.getSeatsPerTable());
-//						optimalTable = t;
-//						break;
-					}
-				}
-
-				System.out.println("optimal table id:"+ optimalTable.getId() +" : "+optimalTable.getSeatsPerTable());
 				
-
-				String sql = "SELECT * FROM tables WHERE id =" + optimalTable.getId();
+				Statement st = null;
+				ResultSet rs = null;
+				Statement st2 = null;
+				ResultSet rs2 = null;
 				c = DriverManager.getConnection(url, SQLuser, SQLpass);
-				Statement st = c.createStatement();
-				ResultSet rs = st.executeQuery(sql);
-				optimalTables.clear();
-				
-				while (rs.next()) {
 
-					selectedTableId = rs.getInt("id");
-					selectedCalId = rs.getInt("cid");
-					selcetedEventId = rs.getInt("eventId");
-					Integer selectedTableAmount = rs.getInt("tableAmount");
-					Integer selectedSeatsPerTable = rs.getInt("seatsPerTable");
-					String selectedEventName = rs.getString("eventName");
-					optimalTables.add(new Table(selectedTableId, selcetedEventId, selectedCalId, selectedEventName,
-							selectedTableAmount, selectedSeatsPerTable));
+				for (int counter = tables.size() - 1; counter >= 0; counter--) {
+					System.out.println("This is the amount of seatsPerTable for each itteration of the table Array: "+ tables.get(counter).getSeatsPerTable());
+					if (tables.get(counter).getSeatsPerTable() == numOfPeople) {
+						System.out.println("Number of people in party:" + numOfPeople);
+						System.out.println(tables.get(counter).getSeatsPerTable());
+						optimalTable = tables.get(counter);
+
+						String sql = "SELECT * FROM tables WHERE id = " + optimalTable.getId();
+						 st = c.createStatement();
+						 rs = st.executeQuery(sql);
+						
+						while (rs.next()) {
+							avaliableTablesAmount = rs.getInt("tableAmount");
+							selectedTableId = rs.getInt("id");
+							selectedCalId = rs.getInt("cId");
+							selcetedEventId = rs.getInt("eventId");
+						}
+						
+						String sql2 =  "SELECT tableId FROM reservations WHERE tableId =" + optimalTable.getId();
+						 st2 = c.createStatement();
+						 rs2 = st2.executeQuery(sql2);
+						
+						 reservationCount.clear();
+						while (rs2.next()) {
+							Integer reservationId = rs2.getInt("tableId");
+							reservationCount.add(reservationId);
+						}
+						System.out.println(avaliableTablesAmount);
+						System.out.println(reservationCount.size());
+						System.out.println(avaliableTablesAmount >= reservationCount.size());
+						if(avaliableTablesAmount > reservationCount.size()) {
+							break;
+						}
+
+					} 
+					numOfPeople++;
+					System.out.println(numOfPeople);
 				}
+				
+
 			} catch (SQLException e) {
 				throw new ServletException(e);
 			} finally {
@@ -251,26 +253,40 @@ public class RegisterForEvent extends HttpServlet {
 				}
 			}
 
-			try {
-
-				String sql = "SELECT tableAmount FROM tables WHERE id =" + optimalTable.getId();
-				c = DriverManager.getConnection(url, SQLuser, SQLpass);
-				ResultSet rs = c.createStatement().executeQuery(sql);
-
-				while (rs.next()) {
-					avaliableTablesAmount = rs.getInt("tableAmount");
-
-				}
-			} catch (SQLException e) {
-				throw new ServletException(e);
-			} finally {
-				try {
-					if (c != null)
-						c.close();
-				} catch (SQLException e) {
-					throw new ServletException(e);
-				}
-			}
+//			try {
+//				
+//				String sql = "SELECT * FROM tables WHERE tableId =" + optimalTable.getId();
+//				c = DriverManager.getConnection(url, SQLuser, SQLpass);
+//				ResultSet rs = c.createStatement().executeQuery(sql);
+//				
+//				while (rs.next()) {
+//					selectedTableId = null;
+//					selectedCalId = null;
+//					selcetedEventId = null;
+//					
+//				}
+				
+				
+//				optimalTable = optimalTable(numOfPeople, c);
+//
+//				String sql = "SELECT tableAmount FROM tables WHERE id =" + optimalTable.getId();
+//				c = DriverManager.getConnection(url, SQLuser, SQLpass);
+//				ResultSet rs = c.createStatement().executeQuery(sql);
+//
+//				while (rs.next()) {
+//					avaliableTablesAmount = rs.getInt("tableAmount");
+//
+//				}
+//			} catch (SQLException e) {
+//				throw new ServletException(e);
+//			} finally {
+//				try {
+//					if (c != null)
+//						c.close();
+//				} catch (SQLException e) {
+//					throw new ServletException(e);
+//				}
+//			}
 
 			try {
 
@@ -290,22 +306,25 @@ public class RegisterForEvent extends HttpServlet {
 					String targetUserName = rs.getString("user_name");
 					String targetDetails = rs.getString("details");
 
-					currentReservationsAtTargetTime.add(new CalendarReservationModel(targetStartTime,targetEndTime,targetStartDate,targetEndDate,targetUserName,targetDetails,targetCalId,targetEventId,targetUserId,targetTableId));
-					System.out.println("This is the amount of reservation objects there are on the server:"+currentReservationsAtTargetTime.size());
+					currentReservationsAtTargetTime.add(new CalendarReservationModel(targetStartTime, targetEndTime,
+							targetStartDate, targetEndDate, targetUserName, targetDetails, targetCalId, targetEventId,
+							targetUserId, targetTableId));
+					System.out.println("This is the amount of reservation objects there are on the server:"
+							+ currentReservationsAtTargetTime.size());
 				}
-				System.out.println("This is the amount of reservation objects there are on the server:"+currentReservationsAtTargetTime.size());
-				for(CalendarReservationModel crm : currentReservationsAtTargetTime) {
+				System.out.println("This is the amount of reservation objects there are on the server:"
+						+ currentReservationsAtTargetTime.size());
+				for (CalendarReservationModel crm : currentReservationsAtTargetTime) {
 					String sql4 = "SELECT * FROM reservations WHERE '" + startTime + ":00' BETWEEN '"
 							+ crm.getStart_time() + "' AND '" + crm.getEnd_time() + "' OR '" + endTime
-							+ ":00' BETWEEN '" + crm.getStart_time() + "' AND '" + crm.getEnd_time()
-							+ "' OR '" + startTime + ":00' >= '" + crm.getStart_time() + "' AND '" + endTime
-							+ "<= " +  crm.getEnd_time() + "' OR '" + startTime + ":00' <= '"
-							+ crm.getStart_time() + "' AND '" + endTime + ":00' >= '" +  crm.getEnd_time()
-							+ "'";
+							+ ":00' BETWEEN '" + crm.getStart_time() + "' AND '" + crm.getEnd_time() + "' OR '"
+							+ startTime + ":00' >= '" + crm.getStart_time() + "' AND '" + endTime + "<= "
+							+ crm.getEnd_time() + "' OR '" + startTime + ":00' <= '" + crm.getStart_time() + "' AND '"
+							+ endTime + ":00' >= '" + crm.getEnd_time() + "'";
 					sqlArray.add(sql4);
 				}
-				System.out.println("This is the size of the sqlStatement Array:"+ sqlArray.size());
-				
+				System.out.println("This is the size of the sqlStatement Array:" + sqlArray.size());
+
 			} catch (SQLException e) {
 				throw new ServletException(e);
 			} finally {
@@ -316,20 +335,20 @@ public class RegisterForEvent extends HttpServlet {
 					throw new ServletException(e);
 				}
 			}
-			
+
 			try {
 				c = DriverManager.getConnection(url, SQLuser, SQLpass);
 				Statement st = null;
-				ResultSet rs =null;
+				ResultSet rs = null;
 				resultSets.clear();
-				for(String s: sqlArray) {
+				for (String s : sqlArray) {
 					String SQL = s;
 					st = c.createStatement();
-					rs =st.executeQuery(SQL);
+					rs = st.executeQuery(SQL);
 					resultSets.add(rs);
 				}
-				
-				System.out.println("this is the size of the result set array: "+resultSets.size());
+
+				System.out.println("this is the size of the result set array: " + resultSets.size());
 			} catch (SQLException e) {
 				throw new ServletException(e);
 			} finally {
@@ -340,79 +359,34 @@ public class RegisterForEvent extends HttpServlet {
 					throw new ServletException(e);
 				}
 			}
-			
-		try {
-			c = DriverManager.getConnection(url, SQLuser, SQLpass);
-			System.out.println("This is the amount of available tables: "+avaliableTablesAmount);
-			System.out.println("This is the size of the result set array: "+resultSets.size());
-			if (resultSets.size() > avaliableTablesAmount) {
-				request.setAttribute("timeConflictError",
-						"There seems to be no tables availabe in the time slot you wanted. Please enter another time slot.");
-				doGet(request, response);
-			} else {
-				String sql5 = "INSERT INTO reservations (calId,eventId,userId,tableId,start_time,end_time,start_date,end_date,user_name,reservation_name,details) VALUES "
-						+ "('" + selectedCalId + "','" + selcetedEventId + "','" + selectedUserId + "','"
-						+ selectedTableId + "','" + startTime + "','" + endTime + "','" + startDate + "','"
-						+ endDate + "','" + username + "','" + reservation_name + "','" + details + "')";
-				c.createStatement().executeUpdate(sql5);
-			}
-			
-		} catch (SQLException e) {
-			throw new ServletException(e);
-		} finally {
+
 			try {
-				if (c != null)
-					c.close();
+				c = DriverManager.getConnection(url, SQLuser, SQLpass);
+				System.out.println("This is the amount of available tables: " + avaliableTablesAmount);
+				System.out.println("This is the size of the result set array: " + resultSets.size());
+				if (resultSets.size() > avaliableTablesAmount) {
+					request.setAttribute("timeConflictError",
+							"There seems to be no tables availabe in the time slot you wanted. Please enter another time slot.");
+					doGet(request, response);
+				} else {
+					String sql5 = "INSERT INTO reservations (calId,eventId,userId,tableId,start_time,end_time,start_date,end_date,user_name,reservation_name,details) VALUES "
+							+ "('" + selectedCalId + "','" + selcetedEventId + "','" + selectedUserId + "','"
+							+ selectedTableId + "','" + startTime + "','" + endTime + "','" + startDate + "','"
+							+ endDate + "','" + username + "','" + reservation_name + "','" + details + "')";
+					c.createStatement().executeUpdate(sql5);
+				}
+
 			} catch (SQLException e) {
 				throw new ServletException(e);
+			} finally {
+				try {
+					if (c != null)
+						c.close();
+				} catch (SQLException e) {
+					throw new ServletException(e);
+				}
 			}
-		}
-//				
-//				
-//				
-////				while (rs.next()) {
-////					String sql4 = "SELECT * FROM reservations WHERE '" + startTime + ":00' BETWEEN '"
-////							+ rs.getString("start_time") + "' AND '" + rs.getString("end_time") + "' OR '" + endTime
-////							+ ":00' BETWEEN '" + rs.getString("start_time") + "' AND '" + rs.getString("end_time")
-////							+ "' OR '" + startTime + ":00' >= '" + rs.getString("start_time") + "' AND '" + endTime
-////							+ "<= " + rs.getString("end_time") + "' OR '" + startTime + ":00' <= '"
-////							+ rs.getString("start_time") + "' AND '" + endTime + ":00' >= '" + rs.getString("end_time")
-////							+ "'";
-////					ResultSet rs4 = c.createStatement().executeQuery(sql4);
-////
-////					while (rs4.next()) {
-////						currentReservationsAtTargetTime.add(new CalendarReservationModel());
-////					}
-////				}
-//
-//				
-//
-//				if (currentReservationsAtTargetTime.size() > avaliableTablesAmount) {
-//					request.setAttribute("timeConflictError",
-//							"There seems to be no tables availabe in the time slot you wanted. Please enter another time slot.");
-//					doGet(request, response);
-//				} else {
-//
-//					String sql5 = "INSERT INTO reservations (calId,eventId,userId,tableId,start_time,end_time,start_date,end_date,user_name,reservation_name,details) VALUES "
-//							+ "('" + selectedCalId + "','" + selcetedEventId + "','" + selectedUserId + "','"
-//							+ selectedTableId + "','" + startTime + "','" + endTime + "','" + startDate + "','"
-//							+ endDate + "','" + username + "','" + reservation_name + "','" + details + "')";
-//					c.createStatement().executeUpdate(sql5);
-//				}
-//			} catch (SQLException e) {
-//				throw new ServletException(e);
-//			}
-//
-//			finally {
-//				try {
-//					if (c != null)
-//						c.close();
-//				} catch (SQLException e) {
-//					throw new ServletException(e);
-//				}
 
-				// request.getRequestDispatcher("Calendar/UserCalendar.jsp").forward(request,
-				// response);
-			}
 		}
-	}
+	}	
+}

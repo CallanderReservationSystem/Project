@@ -50,6 +50,9 @@
 	</div>
 
 	<h1>Registration Confirmation for: ${eventName}</h1>
+	<c:if test="${ not empty timeConflictError}">
+					<p style="color: RED;">*${timeConflictError}</p>
+				</c:if>
 	<form method="post" action="RegisterForEvent" id="page">
 		<div class="form-group row align-items-center">
 			<div class="form-group col-sm-3">
