@@ -64,7 +64,7 @@
 	<a href="Member">
 	<button class="btn btn-primary">Home</button>
 	</a>
-	<form name="filler" method="post" action="CreateEvent">
+	<form class="form-horizontal" name="filler" method="post" action="CreateEvent">
 	<div class="form-group">
 		<c:if test="${not empty eventError }">
 			<p style="color: RED;">*${eventError}</p>
