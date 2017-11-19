@@ -204,7 +204,7 @@ public class RegisterForEvent extends HttpServlet {
 
 				for (int counter = tables.size() - 1; counter >= 0; counter--) {
 					System.out.println("This is the amount of seatsPerTable for each itteration of the table Array: "+ tables.get(counter).getSeatsPerTable());
-					if (tables.get(counter).getSeatsPerTable() == numOfPeople) {
+					if (tables.get(counter).getSeatsPerTable() >= numOfPeople) {
 						System.out.println("Number of people in party:" + numOfPeople);
 						System.out.println(tables.get(counter).getSeatsPerTable());
 						optimalTable = tables.get(counter);

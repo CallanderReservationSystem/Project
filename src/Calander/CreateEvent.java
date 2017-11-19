@@ -64,10 +64,13 @@ public class CreateEvent extends HttpServlet {
 		}
 		
 		request.setAttribute("username", (String)request.getSession().getAttribute("Username"));
+		
 		System.out.println("cal id: " + CalId);
 		CalName = request.getParameter("calName");
 		System.out.println("cal name: " + CalName);
 		request.setAttribute("Calendarname", CalName);
+		ServletContext context = getServletContext();
+		context.setAttribute("calendarName", CalName);
 		request.getRequestDispatcher("Calendar/CreateEvent.jsp").forward(request, response);
 
 	}
@@ -76,12 +79,12 @@ public class CreateEvent extends HttpServlet {
 			throws ServletException, IOException {
 		System.out.println("CreateEvent");
 
-		Integer calId = CalId;// request.getParameter("id");
+		String calId = request.getParameter("cid");
 		System.out.println("cal id: " + calId);
-		String calName = CalName;//request.getParameter("calName");
+		String calName = request.getParameter("name");
 		System.out.println("cal name: " + calName);
-		request.setAttribute("Calendarname", request.getParameter("calName"));
-		
+		request.setAttribute("Calendarname", calName);
+
 		String name = (String) request.getSession().getAttribute("Username");
 		System.out.println("name: " + name);
 		Integer uid = (Integer) request.getSession().getAttribute("ssuid");
@@ -140,9 +143,16 @@ public class CreateEvent extends HttpServlet {
 					request.setAttribute("tableError", "Must Enter Ammount of Tables");
 				}
 			}
-			doGet(request, response);
+			String calendarID = (String) getServletContext().getAttribute("calendarID");
+			String calendarName = (String) getServletContext().getAttribute("calendarName");
+			request.getServletContext().setAttribute("Calendarname", calendarName);
+			request.getServletContext().setAttribute("calendarID", calendarID);
+		//	response.sendRedirect("CreateEvent?id=" + calendarID + "&calName=" + calendarName);
+			request.getRequestDispatcher("Calendar/CreateEvent.jsp").forward(request, response);
 		} else {
-			Integer userId = (Integer) request.getSession().getAttribute("ssuid");;
+			String fixedDate = fixedDateFormat(date);
+			ArrayList<CalendarEventModel> events = new ArrayList<CalendarEventModel>();
+			Integer userId = getId(request);
 			System.out.println(userId);
 			Integer calendarId = CalId;
 			Connection c = null;
@@ -150,16 +160,22 @@ public class CreateEvent extends HttpServlet {
 			String SQLuser = "cs3337stu03";
 			String SQLpass = "K!c7YAg.";
 			String sql = "INSERT INTO events (uid, cid, title, start_date, end_date, start, end, details) VALUES ('" + userId + "','"
-					+ calendarId + "','" + eventName + "','" + date + "','" + date + "','" + startTime + "','" + endTime + "','" + description + "')";
+					+ calendarId + "','" + eventName + "','" + fixedDate + "','" + fixedDate + "','" + startTime + "','" + endTime + "','" + description + "')";
 
 			try {
 				c = DriverManager.getConnection(url, SQLuser, SQLpass);
 				PreparedStatement ps = c.prepareStatement(sql);
 				ps.executeUpdate();
-				ServletContext context = getServletContext();
-
-			 	
-				request.getRequestDispatcher("/Calander").forward(request, response);
+				Statement st = c.createStatement();
+				System.out.println("inside the try query");
+				String query = "SELECT id FROM events WHERE title=\""+ eventName + "\" ORDER BY id DESC";
+				ResultSet rs = st.executeQuery(query);
+				int id = 0;
+				while(rs.next()) {
+					id = rs.getInt("id");
+				}
+				events.add(new CalendarEventModel(id, userId, calendarId, eventName, fixedDate, fixedDate, startTime, endTime, null, null, null, null, null));
+				
 				System.out.println("Done!!!");
 				
 			} catch (SQLException e) {
@@ -173,54 +189,89 @@ public class CreateEvent extends HttpServlet {
 				}
 			}
 			
+			boolean passed = true;
+			
+			
+			ServletContext context = getServletContext();
+			context.setAttribute("events", events);
+			context.setAttribute("new", passed);
+
+			request.setAttribute("userId", userId);
+			request.setAttribute("cid", CalId);
+			String calendarID = (String) getServletContext().getAttribute("calendarID");
+			
+			response.sendRedirect("Calander?cid="+calendarID);
+		//	request.getRequestDispatcher("/Calander").forward(request, response);
 		}
 	}
-}
+	
+	private String fixedDateFormat(String date) {
+		String correct = "";
+		String month = "";
+		String day = "";
+		String year = "";
+		for (int i = 0; i < date.length(); i++) {
+			char currentChar = date.charAt(i);
+			if(currentChar != '/' && i < 2) {
+				month += currentChar;
+			}
+			else if (currentChar != '/' && i < 5) {
+				day += currentChar;
+			}
+			else if( currentChar != '/' & i < 9) {
+				year += currentChar;
+			}
+		}
+		correct = year + "-" + month + "-" + day;
+		return correct;
+	}
+	
 
-	// This Method is working.
-//	private Integer getId(HttpServletRequest request) throws ServletException {
-//
-//		UserName = (String) request.getSession().getAttribute("Username");
-//		System.out.print(UserName);
-//
-//		Connection c = null;
-//		String url = "jdbc:mysql://cs3.calstatela.edu/cs3337stu03";
-//		String SQLuser = "cs3337stu03";
-//		String SQLpass = "K!c7YAg.";
-//		String sql = "select * from users";
-//		try {
-//
-//			c = DriverManager.getConnection(url, SQLuser, SQLpass);
-//			Statement st = c.createStatement();
-//			ResultSet rs = st.executeQuery(sql);
-//
-//			while (rs.next()) {
-//				String name = rs.getString("username");
-//				String pas = rs.getString("password");
-//				String status = rs.getString("status");
-//				String upos = rs.getString("position");
-//				Integer uid0 = rs.getInt("uid");
-//				users.add(new MyModel(name, pas, status, upos, uid0));
-//			}
-//
-//			for (MyModel u : users) {
-//				if (u.name.equals(UserName)) {
-//
-//					found = true;
-//					return u.uid;
-//				}
-//			}
-//
-//		} catch (SQLException e) {
-//			throw new ServletException(e);
-//		} finally {
-//			try {
-//				if (c != null)
-//					c.close();
-//			} catch (SQLException e) {
-//				throw new ServletException(e);
-//			}
-//		}
-//		return null;
-//	}
-//}
+
+
+	private Integer getId(HttpServletRequest request) throws ServletException {
+
+		UserName = (String) request.getSession().getAttribute("Username");
+		System.out.print(UserName);
+
+		Connection c = null;
+		String url = "jdbc:mysql://cs3.calstatela.edu/cs3337stu03";
+		String SQLuser = "cs3337stu03";
+		String SQLpass = "K!c7YAg.";
+		String sql = "select * from users";
+		try {
+
+			c = DriverManager.getConnection(url, SQLuser, SQLpass);
+			Statement st = c.createStatement();
+			ResultSet rs = st.executeQuery(sql);
+
+			while (rs.next()) {
+				String name = rs.getString("username");
+				String pas = rs.getString("password");
+				String status = rs.getString("status");
+				String upos = rs.getString("position");
+				Integer uid0 = rs.getInt("uid");
+				users.add(new MyModel(name, pas, status, upos, uid0));
+			}
+
+			for (MyModel u : users) {
+				if (u.name.equals(UserName)) {
+
+					found = true;
+					return u.uid;
+				}
+			}
+
+		} catch (SQLException e) {
+			throw new ServletException(e);
+		} finally {
+			try {
+				if (c != null)
+					c.close();
+			} catch (SQLException e) {
+				throw new ServletException(e);
+			}
+		}
+		return null;
+	}
+}
