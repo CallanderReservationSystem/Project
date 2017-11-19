@@ -140,6 +140,7 @@ public class CreateEvent extends HttpServlet {
 			//response.sendRedirect("CreateEvent?id=" + calendarID + "&calName=" + calendarName);
 			request.getRequestDispatcher("Calendar/CreateEvent.jsp").forward(request, response);
 		} else {
+			String fixedDate = fixedDateFormat(date);
 			ArrayList<CalendarEventModel> events = new ArrayList<CalendarEventModel>();
 			Integer userId = getId(request);
 			System.out.println(userId);
@@ -149,7 +150,7 @@ public class CreateEvent extends HttpServlet {
 			String SQLuser = "cs3337stu03";
 			String SQLpass = "K!c7YAg.";
 			String sql = "INSERT INTO events (uid, cid, title, start_date, end_date, start, end, details) VALUES ('" + userId + "','"
-					+ calendarId + "','" + eventName + "','" + date + "','" + date + "','" + startTime + "','" + endTime + "','" + description + "')";
+					+ calendarId + "','" + eventName + "','" + fixedDate + "','" + fixedDate + "','" + startTime + "','" + endTime + "','" + description + "')";
 
 			try {
 				c = DriverManager.getConnection(url, SQLuser, SQLpass);
@@ -163,7 +164,7 @@ public class CreateEvent extends HttpServlet {
 				while(rs.next()) {
 					id = rs.getInt("id");
 				}
-				events.add(new CalendarEventModel(id, userId, calendarId, eventName, date, date, startTime, endTime, null, null, null, null, null));
+				events.add(new CalendarEventModel(id, userId, calendarId, eventName, fixedDate, fixedDate, startTime, endTime, null, null, null, null, null));
 				
 				System.out.println("Done!!!");
 				
@@ -195,6 +196,27 @@ public class CreateEvent extends HttpServlet {
 		//	request.getRequestDispatcher("/Calander").forward(request, response);
 			
 		}
+	}
+	
+	private String fixedDateFormat(String date) {
+		String correct = "";
+		String month = "";
+		String day = "";
+		String year = "";
+		for (int i = 0; i < date.length(); i++) {
+			char currentChar = date.charAt(i);
+			if(currentChar != '/' && i < 2) {
+				month += currentChar;
+			}
+			else if (currentChar != '/' && i < 5) {
+				day += currentChar;
+			}
+			else if( currentChar != '/' & i < 9) {
+				year += currentChar;
+			}
+		}
+		correct = year + "-" + month + "-" + day;
+		return correct;
 	}
 
 	// This Method is working.
