@@ -107,12 +107,6 @@ public class EditEventInfo extends HttpServlet {
 		String end = request.getParameter("newEnd");
 		String start_date = request.getParameter("newStart_date");
 		String end_date = request.getParameter("newEnd_date");
-		Integer tableCount = null;
-		if (request.getParameter("newTableCount") != null)
-			tableCount = Integer.parseInt(request.getParameter("newTableCount"));
-		Integer seatsPerTable = null;
-		if (request.getParameter("newSeatsPerTable") != null)
-			seatsPerTable = Integer.parseInt(request.getParameter("newSeatsPerTable"));
 		
 		String url = "jdbc:mysql://cs3.calstatela.edu/cs3337stu03";
 		String SQLuser = "cs3337stu03";
@@ -122,11 +116,8 @@ public class EditEventInfo extends HttpServlet {
 				"', start_date = '" + start_date +
 				"', start = '" + start + 
 				"', end = '" + end +
-				"', tableCount = '" + tableCount +
-				"', seatsPerTable = '" + seatsPerTable +
 				"', location = '" + location + 				
 				"' where id = " + eventID;
-//		String sqlThrow2 = "update events set end_date = '" + end_date + "' where id = " + eventID;
 		try
 		{
 			c = DriverManager.getConnection(url, SQLuser, SQLpass);
@@ -134,7 +125,6 @@ public class EditEventInfo extends HttpServlet {
 			System.out.println("test " + eventID);
 			st.executeUpdate(sqlThrow);
 			System.out.println(end_date);
-//			st.executeUpdate(sqlThrow2);
 			response.sendRedirect("Calander");
 		}
 		catch (SQLException e)

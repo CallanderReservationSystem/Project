@@ -12,9 +12,19 @@ public class Table {
 
 	public Integer id;
 	public Integer eventId;
+	public Integer cid;
+
+	public Integer getCid() {
+		return cid;
+	}
+
+	public void setCid(Integer cid) {
+		this.cid = cid;
+	}
+
 	public String eventName;
 	public Integer tableAmount;
-	public Integer seatesPerTable;
+	public Integer seatsPerTable;
 
 	public Integer getId() {
 		return id;
@@ -40,21 +50,23 @@ public class Table {
 		this.tableAmount = tableAmount;
 	}
 
-	public Integer getSeatesPerTable() {
-		return seatesPerTable;
+	public Integer getSeatsPerTable() {
+		return seatsPerTable;
 	}
 
-	public void setSeatesPerTable(Integer seatesPerTable) {
-		this.seatesPerTable = seatesPerTable;
+	public void setSeatsPerTable(Integer seatsPerTable) {
+		this.seatsPerTable = seatsPerTable;
 	}
 
-	public Table(Integer id, Integer eventId, String eventName, Integer tableAmount, Integer seatesPerTable) {
+	public Table(Integer id, Integer eventId, Integer cid, String eventName, Integer tableAmount,
+			Integer seatsPerTable) {
 		super();
 		this.id = id;
 		this.eventId = eventId;
+		this.cid = cid;
 		this.eventName = eventName;
 		this.tableAmount = tableAmount;
-		this.seatesPerTable = seatesPerTable;
+		this.seatsPerTable = seatsPerTable;
 	}
 
 }

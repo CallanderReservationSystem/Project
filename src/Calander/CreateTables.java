@@ -21,13 +21,15 @@ public class CreateTables extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	ArrayList<Table> tables = new ArrayList<Table>();
-	Integer eventId;
+	Integer eventId, cid;
 	String name;
-	Integer cid;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
+		if (request.getParameter("cid") != null) {
+			cid = Integer.parseInt(request.getParameter("cid"));
+		}
 		if (request.getParameter("id") != null) {
 			eventId = Integer.parseInt(request.getParameter("id"));
 		}
@@ -52,12 +54,11 @@ public class CreateTables extends HttpServlet {
 
 				Integer id = rs.getInt("id");
 				Integer eventId = rs.getInt("eventId");
-				
+				Integer cid = rs.getInt("cid");
 				String eventName = rs.getString("eventName");
 				Integer tableAmount = rs.getInt("tableAmount");
 				Integer seats = rs.getInt("seatsPerTable");
-				// Integer uid = rs.getInt("uid");
-				tables.add(new Table(id, eventId, eventName, tableAmount, seats));
+				tables.add(new Table(id, eventId, cid, eventName, tableAmount, seats));
 			}
 		} catch (SQLException e) {
 			throw new ServletException(e);
@@ -70,9 +71,9 @@ public class CreateTables extends HttpServlet {
 			}
 		}
 
+		request.setAttribute("cid", cid);
 		request.setAttribute("eventId", eventId);
 		request.setAttribute("eventName", name);
-
 		request.setAttribute("tables", tables);
 		request.getRequestDispatcher("Calendar/CreateTables.jsp").forward(request, response);
 	}

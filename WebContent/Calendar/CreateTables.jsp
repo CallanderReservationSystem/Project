@@ -44,8 +44,10 @@
 			</nav>
 		</div>
 		<div>
-			<a href="DeleteEvent?id=${eventId}">Delete This Event</a> <br>
-			<a href="EditEventInfo?id=${eventId}">Edit This Event</a> <br>
+			<a href="DeleteEvent?id=${eventId}">Delete This Event</a> |
+			<a href="EditEventInfo?id=${eventId}">Edit This Event</a> |
+			<a href="AddTable?eid=${eventId}&name=${eventName}&cid=${cid}">Add Tables</a>
+			
 			<table class="table table-striped table-bordered table-hover table-condensed" border="1">
 				<tr>
 					<td>Table ID</td>
@@ -60,11 +62,11 @@
 						<td>${t.eventId}</td>
 						<td>${t.eventName}</td>
 						<td>${t.tableAmount}</td>
-						<td>${t.seatesPerTable}</td> <!-- display calendar count instead. -->
+						<td>${t.seatsPerTable}</td> <!-- display calendar count instead. -->
 					</tr>			
 				</c:forEach>
 			</table>
-			<a href="AddTable?eid=${eventId}&name=${eventName}">Add Tables</a>
+			
 		</div>
 	</div>
 </body>
