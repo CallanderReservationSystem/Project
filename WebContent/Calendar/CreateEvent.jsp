@@ -193,7 +193,7 @@ body {
 				Remove Tables<br>
 			</div> -->
 
-			<br> <input type="hidden" name="cid">
+			<br> <input type="hidden" name="cid" value="${cid}">
 			<div class="col-sm-offset-2 col-sm-10" style="margin-top: 10px">
 				<button class="btn btn-success" type="submit" value="Create"
 					onclick="{document.filler.cid.value=${id}; document.filler.submit();}">Create</button>
