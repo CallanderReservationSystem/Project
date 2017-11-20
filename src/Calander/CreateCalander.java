@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -35,7 +36,7 @@ public class CreateCalander extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
-		doPost(request,response);
+		request.getRequestDispatcher("/Calendar/CreateCalander.jsp").forward(request,response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -65,14 +66,9 @@ public class CreateCalander extends HttpServlet {
 				request.setAttribute("CalError", "Please Enter calander Name first!");
 			}
 
-			if (eventCount == null || eventCount.trim().length() == 0) {
-				System.out.println("empty count parameter");
-				hasError = true;
-				request.setAttribute("EventError", "Please Enter valid event count first!");
-			}
-
 			if (hasError) {
-				request.getRequestDispatcher("/Calendar/CreateCalander.jsp").forward(request, response);
+				request.getRequestDispatcher("/Calendar/CreateCalander.jsp").forward(request,response);
+				//request.getRequestDispatcher("/Calendar/CreateCalander.jsp").forward(request, response);
 				System.out.println("input field is missing");
 
 			} else {
@@ -81,8 +77,8 @@ public class CreateCalander extends HttpServlet {
 				String url = "jdbc:mysql://cs3.calstatela.edu/cs3337stu03";
 				String SQLuser = "cs3337stu03";
 				String SQLpass = "K!c7YAg.";
-				String sql = "INSERT INTO calendar (uid, cal_name, event_count) VALUES ('" + userId + "','" + CalName
-						+ "','" + eventCount + "')";
+				String sql = "INSERT INTO calendar (uid, cal_name) VALUES ('" + userId + "','" + CalName
+						+  "')";
 
 				try {
 					c = DriverManager.getConnection(url, SQLuser, SQLpass);

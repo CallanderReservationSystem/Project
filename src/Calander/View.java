@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -22,6 +23,7 @@ import models.CalendarEventModel;
 public class View extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	String username;
+	private List<CalendarModel> followedCalendar = new ArrayList<CalendarModel>();
 
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
@@ -52,8 +54,11 @@ public class View extends HttpServlet {
 			boolean calFound = false;
 			boolean eventFound = false;
 			String user = name[0];
-			String uId = "";
-			String cId = "";
+			Integer uId = null;
+			Integer cId = null;
+			Integer fid = (Integer) request.getSession().getAttribute("ssuid");
+			request.setAttribute("fid", fid);
+
 			Connection c = null;
 			String url = "jdbc:mysql://cs3.calstatela.edu/cs3337stu03";
 			String SQLuser = "cs3337stu03";
@@ -64,9 +69,10 @@ public class View extends HttpServlet {
 				c = DriverManager.getConnection(url, SQLuser, SQLpass);
 				Statement st = c.createStatement();
 				ResultSet rs = st.executeQuery(sql);
+
 				while (rs.next()) {
 
-					uId = rs.getString("uid");
+					uId = rs.getInt("uid");
 					found = true;
 				}
 				if (found) {
@@ -74,51 +80,47 @@ public class View extends HttpServlet {
 					ResultSet eq = cs.executeQuery("SELECT * FROM calendar WHERE uid =" + uId + "");
 					while (eq.next()) {
 						calFound = true;
-						// System.out.println(calFound);
-						cId = eq.getString("id");
+
+						cId = eq.getInt("id");
 						String calName = eq.getString("cal_name");
-						String eventCount = eq.getString("event_count");
-						calendars.add(
-								new CalendarModel(Integer.parseInt(cId), Integer.parseInt(uId), calName, eventCount));
+//						String eventCount = eq.getString("event_count");
+						calendars.add(new CalendarModel(cId, uId, calName));
 					}
-
-					if (calFound) {
-						Statement cs1 = c.createStatement();
-						// System.out.println(cId);
-						ResultSet eq2 = cs1.executeQuery("SELECT * FROM events WHERE uid =" + uId + "");
-						// System.out.println(eq2);
-						while (eq2.next()) {
-							eventFound = true;
-							String eId = eq2.getString("id");
-							String cid = eq2.getString("cid");
-							// System.out.println(cId);
-							String title = eq2.getString("title");
-							String start = eq2.getString("start_date");
-							String end = eq2.getString("end_date");
-							String startTime = eq2.getString("start");
-							String endTime = eq2.getString("end");
-							String detail = eq2.getString("details");
-							String color = eq2.getString("color");
-							if (color == null) {
-								color = "";
-							}
-							String tableCount = eq2.getString("tableCount");
-							if (tableCount == null) {
-								tableCount = "0";
-							}
-							String seatsPerTable = eq2.getString("seatspertable");
-							if (seatsPerTable == null) {
-								seatsPerTable = "0";
-							}
-							String location = eq2.getString("location");
-							if (location == null) {
-								location = "";
-							}
-
-							events.add(new CalendarEventModel(Integer.parseInt(eId), Integer.parseInt(uId),
-									Integer.parseInt(cid), title, start, end, startTime, endTime, url, color,
-									Integer.parseInt(tableCount), Integer.parseInt(seatsPerTable), location));
+				}
+				if (calFound) {
+					Statement cs = c.createStatement();
+					ResultSet eq = cs.executeQuery("SELECT * FROM events WHERE uid =" + uId + "");
+					while (eq.next()) {
+						eventFound = true;
+						System.out.println("event");
+						String eId = eq.getString("id");
+						String cid = eq.getString("cid");
+						String title = eq.getString("title");
+						String start = eq.getString("start_date");
+						String end = eq.getString("end_date");
+						String startTime = eq.getString("start");
+						String endTime = eq.getString("end");
+						String detail = eq.getString("details");
+						String color = eq.getString("color");
+						if (color == null) {
+							color = "";
 						}
+						String tableCount = eq.getString("tableCount");
+						if (tableCount == null) {
+							tableCount = "0";
+						}
+						String seatsPerTable = eq.getString("seatspertable");
+						if (seatsPerTable == null) {
+							seatsPerTable = "0";
+						}
+						String location = eq.getString("location");
+						if (location == null) {
+							location = "";
+						}
+
+						events.add(new CalendarEventModel(Integer.parseInt(eId), uId, Integer.parseInt(cid), title,
+								start, end, startTime, endTime, detail, color, Integer.parseInt(tableCount),
+								Integer.parseInt(seatsPerTable), location));
 					}
 				}
 
@@ -139,92 +141,63 @@ public class View extends HttpServlet {
 			} else {
 				if (calFound) {
 					request.setAttribute("calendars", calendars);
-					if (eventFound) {
-						request.setAttribute("events", events);
-					}
 				} else {
 					request.setAttribute("noCal", "This user has no calendars");
+				}
+				if (eventFound) {
+					request.setAttribute("events", events);
+				} else {
+					request.setAttribute("noEvt", "This user has no events");
 				}
 
 			}
 			if (user.equals(username)) {
 				request.setAttribute("sameUser", "These are your Calendar(s)");
 			}
+
+			// check if user following any calendars
+			Integer id = null;
+			String sql01 = null;
+			Integer cid, uid;
+			followedCalendar.clear();
+
+			for (int i = 0; i < calendars.size(); i++) {
+				id = calendars.get(i).cid;
+
+				sql01 = "SELECT * FROM shared_calendars WHERE follower_id='" + fid + "' and cid='" + id + "' ";
+				try {
+					c = DriverManager.getConnection(url, SQLuser, SQLpass);
+					Statement st = c.createStatement();
+					ResultSet rs = st.executeQuery(sql01);
+
+					while (rs.next()) {
+						System.out.println("found followed calendar!");
+						cid = rs.getInt("cid");
+						uid = rs.getInt("owner_uid");
+						followedCalendar.add(new CalendarModel(cid, uid));
+					}
+				} catch (SQLException e) {
+					throw new ServletException(e);
+				} finally {
+					try {
+						if (c != null) {
+							c.close();
+						}
+					} catch (SQLException e) {
+						throw new ServletException(e);
+					}
+				}
+			}
+
+			request.setAttribute("followedCalendars", followedCalendar);
 			request.setAttribute("sUser", username);
 			request.getRequestDispatcher("/Calendar/View.jsp").forward(request, response);
-
 		}
 
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String username = (String) request.getSession().getAttribute("Username");
-		Integer uid = (Integer) request.getSession().getAttribute("ssuid");
-		ArrayList<CalendarModel> calendars = new ArrayList<CalendarModel>();
-		ArrayList<CalendarEventModel> events = new ArrayList<CalendarEventModel>();
-		ArrayList<String> followingStrings = new ArrayList<String>();
-		ArrayList<String> ids = new ArrayList<String>();
-		int y = 0;
-		String followingString = "0";
-		// THIS IS NOT WORKING!!!!!!
-		// String calendaridSelected = request.getParameter("cid");
-		// System.out.println("This is the id you selected: "+calendaridSelected);
-
-		// This is working
-		for (String cid : request.getParameterValues("cid")) {
-			String x = request.getParameter("get_" + cid);
-			System.out.print(x + ",");
-			ids.add(x);
-		}
-
-		// Working
-		System.out.println();
-		Connection c = null;
-		String url = "jdbc:mysql://cs3.calstatela.edu/cs3337stu03";
-		String SQLuser = "cs3337stu03";
-		String SQLpass = "K!c7YAg.";
-		String sql1 = "SELECT cidFollowing FROM users WHERE uid =" + uid + "";
-		String z = null;
-
-		try {
-
-			c = DriverManager.getConnection(url, SQLuser, SQLpass);
-			Statement st = c.createStatement();
-			ResultSet rs = st.executeQuery(sql1);
-			// Working
-			while (rs.next()) {
-				followingString = rs.getString("cidFollowing");
-				followingStrings.add(followingString);
-			}
-
-			if (followingString == null || followingString.equals("null") || followingString.equals("")) {
-
-				Statement cs = c.createStatement();
-				int eq = cs.executeUpdate(
-						"UPDATE users SET cidFollowing = '" + request.getParameter("cid") + "' WHERE uid =" + uid + "");
-
-			} else {
-
-				Statement cs = c.createStatement();
-				int eq = cs.executeUpdate("UPDATE users SET cidFollowing = CONCAT(cidFollowing, ',"
-						+ request.getParameter("cid") + "') Where uid =" + uid + "");
-
-			}
-
-		} catch (SQLException e) {
-			throw new ServletException(e);
-		} finally {
-			try {
-				if (c != null) {
-					c.close();
-				}
-			} catch (SQLException e) {
-				throw new ServletException(e);
-			}
-		}
-
 		doGet(request, response);
 	}
-
 }

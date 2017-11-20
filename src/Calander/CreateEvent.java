@@ -56,8 +56,15 @@ public class CreateEvent extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
-		CalId = Integer.parseInt(request.getParameter("id"));	
+		if(request.getParameter("id") != null) {
+			CalId = Integer.parseInt(request.getParameter("id"));		
+			request.setAttribute("id", request.getParameter("id") );
+		} else {
+			CalId = Integer.parseInt(request.getParameter("cid"));	
+		}
+		
+		request.setAttribute("username", (String)request.getSession().getAttribute("Username"));
+		
 		System.out.println("cal id: " + CalId);
 		CalName = request.getParameter("calName");
 		System.out.println("cal name: " + CalName);
@@ -72,9 +79,9 @@ public class CreateEvent extends HttpServlet {
 			throws ServletException, IOException {
 		System.out.println("CreateEvent");
 
-		Integer calId = CalId;// request.getParameter("id");
+		String calId = request.getParameter("cid");
 		System.out.println("cal id: " + calId);
-		String calName = CalName;//request.getParameter("calName");
+		String calName = request.getParameter("name");
 		System.out.println("cal name: " + calName);
 		request.setAttribute("Calendarname", calName);
 
@@ -85,7 +92,8 @@ public class CreateEvent extends HttpServlet {
 
 		// get values
 		String eventName = request.getParameter("eventName");
-		String date = request.getParameter("date");
+		String startdate = request.getParameter("startdate");
+		String enddate = request.getParameter("enddate");
 		String startTime = request.getParameter("startTime");
 		String endTime = request.getParameter("endTime");
 		String pr = request.getParameter("pr");
@@ -97,22 +105,25 @@ public class CreateEvent extends HttpServlet {
 
 		// validate input
 		boolean inValidName = (eventName == null) || (eventName.trim().length() == 0);
-		boolean inValidDate = (date == null) || (date.trim().length() == 0);
+		boolean inValidStartDate = (startdate == null) || (startdate.trim().length() == 0);
+		boolean inValidEndDate = (enddate == null) || (enddate.trim().length() == 0);
 		boolean inValidSTime = (startTime == null) || (startTime.trim().length() == 0);
 		boolean inValidETime = (endTime == null) || (endTime.trim().length() == 0);
 		boolean inValidPri = (pr == null);
-		boolean inValidLocation = (location == null) || (location.trim().length() == 0);
 		boolean inValidSeats = (seats == null) || (seats.trim().length() == 0);
 		boolean checkTable = checkTables == null;
 		boolean inValidTables = (tables == null) || (tables.trim().length() == 0);
 
 		// Message so the user knows what they need to do
-		if (inValidName || inValidDate || inValidSTime || inValidETime || inValidPri || inValidLocation
-				|| inValidSeats) {
+		if (inValidName || inValidStartDate || inValidEndDate || inValidSTime || inValidETime || inValidPri /* || inValidLocation */
+				/*|| inValidSeats*/) {
 			if (inValidName) {
 				request.setAttribute("eventError", "Must Enter Valid Event Name");
 			}
-			if (inValidDate) {
+			if (inValidStartDate) {
+				request.setAttribute("dateError", "Must Enter Valid Date");
+			}
+			if (inValidEndDate) {
 				request.setAttribute("dateError", "Must Enter Valid Date");
 			}
 			if (inValidSTime) {
@@ -124,23 +135,26 @@ public class CreateEvent extends HttpServlet {
 			if (inValidPri) {
 				request.setAttribute("pri", "Must Select Private or Public Event");
 			}
-			if(inValidLocation) {
-			request.setAttribute("locaError", "Must Enter Valid Location");
-			}
-			if (inValidSeats) {
-				request.setAttribute("seatsError", "Must Enter Ammount of Seats");
-			}
-			if (checkTable) {
-				if (inValidTables) {
-					request.setAttribute("tableError", "Must Enter Ammount of Tables");
-				}
-			}
+//			 if(inValidLocation) {
+//			 request.setAttribute("locaError", "Must Enter Valid Location");
+//			 }
+//			if (inValidSeats) {
+//				request.setAttribute("seatsError", "Must Enter Ammount of Seats");
+//			}
+//			if (checkTable) {
+//				if (inValidTables) {
+//					request.setAttribute("tableError", "Must Enter Ammount of Tables");
+//				}
+//			}
 			String calendarID = (String) getServletContext().getAttribute("calendarID");
 			String calendarName = (String) getServletContext().getAttribute("calendarName");
-			//response.sendRedirect("CreateEvent?id=" + calendarID + "&calName=" + calendarName);
+			request.getServletContext().setAttribute("Calendarname", calendarName);
+			request.getServletContext().setAttribute("calendarID", calendarID);
+		//	response.sendRedirect("CreateEvent?id=" + calendarID + "&calName=" + calendarName);
 			request.getRequestDispatcher("Calendar/CreateEvent.jsp").forward(request, response);
 		} else {
-			String fixedDate = fixedDateFormat(date);
+			String fixedStartDate = fixedDateFormat(startdate);
+			String fixedEndDate = fixedDateFormat(enddate);
 			ArrayList<CalendarEventModel> events = new ArrayList<CalendarEventModel>();
 			Integer userId = getId(request);
 			System.out.println(userId);
@@ -149,8 +163,8 @@ public class CreateEvent extends HttpServlet {
 			String url = "jdbc:mysql://cs3.calstatela.edu/cs3337stu03";
 			String SQLuser = "cs3337stu03";
 			String SQLpass = "K!c7YAg.";
-			String sql = "INSERT INTO events (uid, cid, title, start_date, end_date, start, end, details) VALUES ('" + userId + "','"
-					+ calendarId + "','" + eventName + "','" + fixedDate + "','" + fixedDate + "','" + startTime + "','" + endTime + "','" + description + "')";
+			String sql = "INSERT INTO events (uid, cid, title, start_date, end_date, start, end, details,	location) VALUES ('" + userId + "','"
+					+ calendarId + "','" + eventName + "','" + fixedStartDate + "','" + fixedEndDate + "','" + startTime + "','" + endTime + "','" + description + "','"+ location+"')";
 
 			try {
 				c = DriverManager.getConnection(url, SQLuser, SQLpass);
@@ -164,7 +178,7 @@ public class CreateEvent extends HttpServlet {
 				while(rs.next()) {
 					id = rs.getInt("id");
 				}
-				events.add(new CalendarEventModel(id, userId, calendarId, eventName, fixedDate, fixedDate, startTime, endTime, null, null, null, null, null));
+				events.add(new CalendarEventModel(id, userId, calendarId, eventName, fixedStartDate, fixedEndDate, startTime, endTime, null, null, null, null, null));
 				
 				System.out.println("Done!!!");
 				
@@ -178,23 +192,20 @@ public class CreateEvent extends HttpServlet {
 					throw new ServletException(e);
 				}
 			}
+			
 			boolean passed = true;
 			
 			
 			ServletContext context = getServletContext();
 			context.setAttribute("events", events);
 			context.setAttribute("new", passed);
-			/*
-			 * ServletContext context = this.getServletContext();
-		context.setAttribute("tutors", tutors);
-			 */
-			request.setAttribute("id", userId);
+
+			request.setAttribute("userId", userId);
 			request.setAttribute("cid", CalId);
 			String calendarID = (String) getServletContext().getAttribute("calendarID");
 			
 			response.sendRedirect("Calander?cid="+calendarID);
 		//	request.getRequestDispatcher("/Calander").forward(request, response);
-			
 		}
 	}
 	
@@ -218,8 +229,10 @@ public class CreateEvent extends HttpServlet {
 		correct = year + "-" + month + "-" + day;
 		return correct;
 	}
+	
 
-	// This Method is working.
+
+
 	private Integer getId(HttpServletRequest request) throws ServletException {
 
 		UserName = (String) request.getSession().getAttribute("Username");

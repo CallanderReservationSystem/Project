@@ -20,6 +20,7 @@ public class AddTable extends HttpServlet {
 	private Boolean hasError = false;
 	private Integer id;
 	private String name = "";
+	private Integer cid;
 	private Integer amount;
 	private Integer seats;
 
@@ -32,6 +33,9 @@ public class AddTable extends HttpServlet {
 		if (request.getParameter("name") != null) {
 			name = request.getParameter("name");
 		}
+		if (request.getParameter("cid") != null) {
+			cid = Integer.parseInt(request.getParameter("cid"));
+		}
 		request.getRequestDispatcher("Calendar/AddTable.jsp").forward(request, response);
 	}
 
@@ -39,6 +43,7 @@ public class AddTable extends HttpServlet {
 			throws ServletException, IOException {
 		
 		amount = Integer.parseInt(request.getParameter("amount"));
+		
 		System.out.println("amount: " + amount);
 		seats = Integer.parseInt(request.getParameter("seats"));
 		System.out.println("seats: " + seats);
@@ -70,8 +75,8 @@ public class AddTable extends HttpServlet {
 			String url = "jdbc:mysql://cs3.calstatela.edu/cs3337stu03";
 			String SQLuser = "cs3337stu03";
 			String SQLpass = "K!c7YAg.";
-			String sql = "INSERT INTO tables (eventId, eventName, tableAmount, seatsPerTable) VALUES ('" + id + "','"
-					+ name + "','" + amount + "','" + seats + "')";
+			String sql = "INSERT INTO tables (eventId, eventName, cid, tableAmount, seatsPerTable) VALUES ('" + id + "','"
+					+ name + "','" +cid+"','"+ amount + "','" + seats + "')";
 
 			try {
 

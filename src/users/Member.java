@@ -23,7 +23,7 @@ public class Member extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private ArrayList<CalendarModel> calanders = new ArrayList<CalendarModel>();
 	private ArrayList<CalendarModel> UserCalanders = new ArrayList<CalendarModel>();
-	private ArrayList<CalendarModel> FollowingCalanders = new ArrayList<CalendarModel>();
+	private ArrayList<CalendarModel> followedCalendars = new ArrayList<CalendarModel>();
 
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
@@ -39,6 +39,8 @@ public class Member extends HttpServlet {
 		String username = (String) request.getSession().getAttribute("Username");
 		String userposition = (String) request.getSession().getAttribute("Userpos");
 		Integer ssuid = (Integer) request.getSession().getAttribute("ssuid");
+		Boolean adminFound = (Boolean) request.getSession().getAttribute("found");
+		System.out.println("found admin: "  + adminFound);
 
 		// System.out.println("passed user id: " + ssuid);
 		if (username == null) {
@@ -51,31 +53,36 @@ public class Member extends HttpServlet {
 			String url = "jdbc:mysql://cs3.calstatela.edu/cs3337stu03";
 			String SQLuser = "cs3337stu03";
 			String SQLpass = "K!c7YAg.";
+			String sql01 = "select * from calendar where uid = '" + ssuid + "'";
+			String sql02 = "select * from shared_calendars where follower_id = '" + ssuid + "'";
 
-			String sql = "select * from calendar where uid = '" + ssuid + "'";
-			String sql2 = "SELECT cidFollowing FROM users WHERE uid ='" + ssuid + "'";
-
+			//////// --PRIVATE--///////
 			try {
-
+				ArrayList<Integer> eventcount = new ArrayList<Integer>();
 				c = DriverManager.getConnection(url, SQLuser, SQLpass);
+				Statement st0 = c.createStatement();
 				Statement st = c.createStatement();
-				Statement st2 = c.createStatement();
-				Statement st3 = c.createStatement();
-				// for Users' Own Calendars
-				ResultSet rs = st.executeQuery(sql);
-				// For Following Calendars
-				ResultSet rs2 = st2.executeQuery(sql2);
-				System.out.println(rs2);
-
+				ResultSet rs = st.executeQuery(sql01);
+				// System.out.println("new id: " + rs.getString("id"));
+				ResultSet rs0 = null;
 				while (rs.next()) {
+					String sql0 = "SELECT id FROM events WHERE cid =" + rs.getInt("id");
 					Integer calId = rs.getInt("id");
+					Integer events = 0;
 					Integer userId = Integer.parseInt(rs.getString("uid"));
 					String calanderName = rs.getString("cal_name");
-					String events = rs.getString("event_count");
-
+//					String events = rs.getString("event_count");
+					rs0 = st0.executeQuery(sql0);
+					eventcount.clear();
+					while(rs0.next()) {
+						events = rs0.getInt("id");
+						eventcount.add(events);
+					}
+					events = eventcount.size();
 					calanders.add(new CalendarModel(calId, userId, calanderName, events));
+					//calanders.add(new CalendarModel(calId, userId, calanderName));
 					System.out.println("Done retreving data!!!");
-
+					// session.setAttribute("Username", calanders);
 				}
 
 				for (CalendarModel cal : calanders) {
@@ -89,36 +96,13 @@ public class Member extends HttpServlet {
 					Integer uid = cal.uid;
 					Integer cid = cal.cid;
 					String calName = cal.calName;
-					String eventCount = cal.events;
+//					String eventCount = cal.events;
 					//// UserCalanders.clear();
-					UserCalanders.add(new CalendarModel(uid, cid, calName, eventCount));
-				}
-
-				
-				while (rs2.next()) {
-					FollowingCalanders.clear();
-					String cidFollowingString = rs2.getString(1);
-					System.out.println(rs2.getString(1));
-					String[] individualCids = cidFollowingString.split(",");
-					for (String id : individualCids) {
-						System.out.println("Im an id! :"+ id);
-						String sql3 = "SELECT * FROM calendar WHERE id = '" + id + "'";
-						ResultSet rs3 = st3.executeQuery(sql3);
-						while (rs3.next()) {
-							Integer followCalId = rs3.getInt("id");
-							System.out.println(followCalId);
-							System.out.println("jeff");
-							Integer followUserId = Integer.parseInt(rs3.getString("uid"));
-							System.out.println(followUserId);
-							String followCalendarName = rs3.getString("cal_name");
-							System.out.println(followCalendarName);
-							String followEvents = rs3.getString("event_count");
-							System.out.println(followEvents);
-							FollowingCalanders.add(
-									new CalendarModel(followCalId, followUserId, followCalendarName, followEvents));
-
-						}
-					}
+					UserCalanders.add(new CalendarModel(uid, cid, calName));
+					// } else {
+					// System.out.println("no match found");
+					// UserCalanders.clear();
+					// }
 				}
 
 			} catch (SQLException e) {
@@ -132,12 +116,39 @@ public class Member extends HttpServlet {
 				}
 			}
 
+			//////// --PUBLIC--///////
+			followedCalendars.clear();
+			try {
+
+				c = DriverManager.getConnection(url, SQLuser, SQLpass);
+				Statement st = c.createStatement();
+				ResultSet rs = st.executeQuery(sql02);
+
+				while (rs.next()) {
+					Integer ownerId = rs.getInt("owner_uid");
+					Integer followerId = rs.getInt("follower_id");
+					Integer calanderId = rs.getInt("cid");
+					String title = rs.getString("title");
+
+					followedCalendars.add(new CalendarModel(ownerId, followerId, calanderId, title));
+					System.out.println("Done retreving data!!!");
+				}
+			} catch (SQLException e) {
+				throw new ServletException(e);
+			} finally {
+				try {
+					if (c != null)
+						c.close();
+				} catch (SQLException e) {
+					throw new ServletException(e);
+				}
+			}
+
 			System.out.println("user cal size: " + calanders.size());
 			HttpSession session = request.getSession();
-			session.setAttribute("followCalanders", FollowingCalanders);
-			request.setAttribute("followCalenders", FollowingCalanders);
 			session.setAttribute("myCalanders", calanders);
 			request.setAttribute("myCalanders", calanders);
+			request.setAttribute("myFCals", followedCalendars);
 			request.setAttribute("username", username);
 			request.setAttribute("userpostion", userposition);
 			request.setAttribute("ssuid", ssuid);
@@ -149,11 +160,5 @@ public class Member extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		doGet(request, response);
-	}
-
-	protected ArrayList<CalendarModel> calendarFollowing(HttpServletRequest request, HttpServletResponse response) {
-
-		return FollowingCalanders;
-
 	}
 }
