@@ -189,9 +189,9 @@ body {
 			</div>
 		</div>
 		<div class="col-sm-offset-2 col-sm-10"> --%>
-				<input type="checkbox" name="tablesCheck" id="tablesCheck">
+<!-- 				<input type="checkbox" name="tablesCheck" id="tablesCheck">
 				Remove Tables<br>
-			</div>
+			</div> -->
 
 			<br> <input type="hidden" name="cid">
 			<div class="col-sm-offset-2 col-sm-10" style="margin-top: 10px">
