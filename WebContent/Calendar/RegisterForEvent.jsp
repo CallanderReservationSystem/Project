@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="shortcut icon" href="favicon.ico"/>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Event Registration</title>
 <link rel="stylesheet"

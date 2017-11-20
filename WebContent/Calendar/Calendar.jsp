@@ -17,7 +17,8 @@
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<head>"src/Calander/Calander.java"
+<head>
+<link rel="shortcut icon" href="favicon.ico"/>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet"
@@ -144,19 +145,5 @@ body {
 	<h4>Cal Name: ${cName}</h4>
 	<div id="calendar" class="fc fc-unthemed fc-ltr"></div>
 
-	<h4>
-		List of events with this calendar<br>
-	</h4>
-	<c:if test="${not empty events}">
-		<c:forEach items="${events}" var="e">
-			<br>
-			<!-- <b>list of Events: </b> -->
-			<b style="color: RED;">${e.getId()}. </b>
-			<b style="color: RED;">${e.getStart()} / </b>
-			<b style="color: RED;">${e.getEnd()}</b>
-			<b style="color: RED;">${e.getTitle()}</b>
-		</c:forEach>
-
-	</c:if>
 </body>
 </html>
