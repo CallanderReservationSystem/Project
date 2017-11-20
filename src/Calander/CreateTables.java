@@ -23,10 +23,12 @@ public class CreateTables extends HttpServlet {
 	ArrayList<Table> tables = new ArrayList<Table>();
 	Integer eventId;
 	String name;
-	Integer cid;
+	Integer usersCid = 0;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		
+		System.out.println(request.getParameter("cid"));
 
 		if (request.getParameter("id") != null) {
 			eventId = Integer.parseInt(request.getParameter("id"));
@@ -35,8 +37,9 @@ public class CreateTables extends HttpServlet {
 			name = request.getParameter("name");
 		}
 		if (request.getParameter("cid") != null) {
-			cid = Integer.parseInt(request.getParameter("cid"));
+			usersCid = Integer.parseInt(request.getParameter("cid"));
 		}
+		
 		System.out.println("passed title: " + request.getParameter("id"));
 		Connection c = null;
 		String url = "jdbc:mysql://cs3.calstatela.edu/cs3337stu03";
@@ -49,8 +52,8 @@ public class CreateTables extends HttpServlet {
 			c = DriverManager.getConnection(url, SQLuser, SQLpass);
 			Statement st = c.createStatement();
 			ResultSet rs = st.executeQuery(sql);
+			
 			tables.clear();
-
 			while (rs.next()) {
 
 				Integer id = rs.getInt("id");
@@ -63,6 +66,8 @@ public class CreateTables extends HttpServlet {
 				// Integer uid = rs.getInt("uid");
 				tables.add(new Table(id, eventId, cid, eventName, tableAmount, seats));
 			}
+			
+			
 		} catch (SQLException e) {
 			throw new ServletException(e);
 		} finally {
@@ -76,7 +81,7 @@ public class CreateTables extends HttpServlet {
 
 		request.setAttribute("eventId", eventId);
 		request.setAttribute("eventName", name);
-		request.setAttribute("cid", cid);
+		request.setAttribute("cid", usersCid);
 		request.setAttribute("tables", tables);
 		request.getRequestDispatcher("Calendar/CreateTables.jsp").forward(request, response);
 	}

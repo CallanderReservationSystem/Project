@@ -164,7 +164,7 @@ public class RegisterForEvent extends HttpServlet {
 			// seats then the size of the party.
 			try {
 				String sql = "SELECT * FROM tables WHERE eventId =" + id + " AND seatsPerTable >=" + numOfPeople
-						+ " AND seatsPerTable <" + (numOfPeople + 4);
+						+ " AND seatsPerTable <=" + (numOfPeople + 4);
 				c = DriverManager.getConnection(url, SQLuser, SQLpass);
 				Statement st = c.createStatement();
 				ResultSet rs = st.executeQuery(sql);
@@ -253,40 +253,6 @@ public class RegisterForEvent extends HttpServlet {
 				}
 			}
 
-//			try {
-//				
-//				String sql = "SELECT * FROM tables WHERE tableId =" + optimalTable.getId();
-//				c = DriverManager.getConnection(url, SQLuser, SQLpass);
-//				ResultSet rs = c.createStatement().executeQuery(sql);
-//				
-//				while (rs.next()) {
-//					selectedTableId = null;
-//					selectedCalId = null;
-//					selcetedEventId = null;
-//					
-//				}
-				
-				
-//				optimalTable = optimalTable(numOfPeople, c);
-//
-//				String sql = "SELECT tableAmount FROM tables WHERE id =" + optimalTable.getId();
-//				c = DriverManager.getConnection(url, SQLuser, SQLpass);
-//				ResultSet rs = c.createStatement().executeQuery(sql);
-//
-//				while (rs.next()) {
-//					avaliableTablesAmount = rs.getInt("tableAmount");
-//
-//				}
-//			} catch (SQLException e) {
-//				throw new ServletException(e);
-//			} finally {
-//				try {
-//					if (c != null)
-//						c.close();
-//				} catch (SQLException e) {
-//					throw new ServletException(e);
-//				}
-//			}
 
 			try {
 
@@ -374,7 +340,13 @@ public class RegisterForEvent extends HttpServlet {
 							+ selectedTableId + "','" + startTime + "','" + endTime + "','" + startDate + "','"
 							+ endDate + "','" + username + "','" + reservation_name + "','" + details + "')";
 					c.createStatement().executeUpdate(sql5);
+					
+					Integer calendarID = selectedCalId;
+							
+					response.sendRedirect("UserCalendar?cid="+calendarID);
 				}
+				
+
 
 			} catch (SQLException e) {
 				throw new ServletException(e);

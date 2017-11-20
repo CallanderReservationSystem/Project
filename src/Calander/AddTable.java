@@ -43,6 +43,7 @@ public class AddTable extends HttpServlet {
 			throws ServletException, IOException {
 		
 		amount = Integer.parseInt(request.getParameter("amount"));
+		
 		System.out.println("amount: " + amount);
 		seats = Integer.parseInt(request.getParameter("seats"));
 		System.out.println("seats: " + seats);

@@ -214,7 +214,7 @@ public class Calander extends HttpServlet {
 				id = rs.getInt("id");
 				userId = rs.getInt("uid");
 				calName = rs.getString("cal_name");
-				eventCount = rs.getString("event_count");
+			//	eventCount = rs.getString("event_count");
 
 				// calander.add(new CalanderModel(id, userId, calName,
 				// eventCount));

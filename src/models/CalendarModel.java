@@ -26,30 +26,42 @@ public class CalendarModel {
 		this.calName = calName;
 	}
 
-	public Integer getEvents() {
-		return eventCount;
+	public String getEvents() {
+		return events;
 	}
 
-	public void setEvents(Integer events) {
-		this.eventCount = events;
+	public void setEvents(String events) {
+		this.events = events;
 	}
 
 	public Integer cid;
 	public Integer uid;
 	public String calName;
-	public Integer eventCount;
+	public String events;
 
-	public CalendarModel(Integer cid, Integer uid, String calName, Integer eventCount) {
+	public CalendarModel(Integer cid, Integer uid, String calName, String events) {
 		this.cid = cid;
 		this.uid = uid;
 		this.calName = calName;
-		this.eventCount = eventCount;
+		this.events = events;
+	}
+
+	public CalendarModel(Integer ownerId, Integer followerId, Integer calanderId, String title) {
+		this.uid = ownerId;
+		this.cid = calanderId;
+		this.calName = title;
+
 	}
 
 	public CalendarModel(Integer id, Integer uid0, String name) {
 		this.cid = id;
 		this.uid = uid0;
 		this.calName = name;
+	}
+
+	public CalendarModel(Integer cid2, Integer uid2) {
+		this.cid = cid2;
+		this.uid = uid2;
 	}
 
 }
